@@ -275,8 +275,8 @@ export function ROICalculator({
                 min={50}
                 max={800}
                 step={10}
-                onValueChange={([v]) =>
-                  setCalcData((p) => ({ ...p, traffic: v }))
+                onValueChange={(v) =>
+                  setCalcData((p) => ({ ...p, traffic: v[0] ?? p.traffic }))
                 }
                 className="mt-4 [&_[data-slot=slider-range]]:bg-brand-lime"
               />
@@ -295,7 +295,9 @@ export function ROICalculator({
                 min={20000}
                 max={120000}
                 step={1000}
-                onValueChange={([v]) => setCalcData((p) => ({ ...p, check: v }))}
+                onValueChange={(v) =>
+                  setCalcData((p) => ({ ...p, check: v[0] ?? p.check }))
+                }
                 className="mt-4"
               />
             </div>
