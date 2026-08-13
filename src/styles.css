@@ -19,6 +19,14 @@
  */
 
 @theme inline {
+  --color-brand-orange: #FF6E00;
+  --color-brand-yellow: #FFD000;
+  --color-brand-red: #F60019;
+  --color-brand-lime: #9fce00;
+  --color-brand-dark: #212620;
+  --color-brand-light: #F9FAFB;
+  --font-display: "Fredoka", "Cooper Black", system-ui, sans-serif;
+  --font-sans: "Mulish", ui-sans-serif, system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -138,7 +146,34 @@
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--color-brand-light);
+    color: var(--color-brand-dark);
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility pulse-cta {
+  animation: pulse-cta 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-cta {
+  0%, 100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, #F60019 55%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 22px color-mix(in oklab, #F60019 0%, transparent);
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
