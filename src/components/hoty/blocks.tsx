@@ -7,6 +7,7 @@ import {
   CheckCircle2,
   ChefHat,
   Download,
+  ExternalLink,
   Flame,
   Headphones,
   Lightbulb,
@@ -34,6 +35,8 @@ import {
   tap,
 } from "./common";
 import mascot from "@/assets/mascot.png";
+import logo from "@/assets/logo.png";
+import shokhrukh from "@/assets/shokhrukh.png";
 import branch1 from "@/assets/branch-1.jpg";
 import branch2 from "@/assets/branch-2.jpg";
 import branch3 from "@/assets/branch-3.jpg";
@@ -49,73 +52,108 @@ const floatBadges = [
 
 export function HeroSection({ onCta }: { onCta: () => void }) {
   return (
-    <section className="relative overflow-hidden bg-brand-orange pt-28 pb-20 md:pt-36 md:pb-28">
-      <div className="pointer-events-none absolute -top-32 -left-24 h-96 w-96 rounded-full bg-brand-yellow/30 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-brand-red/25 blur-3xl" />
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#ff5500] via-[#ff6e00] to-[#ff8500] min-h-[600px] h-auto md:h-[calc(100vh-80px)] max-h-[850px] flex items-center pt-24 pb-16 md:pt-20 md:pb-16">
+      {/* Background ambient lighting effects */}
+      <div className="pointer-events-none absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-brand-yellow/35 blur-[120px]" />
+      <div className="pointer-events-none absolute top-1/2 -right-40 h-[500px] w-[500px] -translate-y-1/2 rounded-full bg-brand-red/30 blur-[130px]" />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-2">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-5 md:grid-cols-2 w-full">
+        {/* Left Column: Text & CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, type: "spring", bounce: 0.35 }}
+          transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
         >
-          <Pill className="bg-brand-dark/85 text-brand-yellow">
-            <Flame className="h-4 w-4" /> Франшиза №1 в стрит-фуде Узбекистана
+          {/* Badge */}
+          <Pill className="bg-brand-dark/80 text-brand-yellow px-4 py-1 text-xs md:text-sm font-bold shadow-md">
+            <Flame className="h-4 w-4 fill-brand-yellow text-brand-yellow" /> Франшиза fast food в Узбекистане
           </Pill>
-          <h1 className="mt-5 font-display text-5xl leading-[0.9] font-black tracking-tight text-white md:text-8xl">
-            ХОТИ ДОГИ —
-            <span className="block text-brand-yellow">твой бизнес</span>
-            на каждый день
+
+          {/* H1 Heading */}
+          <h1 className="mt-4 font-display text-3xl md:text-5xl leading-tight font-black tracking-tight text-white">
+            <div>ХОЧЕШЬ НАЧАТЬ СВОЙ БИЗНЕС?</div>
+            <div className="mt-2 flex flex-wrap items-center gap-3">
+              <span>Начни с</span>
+              <span className="inline-flex items-center px-4 py-1.5 rounded-2xl bg-white/15 backdrop-blur-md border border-white/25 shadow-xl shadow-black/10">
+                <img
+                  src={logo}
+                  alt="HOTY DOGY"
+                  className="h-11 md:h-16 w-auto inline-block object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]"
+                />
+              </span>
+            </div>
           </h1>
-          <p className="mt-6 max-w-md text-lg font-medium text-white/90">
-            Открой точку сети хот-догов с готовой технологией, приложением и
-            потоком гостей. Окупаемость от 6 месяцев.
+
+          {/* Subtitle */}
+          <p className="mt-4 max-w-lg text-sm md:text-base font-medium text-white/90 leading-relaxed">
+            Не нужно придумывать бизнес с нуля. Мы создали готовую концепцию fast food, протестировали продукт и процессы и сегодня развиваем сеть HOTY DOGY.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+
+          {/* Stat Line */}
+          <div className="mt-3 text-sm md:text-base font-bold text-yellow-300 flex items-center gap-2">
+            <span>⚡ 8 действующих филиалов</span>
+            <span>•</span>
+            <span>1 млн+ хот-догов продано</span>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="mt-6 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-start">
             <motion.button
               {...tap}
               onClick={onCta}
-              className="rounded-full bg-brand-red px-8 py-4 font-display text-lg font-black text-white shadow-xl shadow-brand-dark/20"
+              className="rounded-full bg-[#F60019] px-7 py-3.5 font-display text-sm md:text-base font-black text-white shadow-lg shadow-brand-red/30 transition-transform text-center"
             >
-              Получить презентацию
+              Получить презентацию франшизы
             </motion.button>
             <motion.a
               {...tap}
               href="#calc"
-              className="rounded-full bg-white px-8 py-4 font-display text-lg font-black text-brand-orange shadow-xl shadow-brand-dark/10"
+              className="rounded-full bg-white px-7 py-3.5 font-display text-sm md:text-base font-black text-brand-dark shadow-md hover:bg-white/95 transition-transform text-center"
             >
               Расчёт прибыли
             </motion.a>
           </div>
         </motion.div>
 
-        <div className="relative flex justify-center">
+        {/* Right Column: Mascot Illustration */}
+        <div className="relative flex justify-center items-center">
           <motion.img
             src={mascot}
-            alt="Маскот ХОТИ ДОГИ — оранжевый хот-дог в панаме"
+            alt="Маскот HOTY DOGY"
             width={1024}
             height={1024}
-            className="w-[78%] max-w-sm drop-shadow-2xl md:w-full"
-            animate={{ y: [0, -18, 0], rotate: [-2, 2, -2] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="w-[75%] max-w-xs md:max-w-sm max-h-[380px] object-contain drop-shadow-2xl"
+            animate={{ y: [0, -14, 0], rotate: [-1.5, 1.5, -1.5] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           />
           {floatBadges.map((b, i) => (
             <motion.div
               key={b.label}
               className={`absolute ${b.pos}`}
-              animate={{ y: [0, -12, 0] }}
+              animate={{ y: [0, -10, 0] }}
               transition={{
-                duration: 3 + i * 0.6,
+                duration: 2.8 + i * 0.5,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
             >
-              <Pill className={`${b.cls} shadow-lg shadow-brand-dark/15`}>
+              <Pill className={`${b.cls} shadow-lg shadow-brand-dark/15 text-xs md:text-sm font-bold`}>
                 {b.label}
               </Pill>
             </motion.div>
           ))}
         </div>
+      </div>
+
+      {/* Wavy bottom divider transition */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 leading-none overflow-hidden">
+        <svg
+          className="relative block w-full h-10 md:h-16 text-brand-light fill-current"
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+        >
+          <path d="M0,32 C320,110 420,10 720,60 C1020,110 1180,20 1440,50 L1440,120 L0,120 Z"></path>
+        </svg>
       </div>
     </section>
   );
@@ -124,30 +162,42 @@ export function HeroSection({ onCta }: { onCta: () => void }) {
 /* ---------------------------------- 03 --------------------------------- */
 
 const metrics = [
-  { v: "6", l: "филиалов в Ташкенте", icon: Store, c: "bg-brand-orange" },
-  { v: "4+", l: "года на рынке", icon: Star, c: "bg-brand-yellow" },
-  { v: "1400+", l: "заказов в день", icon: Bike, c: "bg-brand-red" },
-  { v: "97%", l: "довольных гостей", icon: Users, c: "bg-brand-lime" },
+  { v: "8", l: "Действующих филиалов" },
+  { v: "3 года", l: "На рынке Узбекистана" },
+  { v: "1 000 000+", l: "Проданных хот-догов" },
+  { v: "1 000 000+", l: "Довольных гостей" },
+  { v: "310 млн сум", l: "Средняя месячная выручка точки" },
+  { v: "12–24 мес.", l: "Средний срок окупаемости" },
 ];
 
 export function MetricsRow() {
   return (
-    <Section className="py-10 md:py-14">
-      <div className="no-scrollbar -mx-5 flex snap-x gap-4 overflow-x-auto px-5 pb-2">
+    <Section className="py-14 md:py-20">
+      <div className="text-center">
+        <h2 className="font-display text-4xl font-black tracking-tight text-brand-dark md:text-5xl">
+          Цифры, которые говорят сами
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-base font-medium leading-relaxed text-brand-dark/60 md:text-lg">
+          За 3 года мы построили сеть, которая ежедневно обслуживает тысячи
+          гостей по всему Узбекистану.
+        </p>
+      </div>
+
+      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {metrics.map((m) => (
           <motion.div
             key={m.l}
             {...tap}
-            className="min-w-[240px] flex-1 snap-start rounded-[2rem] bg-white p-6 shadow-xl shadow-brand-orange/10"
+            className="flex items-center gap-4 rounded-[1.75rem] border border-black/5 bg-white p-7 shadow-sm transition-shadow hover:shadow-md"
           >
-            <div className={`mb-4 grid h-12 w-12 place-items-center rounded-full ${m.c}`}>
-              <m.icon className="h-6 w-6 text-white" />
-            </div>
-            <div className="font-display text-4xl font-black text-brand-dark">
-              {m.v}
-            </div>
-            <div className="mt-1 text-sm font-semibold text-brand-dark/60">
-              {m.l}
+            <div className="h-12 w-1.5 shrink-0 rounded-full bg-[#9fce00]" />
+            <div>
+              <div className="font-display text-3xl font-black tracking-tight text-brand-dark md:text-4xl">
+                {m.v}
+              </div>
+              <div className="mt-1 text-sm font-semibold text-brand-dark/60">
+                {m.l}
+              </div>
             </div>
           </motion.div>
         ))}
@@ -156,84 +206,112 @@ export function MetricsRow() {
   );
 }
 
-/* ---------------------------------- 04 --------------------------------- */
 
-export function AppTraction() {
-  return (
-    <Section>
-      <div className="grid items-center gap-8 rounded-[2rem] bg-brand-dark p-8 shadow-xl shadow-brand-dark/20 md:grid-cols-2 md:p-12">
-        <div>
-          <Pill className="bg-brand-lime text-brand-dark">
-            <Smartphone className="h-4 w-4" /> Своё приложение
-          </Pill>
-          <h2 className="mt-5 font-display text-4xl font-black text-white md:text-5xl">
-            Гости возвращаются <span className="text-brand-lime">сами</span>
-          </h2>
-          <p className="mt-4 text-white/70">
-            Мобильное приложение с бонусами, доставкой и push-акциями работает
-            на выручку каждой точки сети.
-          </p>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          {[
-            { v: "+82%", l: "рост повторных заказов" },
-            { v: "22 000", l: "скачиваний" },
-            { v: "4.8★", l: "рейтинг в сторах" },
-            { v: "38%", l: "заказов через приложение" },
-          ].map((s) => (
-            <div
-              key={s.l}
-              className="rounded-3xl border border-white/10 bg-white/5 p-5"
-            >
-              <div className="font-display text-3xl font-black text-brand-lime">
-                {s.v}
-              </div>
-              <div className="mt-1 text-xs font-semibold text-white/60">
-                {s.l}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Section>
-  );
-}
 
 /* ---------------------------------- 05 --------------------------------- */
 
 const timeline = [
-  { y: "2021", t: "Идея", d: "Команда собрала рецептуру уличных хот-догов нового поколения.", c: "bg-brand-yellow" },
-  { y: "2022", t: "Первая точка", d: "Открытие киоска в центре Ташкента — очередь с первого дня.", c: "bg-brand-orange" },
-  { y: "2024", t: "Приложение", d: "Запуск мобильного приложения и программы лояльности.", c: "bg-brand-red" },
-  { y: "2026", t: "Сеть", d: "6 филиалов и старт франчайзинговой программы по стране.", c: "bg-brand-lime" },
+  {
+    year: "2024",
+    title: "Рождение идеи",
+    desc: "Рождение идеи бренда HOTY DOGY.",
+  },
+  {
+    year: "2024",
+    title: "Первый филиал",
+    desc: "Открытие первого флагманского филиала в Ташкенте.",
+  },
+  {
+    year: "2025",
+    title: "Быстрый рост",
+    desc: "Быстрый рост сети (+4 филиала).",
+  },
+  {
+    year: "2025",
+    title: "IT-приложение и CRM",
+    desc: "Запуск собственного IT-приложения и CRM (100 000+ активных пользователей).",
+  },
+  {
+    year: "2026",
+    title: "Запуск франчайзинга",
+    desc: "Масштабирование сети по всему Узбекистану и международный старт.",
+  },
 ];
 
 export function BrandTimeline() {
   return (
-    <Section>
-      <Eyebrow>История бренда</Eyebrow>
-      <Title>От киоска до сети</Title>
-      <div className="relative mt-10 pl-8">
-        <div className="absolute top-2 bottom-2 left-[11px] w-[2px] bg-brand-dark/10" />
+    <Section className="py-14 md:py-24">
+      <div className="text-center">
+        <h2 className="font-display text-4xl font-black tracking-tight text-brand-dark md:text-5xl">
+          Эволюция бренда
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-base font-medium leading-relaxed text-brand-dark/60 md:text-lg">
+          Путь от идеи до запуска франчайзинга за 3 года.
+        </p>
+      </div>
+
+      <div className="relative mt-16 max-w-5xl mx-auto">
+        {/* Timeline Central / Left Line */}
+        <div className="absolute top-4 bottom-4 left-6 md:left-1/2 w-0.5 -translate-x-1/2 bg-brand-orange/80" />
+
         <motion.div
           variants={staggerParent}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="space-y-6"
+          viewport={{ once: true }}
+          className="space-y-8 md:space-y-12"
         >
-          {timeline.map((s) => (
-            <motion.div key={s.y} variants={staggerChild} className="relative">
-              <span
-                className={`absolute top-6 -left-8 h-6 w-6 rounded-full ${s.c} ring-4 ring-brand-light`}
-              />
-              <div className="rounded-[2rem] bg-white p-6 shadow-xl shadow-brand-orange/10">
-                <Pill className="bg-brand-dark text-brand-yellow">{s.y}</Pill>
-                <h3 className="mt-3 font-display text-2xl font-black">{s.t}</h3>
-                <p className="mt-1 text-sm text-brand-dark/60">{s.d}</p>
-              </div>
-            </motion.div>
-          ))}
+          {timeline.map((item, idx) => {
+            const isEven = idx % 2 === 0;
+            return (
+              <motion.div
+                key={`${item.year}-${item.title}`}
+                variants={staggerChild}
+                className="relative flex flex-col md:flex-row items-center"
+              >
+                {/* Node Circle on the Line */}
+                <div className="absolute left-6 md:left-1/2 -translate-x-1/2 top-7 w-4 h-4 rounded-full bg-brand-orange ring-4 ring-brand-light shadow-sm z-10" />
+
+                {/* Left Column (Desktop) */}
+                <div className="w-full md:w-1/2 pl-14 md:pl-0 md:pr-12">
+                  {isEven ? (
+                    <div className="rounded-[1.75rem] border border-black/5 bg-white p-7 shadow-sm transition-shadow hover:shadow-md">
+                      <span className="inline-block rounded-full bg-brand-yellow px-3.5 py-1 font-display text-xs font-bold text-brand-dark mb-3">
+                        {item.year}
+                      </span>
+                      <h3 className="font-display text-2xl font-black tracking-tight text-brand-dark">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-sm font-medium leading-relaxed text-brand-dark/60">
+                        {item.desc}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="hidden md:block" />
+                  )}
+                </div>
+
+                {/* Right Column (Desktop) */}
+                <div className="w-full md:w-1/2 pl-14 md:pl-12">
+                  {!isEven ? (
+                    <div className="rounded-[1.75rem] border border-black/5 bg-white p-7 shadow-sm transition-shadow hover:shadow-md">
+                      <span className="inline-block rounded-full bg-brand-yellow px-3.5 py-1 font-display text-xs font-bold text-brand-dark mb-3">
+                        {item.year}
+                      </span>
+                      <h3 className="font-display text-2xl font-black tracking-tight text-brand-dark">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-sm font-medium leading-relaxed text-brand-dark/60">
+                        {item.desc}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="hidden md:block" />
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </Section>
@@ -244,32 +322,56 @@ export function BrandTimeline() {
 
 export function FounderQuote() {
   return (
-    <Section>
-      <div className="rounded-[2rem] bg-brand-dark p-8 shadow-xl shadow-brand-dark/20 md:p-14">
-        <Quote className="h-10 w-10 text-brand-orange" />
-        <p className="mt-6 font-display text-2xl leading-snug font-black text-white md:text-4xl">
-          «Мы не продаём хот-доги. Мы продаём привычку заходить к нам каждый
-          день — и эту привычку получает каждый партнёр сети».
-        </p>
-        <div className="mt-8 flex flex-wrap items-center gap-4">
-          <div className="grid h-14 w-14 place-items-center rounded-full bg-brand-orange font-display text-xl font-black text-white">
-            Ш
-          </div>
-          <div>
-            <div className="font-display text-lg font-black text-white">
-              Шохрух
+    <Section className="py-10 md:py-16">
+      <div className="relative overflow-hidden rounded-[2.5rem] bg-[#1d221c] p-8 md:p-12 shadow-xl border border-white/5">
+        {/* Top-Right Ambient Warm Glow */}
+        <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-brand-orange/15 blur-3xl" />
+
+        <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
+          {/* Left Column: Large Portrait Photo of Shokhrukh with Lime Quote Badge */}
+          <div className="relative shrink-0">
+            <img
+              src={shokhrukh}
+              alt="Шохрух Асролходжаев"
+              className="h-56 w-56 md:h-64 md:w-64 rounded-[2rem] object-cover shadow-2xl border border-white/10"
+            />
+            <div className="absolute -bottom-3 -right-3 h-12 w-12 rounded-2xl bg-brand-lime grid place-items-center shadow-lg border-2 border-[#1d221c]">
+              <Quote className="h-6 w-6 text-brand-dark fill-brand-dark" />
             </div>
-            <div className="text-sm text-white/60">Основатель ХОТИ ДОГИ</div>
           </div>
-          <motion.a
-            {...tap}
-            href="https://www.spot.uz"
-            target="_blank"
-            rel="noreferrer"
-            className="ml-auto inline-flex items-center gap-1 rounded-full bg-brand-yellow px-5 py-2 text-sm font-bold text-brand-dark"
-          >
-            Интервью на Spot.uz <ArrowUpRight className="h-4 w-4" />
-          </motion.a>
+
+          {/* Right Column: Info & Quote */}
+          <div className="flex-1 text-center md:text-left">
+            <h2 className="font-display text-3xl md:text-4xl font-black text-white tracking-tight">
+              Шохрух Асролходжаев
+            </h2>
+            <div className="mt-1.5 font-display text-sm md:text-base font-bold text-brand-yellow">
+              Сооснователь HOTY DOGY
+            </div>
+            <p className="mt-1 text-xs md:text-sm font-medium text-white/50 leading-relaxed">
+              Экс-директор по маркетингу Bellissimo Pizza — 4+ года топ-менеджмента в HoReCa
+            </p>
+
+            {/* Quote with Left Accent Bar */}
+            <div className="mt-6 border-l-2 border-brand-orange pl-4 md:pl-5 py-1 text-left">
+              <p className="text-base md:text-lg font-medium text-white/90 leading-relaxed">
+                «Мы уже прошли путь от идеи до работающей сети. Теперь хотим передать этот опыт предпринимателям, которые хотят начать своё дело.»
+              </p>
+            </div>
+
+            {/* Link Button */}
+            <div className="mt-7 flex flex-wrap items-center justify-center md:justify-start">
+              <motion.a
+                {...tap}
+                href="https://www.spot.uz"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 hover:border-white/40"
+              >
+                Читать кейс HOTY DOGY на Spot.uz <ExternalLink className="h-4 w-4 text-white/70" />
+              </motion.a>
+            </div>
+          </div>
         </div>
       </div>
     </Section>
@@ -498,9 +600,13 @@ export function Footer() {
   return (
     <footer className="bg-brand-dark py-12 text-white/60">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5">
-        <div className="font-display text-2xl font-black text-brand-yellow">
-          HOTY DOGY
-        </div>
+        <a href="#top" className="flex items-center">
+          <img
+            src={logo}
+            alt="HOTY DOGY"
+            className="h-13 w-auto object-contain md:h-14 transition-transform hover:scale-105"
+          />
+        </a>
         <p className="text-sm">© 2026 ХОТИ ДОГИ · Ташкент, Узбекистан</p>
         <a
           href="tel:+998900000000"

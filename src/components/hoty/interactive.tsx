@@ -13,6 +13,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
 import { Eyebrow, Pill, Section, Title, fmt, tap } from "./common";
+import logo from "@/assets/logo.png";
 
 /* ---------------------------------- 01 --------------------------------- */
 
@@ -28,11 +29,12 @@ export function HeaderNavigation({
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-brand-dark/5 bg-white/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center gap-4 px-5 py-3">
-        <a
-          href="#top"
-          className="font-display text-2xl font-black tracking-tight text-brand-yellow drop-shadow-[0_1px_0_rgba(33,38,32,0.35)]"
-        >
-          HOTY DOGY
+        <a href="#top" className="flex items-center">
+          <img
+            src={logo}
+            alt="ХОТИ ДОГИ"
+            className="h-11 w-auto object-contain md:h-13 drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)] transition-transform hover:scale-105"
+          />
         </a>
         <nav className="ml-6 hidden gap-6 text-sm font-bold text-brand-dark/70 md:flex">
           <a href="#why" className="hover:text-brand-orange">

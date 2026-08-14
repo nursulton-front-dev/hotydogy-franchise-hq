@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  AppTraction,
   BrandTimeline,
   Footer,
   FounderQuote,
@@ -72,7 +71,6 @@ function Index() {
       <main>
         <HeroSection onCta={scrollToForm} />
         <MetricsRow />
-        <AppTraction />
         <BrandTimeline />
         <FounderQuote />
         <div id="why">
