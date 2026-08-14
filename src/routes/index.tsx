@@ -8,6 +8,7 @@ import {
   HeroSection,
   LaunchStepper,
   LocationsGallery,
+  MarketingTraction,
   MetricsRow,
   SupportGrid,
   WhyUsGrid,
@@ -73,6 +74,7 @@ function Index() {
         <MetricsRow />
         <BrandTimeline />
         <FounderQuote />
+        <MarketingTraction />
         <div id="why">
           <WhyUsGrid />
         </div>

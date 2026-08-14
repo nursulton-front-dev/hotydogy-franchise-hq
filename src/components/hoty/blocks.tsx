@@ -15,12 +15,15 @@ import {
   MapPin,
   Megaphone,
   MonitorSmartphone,
+  Percent,
   Quote,
   Rocket,
+  ShoppingCart,
   Smartphone,
   Sparkles,
   Star,
   Store,
+  TrendingUp,
   Truck,
   Users,
   Wrench,
@@ -371,6 +374,206 @@ export function FounderQuote() {
                 Читать кейс HOTY DOGY на Spot.uz <ExternalLink className="h-4 w-4 text-white/70" />
               </motion.a>
             </div>
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+/* ---------------------------------- 06.5 --------------------------------- */
+
+export function MarketingTraction() {
+  return (
+    <Section className="py-16 sm:py-20 max-w-7xl mx-auto px-4">
+      {/* Pill Badge */}
+      <div className="flex justify-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-4 py-1 text-xs font-extrabold uppercase text-purple-700">
+          <Smartphone className="h-3.5 w-3.5 text-purple-600" /> IT & МАРКЕТИНГ
+        </span>
+      </div>
+
+      {/* Headline H2 */}
+      <h2 className="mt-3 text-center font-display text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
+        Мы не просто рассказываем о маркетинге.{" "}
+        <span className="block sm:inline">Мы показываем результат.</span>
+      </h2>
+
+      {/* Subtitle */}
+      <p className="mx-auto mb-12 mt-2.5 max-w-2xl text-center text-base font-medium text-neutral-600">
+        Реальные показатели IT-экосистемы и маркетинговых акций сети HOTY DOGY после запуска мобильного приложения.
+      </p>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        {/* Left Column: Phone Mockup */}
+        <div className="lg:col-span-5 flex justify-center">
+          <div className="relative">
+            {/* Floating Downloads Badge */}
+            <div className="absolute -right-4 -top-4 z-30 rounded-2xl border border-neutral-100 bg-white p-3 shadow-xl">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                Скачиваний
+              </div>
+              <div className="font-display text-xl font-black text-brand-orange">
+                22 000
+              </div>
+            </div>
+
+            {/* Phone Frame */}
+            <div className="w-[280px] sm:w-[310px] h-[560px] rounded-[40px] bg-neutral-900 border-[8px] border-neutral-900 shadow-2xl relative overflow-hidden flex flex-col p-2.5">
+              {/* Notch */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-4 bg-neutral-900 rounded-b-xl z-20" />
+
+              {/* Inner Screen */}
+              <div className="bg-gradient-to-b from-[#ff5500] via-[#ff6e00] to-[#ff7700] rounded-[32px] overflow-hidden flex flex-col h-full relative pt-6 px-3.5 pb-3 text-white">
+                {/* App Header */}
+                <div className="flex items-center justify-between border-b border-white/20 pb-3">
+                  <div>
+                    <div className="font-display text-lg font-black tracking-tight text-white">
+                      HOTY DOGY
+                    </div>
+                    <div className="text-[11px] font-medium text-white/80">
+                      Доставка хот-догов
+                    </div>
+                  </div>
+                  <div className="rounded-full bg-white/20 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur-sm">
+                    500 Koin 🪙
+                  </div>
+                </div>
+
+                {/* Promo Card */}
+                <div className="mt-3 rounded-2xl bg-purple-900/40 border border-purple-400/30 p-3 backdrop-blur-sm">
+                  <div className="text-[10px] font-extrabold uppercase text-purple-200">
+                    🔥 Акция
+                  </div>
+                  <div className="font-display text-sm font-black text-white mt-0.5">
+                    Kombo 4 tasi — 55 000 сум
+                  </div>
+                </div>
+
+                {/* Product Items List */}
+                <div className="mt-3 space-y-2.5 flex-1 overflow-hidden">
+                  <div className="rounded-2xl bg-white/15 p-3 backdrop-blur-sm flex items-center justify-between border border-white/10">
+                    <div>
+                      <div className="font-display text-xs font-bold text-white">
+                        Хот-дог Classic
+                      </div>
+                      <div className="text-[10px] text-white/70">
+                        Сочная сосиска, соус
+                      </div>
+                      <div className="font-display text-xs font-black text-brand-yellow mt-1">
+                        от 23 000 сум
+                      </div>
+                    </div>
+                    <button className="rounded-xl bg-brand-yellow px-2.5 py-1.5 text-[10px] font-black text-brand-dark shadow-sm">
+                      + В корзину
+                    </button>
+                  </div>
+
+                  <div className="rounded-2xl bg-white/15 p-3 backdrop-blur-sm flex items-center justify-between border border-white/10">
+                    <div>
+                      <div className="font-display text-xs font-bold text-white">
+                        Хот-дог Special
+                      </div>
+                      <div className="text-[10px] text-white/70">
+                        Двойной сыр, лук
+                      </div>
+                      <div className="font-display text-xs font-black text-brand-yellow mt-1">
+                        от 29 000 сум
+                      </div>
+                    </div>
+                    <button className="rounded-xl bg-brand-yellow px-2.5 py-1.5 text-[10px] font-black text-brand-dark shadow-sm">
+                      + В корзину
+                    </button>
+                  </div>
+
+                  <div className="rounded-2xl bg-white/15 p-3 backdrop-blur-sm flex items-center justify-between border border-white/10">
+                    <div>
+                      <div className="font-display text-xs font-bold text-white">
+                        Хот-дог Mega Combo
+                      </div>
+                      <div className="text-[10px] text-white/70">
+                        Сет с картофелем
+                      </div>
+                      <div className="font-display text-xs font-black text-brand-yellow mt-1">
+                        от 45 000 сум
+                      </div>
+                    </div>
+                    <button className="rounded-xl bg-brand-yellow px-2.5 py-1.5 text-[10px] font-black text-brand-dark shadow-sm">
+                      + В корзину
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: 4 Stat Cards */}
+        <div className="lg:col-span-7">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {/* Card 1 */}
+            <div className="rounded-[1.75rem] border border-neutral-100 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="inline-flex rounded-2xl bg-purple-100 p-3 text-purple-600 mb-4">
+                <TrendingUp className="h-6 w-6" />
+              </div>
+              <div className="font-display text-3xl sm:text-4xl font-black text-[#9FCE00]">
+                +82%
+              </div>
+              <div className="mt-2 text-xs sm:text-sm font-medium leading-relaxed text-neutral-600">
+                Рост среднего дневного объема заказов после промо
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="rounded-[1.75rem] border border-neutral-100 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="inline-flex rounded-2xl bg-purple-100 p-3 text-purple-600 mb-4">
+                <Download className="h-6 w-6" />
+              </div>
+              <div className="font-display text-3xl sm:text-4xl font-black text-neutral-900">
+                22 000
+              </div>
+              <div className="mt-2 text-xs sm:text-sm font-medium leading-relaxed text-neutral-600">
+                Скачиваний приложения за первые 24 часа
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="rounded-[1.75rem] border border-neutral-100 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="inline-flex rounded-2xl bg-purple-100 p-3 text-purple-600 mb-4">
+                <ShoppingCart className="h-6 w-6" />
+              </div>
+              <div className="font-display text-3xl sm:text-4xl font-black text-neutral-900">
+                1 400
+              </div>
+              <div className="mt-2 text-xs sm:text-sm font-medium leading-relaxed text-neutral-600">
+                Заказов через приложение за первые сутки
+              </div>
+            </div>
+
+            {/* Card 4 */}
+            <div className="rounded-[1.75rem] border border-neutral-100 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="inline-flex rounded-2xl bg-purple-100 p-3 text-purple-600 mb-4">
+                <Percent className="h-6 w-6" />
+              </div>
+              <div className="font-display text-3xl sm:text-4xl font-black text-neutral-900">
+                32%
+              </div>
+              <div className="mt-2 text-xs sm:text-sm font-medium leading-relaxed text-neutral-600">
+                Дополнительных позиций в чеке (картофель, напитки, соусы)
+              </div>
+            </div>
+          </div>
+
+          {/* Below Cards Link Button */}
+          <div className="mt-7">
+            <a
+              href="https://www.spot.uz/ru/2025/04/30/hoty-dogy/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-6 py-3 text-sm font-bold text-neutral-800 hover:bg-neutral-50 transition-colors shadow-sm"
+            >
+              Читать полный кейс на Spot.uz <ExternalLink className="h-4 w-4 text-neutral-500" />
+            </a>
           </div>
         </div>
       </div>
