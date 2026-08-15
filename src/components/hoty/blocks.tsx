@@ -18,6 +18,8 @@ import {
   Megaphone,
   MonitorSmartphone,
   Percent,
+  Instagram,
+  Youtube,
   Quote,
   Rocket,
   ShoppingCart,
@@ -1073,25 +1075,116 @@ export function LaunchStepper() {
 
 
 export function Footer() {
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <footer className="bg-brand-dark py-12 text-white/60">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5">
-        <a href="#top" className="flex items-center">
-          <img
-            src={logo}
-            alt="HOTY DOGY"
-            className="h-13 w-auto object-contain md:h-14 transition-transform hover:scale-105"
-          />
-        </a>
-        <p className="text-sm">
-          © 2026 <span className="font-black text-brand-yellow">HOTY DOGY</span> · Ташкент, Узбекистан
-        </p>
-        <a
-          href="tel:+998900000000"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-brand-yellow"
-        >
-          <Download className="h-4 w-4" /> +998 90 000 00 00
-        </a>
+    <footer className="bg-[#212620] text-neutral-300 pt-16 pb-12 border-t border-neutral-800">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        {/* Top Grid: 4 Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+          
+          {/* Column 1: Brand & Bio */}
+          <div className="lg:col-span-4 space-y-4">
+            <a href="#top" className="flex items-center gap-2" onClick={(e) => { e.preventDefault(); scrollTo("top"); }}>
+              <img src={logo} alt="HOTY DOGY" className="h-10 w-auto object-contain transition-transform hover:scale-105" />
+            </a>
+            <p className="text-sm text-neutral-400 leading-relaxed max-w-sm mt-4">
+              Сеть сочных хот-догов и готовый прибыльный fast-food бизнес в Узбекистане.
+            </p>
+            <div className="flex items-center gap-3 mt-6">
+              <a href="#" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-neutral-800 hover:bg-[#FF6E00] hover:text-white flex items-center justify-center transition-colors text-neutral-300 shadow-sm">
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a href="https://t.me/hotydogy_franchise" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-neutral-800 hover:bg-[#FF6E00] hover:text-white flex items-center justify-center transition-colors text-neutral-300 shadow-sm">
+                <Send className="w-4 h-4 ml-0.5" />
+              </a>
+              <a href="#" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-neutral-800 hover:bg-[#FF6E00] hover:text-white flex items-center justify-center transition-colors text-neutral-300 shadow-sm">
+                <Youtube className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Column 2: Navigation */}
+          <div className="lg:col-span-3 space-y-3">
+            <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
+              Навигация
+            </h4>
+            <nav className="flex flex-col gap-3">
+              <a href="#why" onClick={(e) => { e.preventDefault(); scrollTo("why"); }} className="text-neutral-400 hover:text-white transition-colors text-sm w-fit">
+                О бренде и основателе
+              </a>
+              <a href="#why" onClick={(e) => { e.preventDefault(); scrollTo("why"); }} className="text-neutral-400 hover:text-white transition-colors text-sm w-fit">
+                Преимущества франшизы
+              </a>
+              <a href="#formats" onClick={(e) => { e.preventDefault(); scrollTo("formats"); }} className="text-neutral-400 hover:text-white transition-colors text-sm w-fit">
+                Форматы и стоимость
+              </a>
+              <a href="#calc" onClick={(e) => { e.preventDefault(); scrollTo("calc"); }} className="text-neutral-400 hover:text-white transition-colors text-sm w-fit">
+                Калькулятор окупаемости
+              </a>
+              <a href="#roadmap" onClick={(e) => { e.preventDefault(); scrollTo("roadmap"); }} className="text-neutral-400 hover:text-white transition-colors text-sm w-fit">
+                Пошаговый план запуска
+              </a>
+              <a href="#locations" onClick={(e) => { e.preventDefault(); scrollTo("locations"); }} className="text-neutral-400 hover:text-white transition-colors text-sm w-fit">
+                Действующие точки сети
+              </a>
+              <a href="#lead" onClick={(e) => { e.preventDefault(); scrollTo("lead"); }} className="text-neutral-400 hover:text-white transition-colors text-sm w-fit">
+                Часто задаваемые вопросы (FAQ)
+              </a>
+            </nav>
+          </div>
+
+          {/* Column 3: Franchise & Terms */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
+              Франшиза
+            </h4>
+            <div className="flex flex-col gap-3 text-sm text-neutral-400">
+              <span className="block">Инвестиции от $30 000</span>
+              <span className="block">Окупаемость от 8 мес.</span>
+              <a href="#lead" onClick={(e) => { e.preventDefault(); scrollTo("lead"); }} className="hover:text-white transition-colors w-fit">
+                Скачать презентацию (PDF)
+              </a>
+              <a href="#" className="hover:text-white transition-colors w-fit mt-2">
+                Политика конфиденциальности
+              </a>
+            </div>
+          </div>
+
+          {/* Column 4: Contacts */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
+              Отдел франчайзинга
+            </h4>
+            <div className="space-y-3">
+              <div>
+                <a href="tel:+998900000000" className="text-white font-bold text-base hover:text-[#FF6E00] transition-colors inline-block">
+                  +998 (90) 000-00-00
+                </a>
+                <a href="https://t.me/hotydogy_franchise" target="_blank" rel="noreferrer" className="text-neutral-400 text-sm hover:text-white transition-colors block mt-1">
+                  @hotydogy_franchise
+                </a>
+              </div>
+              <div className="text-sm text-neutral-400 mt-3 pt-3 border-t border-neutral-800/80">
+                <span className="block mb-1">Ташкент, Узбекистан</span>
+                <span className="block">Пн–Сб: с 09:00 до 20:00</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Bottom Copyright Bar */}
+        <div className="border-t border-neutral-800/80 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400">
+          <div>
+            © 2026 HOTY DOGY. Все права защищены.
+          </div>
+          <div className="font-medium text-neutral-500">
+            Франчайзинговая сеть fast-food в Узбекистане
+          </div>
+        </div>
       </div>
     </footer>
   );
