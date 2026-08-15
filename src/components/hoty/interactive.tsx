@@ -1,14 +1,22 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
+  Briefcase,
+  Calculator,
+  Calendar,
   CheckCircle2,
+  DollarSign,
   Download,
+  FileText,
   GraduationCap,
   Loader2,
   PartyPopper,
+  Search,
   TrendingUp,
   Trophy,
   X,
+  Zap,
+  ChevronDown,
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
@@ -79,158 +87,297 @@ export function HeaderNavigation({
 
 /* ---------------------------------- 08 --------------------------------- */
 
-const audience = [
+const audienceTabsData = [
   {
-    id: "new",
-    label: "Новичкам",
+    id: "first-business",
+    label: "Первый бизнес",
     icon: GraduationCap,
-    title: "Первый бизнес без опыта",
-    points: [
-      "Полное обучение с нуля за 2 недели",
-      "Управляющий сети помогает первый месяц",
-      "Минимальный вход — формат Express",
+    iconBg: "bg-[#FFD000] text-neutral-900",
+    headline:
+      "Ты никогда не открывал бизнес, но хочешь попробовать себя в предпринимательстве.",
+    bullets: [
+      "Обучение владельца и команды всем процессам с нуля",
+      "Полная поддержка управляющего на этапе открытия",
+      "Проверенные готовые технологические карты и рецептуры",
     ],
   },
   {
-    id: "inv",
-    label: "Инвесторам",
+    id: "young-entrepreneur",
+    label: "Молодой предприниматель",
+    icon: Zap,
+    iconBg: "bg-[#FF6E00] text-white",
+    headline:
+      "У тебя есть энергия, идеи и желание создать свой сильный проект.",
+    bullets: [
+      "Современный бренд и сильный визуальный стиль",
+      "Готовая база лояльных клиентов и мобильное приложение",
+      "Быстрый старт и возможность масштабирования сети",
+    ],
+  },
+  {
+    id: "interested",
+    label: "Интересуешься бизнесом",
+    icon: Search,
+    iconBg: "bg-purple-600 text-white",
+    headline:
+      "Ты изучаешь разные направления, но хочешь начать с понятной модели.",
+    bullets: [
+      "Прозрачная юнит-экономика и расчет окупаемости",
+      "Простой продукт со стабильным ежедневным спросом",
+      "Готовые чек-листы и стандарты работы",
+    ],
+  },
+  {
+    id: "existing-business",
+    label: "Уже есть бизнес",
     icon: TrendingUp,
-    title: "Пассивный доход на потоке",
-    points: [
-      "Управление точкой под ключ нашей командой",
-      "Прозрачная отчётность в приложении",
-      "Возврат инвестиций от 6 месяцев",
+    iconBg: "bg-[#F60019] text-white",
+    headline:
+      "Хочешь добавить новый высокодоходный проект в свой портфель.",
+    bullets: [
+      "Отработанная операционная модель и контроль качества",
+      "Централизованные оптовые поставки ингредиентов",
+      "IT-система аналитики и удаленный контроль показателей",
     ],
   },
   {
-    id: "pro",
-    label: "Опытным",
-    icon: Trophy,
-    title: "Масштабирование сети",
-    points: [
-      "Мастер-франшиза на регион",
-      "Приоритет по локациям в ТРЦ",
-      "Спецусловия от 3 точек",
+    id: "investor",
+    label: "Инвестор",
+    icon: Briefcase,
+    iconBg: "bg-[#212620] text-white",
+    headline:
+      "Хочешь вложиться в готовую концепцию и работать по понятной модели.",
+    bullets: [
+      "Прогнозируемая доходность и короткий срок окупаемости",
+      "Полный аудит и операционная поддержка сети",
+      "Масштабирование на несколько точек в регионе",
     ],
   },
 ];
 
 export function AudienceTabs() {
+  const [activeTab, setActiveTab] = useState("first-business");
+  const current =
+    audienceTabsData.find((t) => t.id === activeTab) || audienceTabsData[0];
+
   return (
-    <Section>
-      <Eyebrow>Кому подходит</Eyebrow>
-      <Title>Выберите свой сценарий</Title>
-      <Tabs defaultValue="new" className="mt-8">
-        <TabsList className="h-auto flex-wrap justify-start gap-2 rounded-full bg-brand-dark/5 p-1.5">
-          {audience.map((a) => (
-            <TabsTrigger
-              key={a.id}
-              value={a.id}
-              className="rounded-full px-5 py-2 text-sm font-bold data-[state=active]:bg-brand-orange data-[state=active]:text-white"
+    <Section className="py-16 sm:py-20 max-w-7xl mx-auto px-4">
+      {/* 1. Section Header */}
+      <div className="flex justify-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-4 py-1 text-xs font-extrabold uppercase text-orange-600">
+          ЦЕЛЕВАЯ АУДИТОРИЯ
+        </span>
+      </div>
+
+      <h2 className="mt-3 text-center font-display text-3xl font-black tracking-tight text-[#212620] sm:text-4xl">
+        <span className="text-[#FF6E00]">HOTY DOGY</span> — если ты давно хочешь начать своё дело
+      </h2>
+
+      <p className="mx-auto mb-8 mt-2 max-w-xl text-center text-base font-medium text-neutral-600">
+        Выбери свой профиль и посмотри, как франшиза закрывает твои задачи.
+      </p>
+
+      {/* 2. Tab Controls */}
+      <div className="bg-neutral-100 p-1.5 rounded-full flex flex-wrap sm:flex-nowrap gap-1 max-w-4xl mx-auto mb-8 justify-center overflow-x-auto no-scrollbar">
+        {audienceTabsData.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`text-xs sm:text-sm whitespace-nowrap cursor-pointer transition-all duration-300 ${
+                isActive
+                  ? "bg-[#FF6E00] text-white font-bold rounded-full px-5 py-2.5 shadow-md"
+                  : "text-neutral-600 hover:text-neutral-900 font-semibold px-4 py-2.5"
+              }`}
             >
-              {a.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-        {audience.map((a) => (
-          <TabsContent key={a.id} value={a.id} className="mt-6">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ type: "spring", bounce: 0.35 }}
-              className="rounded-[2rem] bg-white p-8 shadow-xl shadow-brand-orange/10"
+              {tab.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* 3. Tab Content Card */}
+      <div className="max-w-3xl mx-auto">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current.id}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.25 }}
+            className="bg-white rounded-3xl p-8 sm:p-10 border border-neutral-100 shadow-xl"
+          >
+            {/* Icon */}
+            <div
+              className={`w-12 h-12 rounded-full p-3 flex items-center justify-center mb-4 ${current.iconBg}`}
             >
-              <div className="grid h-14 w-14 place-items-center rounded-full bg-brand-yellow">
-                <a.icon className="h-7 w-7 text-brand-dark" />
-              </div>
-              <h3 className="mt-5 font-display text-2xl font-black">
-                {a.title}
-              </h3>
-              <ul className="mt-4 space-y-2">
-                {a.points.map((p) => (
-                  <li key={p} className="flex items-center gap-3 text-sm font-semibold">
-                    <CheckCircle2 color="#9fce00" className="h-5 w-5 shrink-0" />
-                    {p}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </TabsContent>
-        ))}
-      </Tabs>
+              <current.icon className="w-6 h-6 shrink-0" />
+            </div>
+
+            {/* Headline */}
+            <h3 className="font-display text-xl sm:text-2xl font-black text-neutral-900 leading-snug mb-6">
+              {current.headline}
+            </h3>
+
+            {/* Bullets */}
+            <ul className="space-y-3.5">
+              {current.bullets.map((b) => (
+                <li
+                  key={b}
+                  className="flex items-start gap-3 text-sm sm:text-base font-semibold text-neutral-800"
+                >
+                  <CheckCircle2 className="h-5 w-5 text-[#9FCE00] shrink-0 mt-0.5" />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </Section>
   );
 }
 
 /* ---------------------------------- 10 --------------------------------- */
 
-const formats = [
+const storeFormats = [
   {
-    t: "Kiosk",
-    price: "180 млн сум",
-    area: "10–14 м²",
-    accent: "border-brand-orange",
-    pillCls: "bg-brand-orange text-white",
-    feats: ["Отдельно стоящий модуль", "3–4 сотрудника", "Окупаемость 8 мес."],
+    id: "food-court",
+    title: "Food Court",
+    subtitleLabel: "Остров в ТРЦ",
+    isRecommended: true,
+    topBadge: "ХИТ СЕТИ • БЫСТРЫЙ СТАРТ",
+    topBadgeCls:
+      "bg-[#F60019] text-white font-black text-xs px-3 py-1 rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xs whitespace-nowrap",
+    containerCls:
+      "border-2 border-[#F60019] relative shadow-lg bg-white rounded-3xl p-8 flex flex-col justify-between hover:shadow-xl transition-all",
+    areaPill: "15 – 30 м²",
+    areaPillCls:
+      "bg-orange-50 text-[#FF6E00] font-bold px-3 py-1 rounded-full text-xs inline-block",
+    investmentHeading: "$30 000 – $40 000",
+    subPrice: "инвестиции под ключ (от ~390 млн сум)",
+    features: [
+      "Локация: Зона фуд-корта в популярных ТРЦ",
+      "Срок запуска: от 3 недель",
+      "Персонал: 2 сотрудника в смену",
+      "Срок окупаемости: от 8–10 месяцев",
+    ],
+    ctaText: "Выбрать Food Court",
+    ctaCls:
+      "bg-[#212620] hover:bg-[#FF6E00] text-white font-bold py-3.5 rounded-xl transition-colors w-full mt-6 shadow-sm cursor-pointer",
   },
   {
-    t: "Food Court",
-    price: "320 млн сум",
-    area: "25–30 м²",
-    accent: "border-brand-red",
-    pillCls: "bg-brand-red text-white",
-    feats: ["Точка в ТРЦ", "Полное меню + напитки", "Окупаемость 10 мес."],
-    best: true,
-  },
-  {
-    t: "Express",
-    price: "95 млн сум",
-    area: "6–8 м²",
-    accent: "border-brand-lime",
-    pillCls: "bg-brand-lime text-brand-dark",
-    feats: ["Уличный формат", "2 сотрудника", "Окупаемость 6 мес."],
+    id: "street-retail",
+    title: "Street Retail",
+    subtitleLabel: "Отдельный вход / Стрит",
+    isRecommended: false,
+    topBadge: "МАКСИМАЛЬНЫЙ ТРАФИК",
+    topBadgeCls:
+      "bg-neutral-900 text-white font-bold text-xs px-3 py-1 rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xs whitespace-nowrap",
+    containerCls:
+      "border border-neutral-200 hover:border-orange-300 relative shadow-sm hover:shadow-md bg-white rounded-3xl p-8 flex flex-col justify-between transition-all",
+    areaPill: "от 55 м²",
+    areaPillCls:
+      "bg-neutral-100 text-neutral-800 font-bold px-3 py-1 rounded-full text-xs inline-block",
+    investmentHeading: "$40 000 – $50 000",
+    subPrice: "инвестиции под ключ (до ~650 млн сум)",
+    features: [
+      "Локация: Первая линия, высокий пешеходный трафик",
+      "Срок запуска: 3 недели – 1 месяц",
+      "Персонал: 3–4 сотрудника в смену",
+      "Срок окупаемости: от 10–12 месяцев",
+    ],
+    ctaText: "Выбрать Street Retail",
+    ctaCls:
+      "bg-neutral-100 hover:bg-neutral-900 hover:text-white text-neutral-900 font-bold py-3.5 rounded-xl transition-colors w-full mt-6 cursor-pointer",
   },
 ];
 
-export function FormatsPricing({ onCta }: { onCta: () => void }) {
+export function FormatsPricing({ onCta }: { onCta?: (format?: string) => void }) {
+  const handleSelectFormat = (formatId: string) => {
+    if (onCta) {
+      onCta(formatId);
+    }
+    const el = document.getElementById("lead");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <Section id="formats">
-      <Eyebrow>Форматы</Eyebrow>
-      <Title>Три способа зайти в сеть</Title>
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
-        {formats.map((f) => (
+    <Section id="formats" className="py-16 sm:py-20 max-w-7xl mx-auto px-4">
+      {/* 1. Section Header */}
+      <div className="flex justify-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-4 py-1 text-xs font-bold uppercase text-orange-600">
+          ФОРМАТЫ ТОЧЕК
+        </span>
+      </div>
+
+      <h2 className="mt-3 text-center font-display text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
+        Форматы, которые приносят стабильную прибыль
+      </h2>
+
+      <p className="mx-auto mb-12 mt-2 max-w-xl text-center text-base font-medium text-neutral-600">
+        Компактный, быстрый в запуске и прозрачный по инвестициям бизнес.
+      </p>
+
+      {/* 2. 2-Column Format Cards */}
+      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+        {storeFormats.map((f) => (
           <motion.div
-            key={f.t}
-            whileHover={{ scale: 1.03, y: -4 }}
-            className={`relative rounded-[2rem] border-4 ${f.accent} bg-white p-8 shadow-xl shadow-brand-orange/10`}
+            key={f.id}
+            whileHover={{ y: -4 }}
+            className={f.containerCls}
           >
-            {f.best && (
-              <Pill className="absolute -top-4 left-8 bg-brand-red text-white shadow-lg">
-                Хит сети
-              </Pill>
-            )}
-            <h3 className="font-display text-3xl font-black">{f.t}</h3>
-            <Pill className={`mt-3 ${f.pillCls}`}>{f.area}</Pill>
-            <div className="mt-6 font-display text-4xl font-black text-brand-dark">
-              {f.price}
+            {/* Top Badge */}
+            <span className={f.topBadgeCls}>{f.topBadge}</span>
+
+            <div>
+              {/* Header */}
+              <div className="flex items-center justify-between gap-2 mt-2">
+                <div>
+                  <h3 className="font-display text-2xl sm:text-3xl font-black text-neutral-900">
+                    {f.title}
+                  </h3>
+                  <div className="text-xs font-bold text-neutral-500 mt-0.5">
+                    {f.subtitleLabel}
+                  </div>
+                </div>
+                <span className={f.areaPillCls}>{f.areaPill}</span>
+              </div>
+
+              {/* Investment Price */}
+              <div className="mt-6">
+                <div className="text-3xl sm:text-4xl font-black text-neutral-900 tracking-tight">
+                  {f.investmentHeading}
+                </div>
+                <div className="text-xs font-medium text-neutral-500 mt-1">
+                  {f.subPrice}
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="my-6 border-t border-neutral-100" />
+
+              {/* Feature List with Lime checkmarks */}
+              <ul className="space-y-3">
+                {f.features.map((feat) => (
+                  <li key={feat} className="flex items-start gap-3 text-xs sm:text-sm font-semibold text-neutral-800">
+                    <CheckCircle2 className="h-5 w-5 text-[#9FCE00] shrink-0 mt-0.5" />
+                    <span>{feat}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="text-xs font-bold text-brand-dark/50">
-              инвестиции под ключ
-            </div>
-            <ul className="mt-6 space-y-2">
-              {f.feats.map((x) => (
-                <li key={x} className="flex items-center gap-2 text-sm font-semibold">
-                  <CheckCircle2 color="#9fce00" className="h-5 w-5 shrink-0" />
-                  {x}
-                </li>
-              ))}
-            </ul>
+
+            {/* CTA Button */}
             <motion.button
               {...tap}
-              onClick={onCta}
-              className="mt-7 w-full rounded-full bg-brand-dark py-3 font-display font-black text-white"
+              onClick={() => handleSelectFormat(f.id)}
+              className={f.ctaCls}
             >
-              Выбрать формат
+              {f.ctaText}
             </motion.button>
           </motion.div>
         ))}
@@ -250,84 +397,172 @@ export function ROICalculator({
     React.SetStateAction<{ traffic: number; check: number }>
   >;
 }) {
-  const revenue = calcData.traffic * calcData.check * 30;
-  const profit = revenue * 0.27;
+  const dailyOrders = calcData.traffic;
+  const avgCheck = calcData.check;
+
+  const dailyRevenue = dailyOrders * avgCheck;
+  const monthlyRevenue = dailyRevenue * 30;
+  const monthlyProfit = monthlyRevenue * 0.22;
+  const paybackMonths = Math.max(4, Math.round(450000000 / (monthlyProfit || 1)));
+
+  const scrollToLead = () => {
+    document.getElementById("lead")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <Section id="calc">
-      <div className="rounded-[2rem] bg-brand-dark p-8 shadow-xl shadow-brand-dark/25 md:p-12">
-        <Pill className="bg-brand-lime text-brand-dark">Калькулятор</Pill>
-        <h2 className="mt-5 font-display text-4xl font-black text-white md:text-5xl">
-          Сколько заработает ваша точка
-        </h2>
+    <Section id="calc" className="py-16 sm:py-20 max-w-7xl mx-auto px-4">
+      {/* 1. Section Header */}
+      <div className="flex justify-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-4 py-1 text-xs font-bold uppercase text-orange-600">
+          КАЛЬКУЛЯТОР
+        </span>
+      </div>
 
-        <div className="mt-10 grid gap-10 md:grid-cols-2">
-          <div className="space-y-9">
+      <h2 className="mt-3 text-center font-display text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
+        Рассчитайте окупаемость
+      </h2>
+
+      <p className="mx-auto mb-8 mt-2 max-w-xl text-center text-base font-medium text-neutral-600">
+        Двигайте ползунки и увидите финансовую модель в реальном времени.
+      </p>
+
+      {/* 2. 2-Column Calculator Container */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mt-8">
+        {/* LEFT COLUMN: Sliders Card */}
+        <div className="lg:col-span-5 bg-white rounded-3xl p-8 border border-neutral-100 shadow-sm flex flex-col justify-between">
+          <div className="space-y-8">
+            {/* Slider 1: Orders per day */}
             <div>
-              <div className="flex items-baseline justify-between text-white">
-                <span className="text-sm font-bold text-white/60">
-                  Гостей в день
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-bold text-neutral-700">
+                  Заказов в день
                 </span>
-                <span className="font-display text-2xl font-black text-brand-yellow">
-                  {fmt(calcData.traffic)}
+                <span className="text-2xl font-black text-[#FF6E00]">
+                  {fmt(dailyOrders)}
                 </span>
               </div>
               <Slider
-                value={[calcData.traffic]}
-                min={50}
-                max={800}
+                value={[dailyOrders]}
+                min={80}
+                max={500}
                 step={10}
                 onValueChange={(v) =>
                   setCalcData((p) => ({ ...p, traffic: v[0] ?? p.traffic }))
                 }
-                className="mt-4 [&_[data-slot=slider-range]]:bg-brand-lime"
+                className="mt-4 [&_[data-slot=slider-range]]:bg-[#FF6E00]"
               />
+              <div className="flex justify-between text-[11px] font-bold text-neutral-400 mt-2">
+                <span>80</span>
+                <span>500</span>
+              </div>
             </div>
+
+            {/* Slider 2: Average Check */}
             <div>
-              <div className="flex items-baseline justify-between text-white">
-                <span className="text-sm font-bold text-white/60">
-                  Средний чек, сум
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-bold text-neutral-700">
+                  Средний чек
                 </span>
-                <span className="font-display text-2xl font-black text-brand-yellow">
-                  {fmt(calcData.check)}
+                <span className="text-2xl font-black text-[#FF6E00]">
+                  {fmt(avgCheck)} сум
                 </span>
               </div>
               <Slider
-                value={[calcData.check]}
-                min={20000}
-                max={120000}
-                step={1000}
+                value={[avgCheck]}
+                min={35000}
+                max={100000}
+                step={5000}
                 onValueChange={(v) =>
                   setCalcData((p) => ({ ...p, check: v[0] ?? p.check }))
                 }
-                className="mt-4"
+                className="mt-4 [&_[data-slot=slider-range]]:bg-[#FF6E00]"
               />
+              <div className="flex justify-between text-[11px] font-bold text-neutral-400 mt-2">
+                <span>35 000 сум</span>
+                <span>100 000 сум</span>
+              </div>
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8">
-            <div className="text-sm font-bold text-white/60">
-              Выручка в месяц
+          {/* Footnote Note Box */}
+          <div className="bg-amber-50/80 border border-amber-100 rounded-2xl p-4 text-xs text-neutral-600 mt-8 leading-relaxed">
+            💡 Расчёт основан на операционной марже ~22% и инвестициях ~$35 000–$50 000. Food cost и базовые расходы учтены в модели.
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN: 4 Metric Cards Grid + CTA */}
+        <div className="lg:col-span-7 flex flex-col justify-between">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Card 1 */}
+            <div className="bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+                  Выручка в день
+                </span>
+                <div className="bg-amber-100 text-amber-700 p-2.5 rounded-xl">
+                  <DollarSign className="w-5 h-5" />
+                </div>
+              </div>
+              <div className="text-2xl font-black text-neutral-900 mt-4 tracking-tight">
+                {fmt(dailyRevenue)} сум
+              </div>
             </div>
-            <div className="font-display text-2xl font-black text-white">
-              {fmt(revenue)} сум
+
+            {/* Card 2 */}
+            <div className="bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+                  Выручка в месяц
+                </span>
+                <div className="bg-lime-100 text-lime-800 p-2.5 rounded-xl">
+                  <TrendingUp className="w-5 h-5" />
+                </div>
+              </div>
+              <div className="text-2xl font-black text-neutral-900 mt-4 tracking-tight">
+                {fmt(monthlyRevenue)} сум
+              </div>
             </div>
-            <div className="mt-6 text-sm font-bold text-white/60">
-              Чистая прибыль в месяц
+
+            {/* Card 3 */}
+            <div className="bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+                  Операционная прибыль / мес
+                </span>
+                <div className="bg-purple-100 text-purple-700 p-2.5 rounded-xl">
+                  <Calculator className="w-5 h-5" />
+                </div>
+              </div>
+              <div className="text-2xl font-black text-[#FF6E00] mt-4 tracking-tight">
+                {fmt(Math.round(monthlyProfit))} сум
+              </div>
             </div>
-            <motion.div
-              key={profit}
-              initial={{ scale: 0.94, opacity: 0.6 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: "spring", bounce: 0.5 }}
-              className="font-display text-5xl leading-none font-black text-brand-lime md:text-6xl"
-            >
-              {fmt(profit)}
-            </motion.div>
-            <div className="mt-1 text-xs font-bold text-white/40">
-              сум · при марже 27%
+
+            {/* Card 4 */}
+            <div className="bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+                  Срок окупаемости
+                </span>
+                <div className="bg-red-100 text-red-700 p-2.5 rounded-xl">
+                  <Calendar className="w-5 h-5" />
+                </div>
+              </div>
+              <div className="text-2xl font-black text-neutral-900 mt-4 tracking-tight">
+                от {paybackMonths} мес
+              </div>
             </div>
           </div>
+
+          {/* CTA Conversion Button */}
+          <motion.button
+            {...tap}
+            onClick={scrollToLead}
+            className="bg-[#F60019] hover:bg-[#d50015] text-white font-bold py-4 rounded-2xl shadow-lg shadow-red-500/20 transition-all w-full text-center mt-4 cursor-pointer flex items-center justify-center gap-2 text-base"
+          >
+            <FileText className="w-5 h-5" />
+            Получить детальную финмодель (PDF)
+          </motion.button>
         </div>
       </div>
     </Section>
@@ -463,5 +698,128 @@ export function SuccessModal({
         </motion.div>
       )}
     </AnimatePresence>
+  );
+}
+
+/* ---------------------------------- 13 --------------------------------- */
+
+const faqData = [
+  {
+    q: "Нужен ли опыт в ресторанном бизнесе или фастфуде для старта?",
+    a: "Нет, опыт не обязателен. Мы передаем готовую пошаговую систему, технологические карты и обучаем как владельца, так и весь линейный персонал с нуля до официального открытия точки.",
+  },
+  {
+    q: "Сколько времени занимает открытие точки с нуля?",
+    a: "В среднем процесс от подписания договора до первого чека занимает от 3 недель до 45 дней в зависимости от выбранного формата (Food Court или Street Retail) и состояния помещения.",
+  },
+  {
+    q: "Какой размер инвестиций требуется и что в них входит?",
+    a: "Общий объем инвестиций составляет от $30 000 до $50 000 (в зависимости от формата и площади). В эту сумму входят паушальный взнос, ремонтные работы, вывеска, полное торговое и кухонное оборудование, первоначальный запас сырья и маркетинговый запуск.",
+  },
+  {
+    q: "Как устроены поставки продуктов и ингредиентов?",
+    a: "У нас налажена централизованная цепочка поставок. Все фирменные булочки, сосиски, соусы и брендированная упаковка поставляются проверенными сетевыми поставщиками по единым оптовым ценам.",
+  },
+  {
+    q: "Помогаете ли вы с подбором и оценкой локации?",
+    a: "Да, наша команда лично анализирует пешеходный трафик, целевую аудиторию, конкурентное окружение и согласовывает условия аренды перед подписанием договора по помещению.",
+  },
+  {
+    q: "Как работает мобильное приложение и IT-система для франчайзи?",
+    a: "Ваша точка подключается к единому мобильному приложению HOTY DOGY (с готовой базой клиентов) и современной POS-системе. Вы получаете прозрачную сквозную аналитику продаж и расходов в реальном времени с телефона.",
+  },
+];
+
+export function FaqAccordion() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const toggleOpen = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  const scrollToLead = () => {
+    document.getElementById("lead")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <Section className="py-16 sm:py-20 max-w-5xl mx-auto px-4">
+      <div className="flex justify-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-4 py-1 text-xs font-bold uppercase text-orange-600">
+          FAQ
+        </span>
+      </div>
+      <h2 className="mt-3 text-center font-display text-3xl sm:text-4xl font-black text-neutral-900 tracking-tight">
+        Часто задаваемые вопросы
+      </h2>
+      <p className="mx-auto mb-10 mt-2 max-w-xl text-center text-base font-medium text-neutral-600">
+        Всё, что важно знать о франшизе <span className="font-black text-[#FF6E00]">HOTY DOGY</span> до подписания договора.
+      </p>
+
+      <div className="max-w-4xl mx-auto space-y-4">
+        {faqData.map((item, i) => {
+          const isOpen = openIndex === i;
+          return (
+            <div
+              key={i}
+              className={`bg-white rounded-2xl border transition-all duration-300 overflow-hidden ${
+                isOpen ? "border-orange-200 shadow-md" : "border-neutral-100 shadow-sm"
+              }`}
+            >
+              <button
+                onClick={() => toggleOpen(i)}
+                className="w-full flex items-center justify-between p-5 sm:p-6 text-left focus:outline-none"
+              >
+                <span className="font-display font-black text-base sm:text-lg text-neutral-900 pr-4 leading-snug">
+                  {item.q}
+                </span>
+                <div
+                  className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                    isOpen ? "bg-orange-100 text-[#FF6E00]" : "bg-neutral-100 text-neutral-500"
+                  }`}
+                >
+                  <ChevronDown
+                    className={`w-5 h-5 transition-transform duration-300 ${
+                      isOpen ? "rotate-180" : "rotate-0"
+                    }`}
+                  />
+                </div>
+              </button>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    <div className="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base font-medium text-neutral-600 leading-relaxed border-t border-neutral-50 pt-4">
+                      {item.a}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-12 bg-neutral-900 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 max-w-4xl mx-auto shadow-xl">
+        <div className="text-center sm:text-left">
+          <h4 className="font-display font-black text-lg sm:text-xl text-white">
+            Остались вопросы?
+          </h4>
+          <p className="text-xs sm:text-sm text-neutral-400 font-medium mt-1">
+            Задайте их напрямую основателям сети.
+          </p>
+        </div>
+        <motion.button
+          {...tap}
+          onClick={scrollToLead}
+          className="bg-[#FF6E00] hover:bg-orange-600 text-white font-bold px-6 py-3.5 rounded-2xl transition-all shadow-md shrink-0 cursor-pointer text-sm whitespace-nowrap"
+        >
+          Задать вопрос в Telegram ↗
+        </motion.button>
+      </div>
+    </Section>
   );
 }

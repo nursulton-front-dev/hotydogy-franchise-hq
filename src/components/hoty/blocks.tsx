@@ -2,12 +2,14 @@ import { motion } from "motion/react";
 import {
   ArrowUpRight,
   BadgePercent,
+  BarChart3,
   Bike,
   Boxes,
   CheckCircle2,
   ChefHat,
   Download,
   ExternalLink,
+  FileCheck,
   Flame,
   Headphones,
   Lightbulb,
@@ -26,7 +28,15 @@ import {
   TrendingUp,
   Truck,
   Users,
+  ChevronRight,
+  Coins,
+  Plus,
+  Send,
+  User,
+  UtensilsCrossed,
+  Wallet,
   Wrench,
+  Zap,
 } from "lucide-react";
 import {
   Eyebrow,
@@ -43,6 +53,7 @@ import shokhrukh from "@/assets/shokhrukh.png";
 import branch1 from "@/assets/branch-1.jpg";
 import branch2 from "@/assets/branch-2.jpg";
 import branch3 from "@/assets/branch-3.jpg";
+import appScreenshot from "@/assets/app-screenshot.png";
 
 /* ---------------------------------- 02 --------------------------------- */
 
@@ -89,7 +100,7 @@ export function HeroSection({ onCta }: { onCta: () => void }) {
 
           {/* Subtitle */}
           <p className="mt-4 max-w-lg text-sm md:text-base font-medium text-white/90 leading-relaxed">
-            Не нужно придумывать бизнес с нуля. Мы создали готовую концепцию fast food, протестировали продукт и процессы и сегодня развиваем сеть HOTY DOGY.
+            Не нужно придумывать бизнес с нуля. Мы создали готовую концепцию fast food, протестировали продукт и процессы и сегодня развиваем сеть <span className="font-black text-brand-yellow">HOTY DOGY</span>.
           </p>
 
           {/* Stat Line */}
@@ -286,7 +297,14 @@ export function BrandTimeline() {
                         {item.title}
                       </h3>
                       <p className="mt-2 text-sm font-medium leading-relaxed text-brand-dark/60">
-                        {item.desc}
+                        {item.desc.includes("HOTY DOGY") ? (
+                          <>
+                            Рождение идеи бренда{" "}
+                            <span className="font-black text-[#FF6E00]">HOTY DOGY</span>.
+                          </>
+                        ) : (
+                          item.desc
+                        )}
                       </p>
                     </div>
                   ) : (
@@ -305,7 +323,14 @@ export function BrandTimeline() {
                         {item.title}
                       </h3>
                       <p className="mt-2 text-sm font-medium leading-relaxed text-brand-dark/60">
-                        {item.desc}
+                        {item.desc.includes("HOTY DOGY") ? (
+                          <>
+                            Рождение идеи бренда{" "}
+                            <span className="font-black text-[#FF6E00]">HOTY DOGY</span>.
+                          </>
+                        ) : (
+                          item.desc
+                        )}
                       </p>
                     </div>
                   ) : (
@@ -349,7 +374,7 @@ export function FounderQuote() {
               Шохрух Асролходжаев
             </h2>
             <div className="mt-1.5 font-display text-sm md:text-base font-bold text-brand-yellow">
-              Сооснователь HOTY DOGY
+              Сооснователь <span className="font-black text-brand-yellow">HOTY DOGY</span>
             </div>
             <p className="mt-1 text-xs md:text-sm font-medium text-white/50 leading-relaxed">
               Экс-директор по маркетингу Bellissimo Pizza — 4+ года топ-менеджмента в HoReCa
@@ -371,7 +396,7 @@ export function FounderQuote() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 hover:border-white/40"
               >
-                Читать кейс HOTY DOGY на Spot.uz <ExternalLink className="h-4 w-4 text-white/70" />
+                Читать кейс <span className="font-black text-brand-yellow">HOTY DOGY</span> на Spot.uz <ExternalLink className="h-4 w-4 text-white/70" />
               </motion.a>
             </div>
           </div>
@@ -401,7 +426,7 @@ export function MarketingTraction() {
 
       {/* Subtitle */}
       <p className="mx-auto mb-12 mt-2.5 max-w-2xl text-center text-base font-medium text-neutral-600">
-        Реальные показатели IT-экосистемы и маркетинговых акций сети HOTY DOGY после запуска мобильного приложения.
+        Реальные показатели IT-экосистемы и маркетинговых акций сети <span className="font-black text-[#FF6E00]">HOTY DOGY</span> после запуска мобильного приложения.
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -423,86 +448,13 @@ export function MarketingTraction() {
               {/* Notch */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-4 bg-neutral-900 rounded-b-xl z-20" />
 
-              {/* Inner Screen */}
-              <div className="bg-gradient-to-b from-[#ff5500] via-[#ff6e00] to-[#ff7700] rounded-[32px] overflow-hidden flex flex-col h-full relative pt-6 px-3.5 pb-3 text-white">
-                {/* App Header */}
-                <div className="flex items-center justify-between border-b border-white/20 pb-3">
-                  <div>
-                    <div className="font-display text-lg font-black tracking-tight text-white">
-                      HOTY DOGY
-                    </div>
-                    <div className="text-[11px] font-medium text-white/80">
-                      Доставка хот-догов
-                    </div>
-                  </div>
-                  <div className="rounded-full bg-white/20 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur-sm">
-                    500 Koin 🪙
-                  </div>
-                </div>
-
-                {/* Promo Card */}
-                <div className="mt-3 rounded-2xl bg-purple-900/40 border border-purple-400/30 p-3 backdrop-blur-sm">
-                  <div className="text-[10px] font-extrabold uppercase text-purple-200">
-                    🔥 Акция
-                  </div>
-                  <div className="font-display text-sm font-black text-white mt-0.5">
-                    Kombo 4 tasi — 55 000 сум
-                  </div>
-                </div>
-
-                {/* Product Items List */}
-                <div className="mt-3 space-y-2.5 flex-1 overflow-hidden">
-                  <div className="rounded-2xl bg-white/15 p-3 backdrop-blur-sm flex items-center justify-between border border-white/10">
-                    <div>
-                      <div className="font-display text-xs font-bold text-white">
-                        Хот-дог Classic
-                      </div>
-                      <div className="text-[10px] text-white/70">
-                        Сочная сосиска, соус
-                      </div>
-                      <div className="font-display text-xs font-black text-brand-yellow mt-1">
-                        от 23 000 сум
-                      </div>
-                    </div>
-                    <button className="rounded-xl bg-brand-yellow px-2.5 py-1.5 text-[10px] font-black text-brand-dark shadow-sm">
-                      + В корзину
-                    </button>
-                  </div>
-
-                  <div className="rounded-2xl bg-white/15 p-3 backdrop-blur-sm flex items-center justify-between border border-white/10">
-                    <div>
-                      <div className="font-display text-xs font-bold text-white">
-                        Хот-дог Special
-                      </div>
-                      <div className="text-[10px] text-white/70">
-                        Двойной сыр, лук
-                      </div>
-                      <div className="font-display text-xs font-black text-brand-yellow mt-1">
-                        от 29 000 сум
-                      </div>
-                    </div>
-                    <button className="rounded-xl bg-brand-yellow px-2.5 py-1.5 text-[10px] font-black text-brand-dark shadow-sm">
-                      + В корзину
-                    </button>
-                  </div>
-
-                  <div className="rounded-2xl bg-white/15 p-3 backdrop-blur-sm flex items-center justify-between border border-white/10">
-                    <div>
-                      <div className="font-display text-xs font-bold text-white">
-                        Хот-дог Mega Combo
-                      </div>
-                      <div className="text-[10px] text-white/70">
-                        Сет с картофелем
-                      </div>
-                      <div className="font-display text-xs font-black text-brand-yellow mt-1">
-                        от 45 000 сум
-                      </div>
-                    </div>
-                    <button className="rounded-xl bg-brand-yellow px-2.5 py-1.5 text-[10px] font-black text-brand-dark shadow-sm">
-                      + В корзину
-                    </button>
-                  </div>
-                </div>
+              {/* Inner Screen - Actual Screenshot Image */}
+              <div className="rounded-[32px] overflow-hidden flex flex-col h-full relative bg-neutral-900">
+                <img
+                  src={appScreenshot}
+                  alt="Скриншот приложения HOTY DOGY"
+                  className="w-full h-full object-cover object-top"
+                />
               </div>
             </div>
           </div>
@@ -584,38 +536,116 @@ export function MarketingTraction() {
 /* ---------------------------------- 07 --------------------------------- */
 
 const why = [
-  { i: ChefHat, t: "Готовая рецептура", d: "Меню, протестированное на 1,4 млн заказов.", c: "bg-brand-orange" },
-  { i: MonitorSmartphone, t: "IT-экосистема", d: "POS, приложение и аналитика из коробки.", c: "bg-brand-yellow" },
-  { i: Truck, t: "Поставки", d: "Централизованные закупки по цене сети.", c: "bg-brand-red" },
-  { i: Megaphone, t: "Маркетинг", d: "Digital-запуск и контент под ваш город.", c: "bg-brand-lime" },
-  { i: LineChart, t: "Юнит-экономика", d: "Прозрачная модель: считаем до открытия.", c: "bg-brand-orange" },
-  { i: Headphones, t: "Поддержка 24/7", d: "Персональный менеджер на всём пути.", c: "bg-brand-dark" },
+  {
+    t: "Понятный продукт",
+    d: "Знаком каждому, высокий повторный спрос.",
+    i: Flame,
+    c: "bg-[#FF6E00] text-white",
+    badge: null,
+    badgeCls: "",
+  },
+  {
+    t: "Быстрый сервис",
+    d: "Приготовление и выдача от 3 минут.",
+    i: Zap,
+    c: "bg-[#FFD000] text-[#1D221C]",
+    badge: "от 3 мин",
+    badgeCls: "bg-amber-100 text-amber-800",
+  },
+  {
+    t: "Компактный формат",
+    d: "Оптимизированная площадь от 55 м².",
+    i: MapPin,
+    c: "bg-[#F60019] text-white",
+    badge: "от 55 м²",
+    badgeCls: "bg-red-100 text-red-700",
+  },
+  {
+    t: "Доступный вход",
+    d: "Инвестиции от $30 000 до $50 000.",
+    i: Wallet,
+    c: "bg-[#9FCE00] text-[#1D221C]",
+    badge: "от $30 000",
+    badgeCls: "bg-lime-100 text-lime-800",
+  },
+  {
+    t: "Масштабируемость",
+    d: "Легкое открытие 2-й и 3-й точек.",
+    i: TrendingUp,
+    c: "bg-[#FF6E00] text-white",
+    badge: null,
+    badgeCls: "",
+  },
+  {
+    t: "Готовая IT-инфраструктура",
+    d: "Касса, CRM, складской учет, приложение.",
+    i: Smartphone,
+    c: "bg-[#9333EA] text-white",
+    badge: "App + CRM",
+    badgeCls: "bg-purple-100 text-purple-700",
+  },
 ];
 
 export function WhyUsGrid() {
   return (
-    <Section>
-      <Eyebrow>Почему мы</Eyebrow>
-      <Title>Бизнес, который просто работает</Title>
+    <Section className="py-16 sm:py-20 max-w-7xl mx-auto px-4">
+      {/* Pill Badge */}
+      <div className="flex justify-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-4 py-1 text-xs font-extrabold uppercase text-orange-600">
+          ПОЧЕМУ МЫ
+        </span>
+      </div>
+
+      {/* Headline H2 */}
+      <h2 className="mt-3 text-center font-display text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
+        Почему <span className="font-black text-[#FF6E00]">HOTY DOGY</span>?
+      </h2>
+
+      {/* Subtitle */}
+      <p className="mx-auto mb-12 mt-2 max-w-2xl text-center text-base font-medium text-neutral-600">
+        Понятный продукт. Понятный формат. Готовая система.
+      </p>
+
+      {/* 6 Cards Grid */}
       <motion.div
         variants={staggerParent}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
-        className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
         {why.map((f) => (
           <motion.div
             key={f.t}
             variants={staggerChild}
-            whileHover={{ scale: 1.03 }}
-            className="rounded-[2rem] bg-white p-7 shadow-xl shadow-brand-orange/10"
+            className="group relative rounded-3xl border border-neutral-100 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between"
           >
-            <div className={`grid h-14 w-14 place-items-center rounded-full ${f.c}`}>
-              <f.i className="h-7 w-7 text-white" />
+            <div>
+              {/* Top Row: Icon Badge + Pill Badge (if present) */}
+              <div className="flex items-start justify-between">
+                <div
+                  className={`grid h-12 w-12 place-items-center rounded-2xl ${f.c} shadow-md shadow-black/5 transition-transform duration-300 group-hover:scale-105`}
+                >
+                  <f.i className="h-6 w-6" />
+                </div>
+
+                {f.badge && (
+                  <span
+                    className={`rounded-full px-3 py-1 text-[11px] font-extrabold tracking-tight ${f.badgeCls}`}
+                  >
+                    {f.badge}
+                  </span>
+                )}
+              </div>
+
+              {/* Title & Description */}
+              <h3 className="mt-6 font-display text-xl font-black text-neutral-900 tracking-tight">
+                {f.t}
+              </h3>
+              <p className="mt-2 text-sm font-medium leading-relaxed text-neutral-600">
+                {f.d}
+              </p>
             </div>
-            <h3 className="mt-5 font-display text-xl font-black">{f.t}</h3>
-            <p className="mt-2 text-sm text-brand-dark/60">{f.d}</p>
           </motion.div>
         ))}
       </motion.div>
@@ -625,87 +655,264 @@ export function WhyUsGrid() {
 
 /* ---------------------------------- 09 --------------------------------- */
 
-const pack = [
-  "Право работы под брендом ХОТИ ДОГИ",
-  "Полный брендбук и дизайн-проект точки",
-  "Технологические карты и рецептуры",
-  "Обучение управляющего и поваров",
-  "Подбор и оценка локации",
-  "POS-система и настройка учёта",
-  "Подключение к мобильному приложению",
-  "Пакет маркетинга на запуск",
-  "Договоры с поставщиками сети",
-  "Сопровождение первые 90 дней",
+const franchisePackageItems = [
+  {
+    num: "01",
+    title: "Брендбук и визуальный стиль",
+    desc: "Гайдлайн, айдентика, макеты полиграфии и правила оформления точки.",
+  },
+  {
+    num: "02",
+    title: "Технологические карты и рецептуры",
+    desc: "Полное меню, стандарты граммовок, сезонные новинки и комбо-наборы.",
+  },
+  {
+    num: "03",
+    title: "Помощь в подборе локации",
+    desc: "Анализ пешеходного трафика, аудит помещения и согласование аренды.",
+  },
+  {
+    num: "04",
+    title: "Индивидуальный дизайн-проект",
+    desc: "Планировочное решение и 3D-визуализация под формат вашей локации.",
+  },
+  {
+    num: "05",
+    title: "Спецификация оборудования",
+    desc: "Подбор, расстановка и централизованная закупка по партнерским ценам.",
+  },
+  {
+    num: "06",
+    title: "Обучение владельца и персонала",
+    desc: "Стандарты сервиса, приготовление, санитария и обучение работе на кассе.",
+  },
+  {
+    num: "07",
+    title: "Налаженная цепочка поставок",
+    desc: "Прямые поставки фирменных полуфабрикатов, сосисок, булочек и упаковки.",
+  },
+  {
+    num: "08",
+    title: "Маркетинговый запуск",
+    desc: "Готовая digital-кампания, таргет, промо-материалы и привлечение первых гостей.",
+  },
+  {
+    num: "09",
+    title: "IT-экосистема и CRM",
+    desc: "Подключение к POS-кассе, аналитике и мобильному приложению HOTY DOGY.",
+    hasBrand: true,
+  },
+  {
+    num: "10",
+    title: "Пожизненный операционный контроль",
+    desc: "Персональный куратор, регулярный аудит качества и непрерывная поддержка.",
+    isVip: true,
+  },
 ];
 
 export function FranchisePackage() {
   return (
-    <Section>
-      <Eyebrow>Что входит</Eyebrow>
-      <Title>10 пунктов вашего пакета</Title>
-      <motion.ul
+    <Section className="py-16 sm:py-20 max-w-5xl mx-auto px-4">
+      {/* Pill Badge */}
+      <div className="flex justify-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-4 py-1 text-xs font-bold uppercase text-orange-600">
+          ПОДДЕРЖКА ПАРТНЕРОВ
+        </span>
+      </div>
+
+      {/* Headline H2 */}
+      <h2 className="mt-3 text-center font-display text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
+        Что вы получаете при покупке франшизы{" "}
+        <span className="font-black text-[#FF6E00]">HOTY DOGY</span>
+      </h2>
+
+      {/* Subtitle */}
+      <p className="mx-auto mb-12 mt-2 max-w-xl text-center text-base font-medium text-neutral-600">
+        10 структурированных направлений — от брендбука до пожизненного операционного контроля.
+      </p>
+
+      {/* 2-Column Grid */}
+      <motion.div
         variants={staggerParent}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
-        className="mt-10 grid gap-3 md:grid-cols-2"
+        className="grid grid-cols-1 md:grid-cols-2 gap-4"
       >
-        {pack.map((p) => (
-          <motion.li
-            key={p}
+        {franchisePackageItems.map((item) => (
+          <motion.div
+            key={item.num}
             variants={staggerChild}
-            className="flex items-center gap-3 rounded-full bg-white px-5 py-4 shadow-lg shadow-brand-orange/10"
+            className={
+              item.isVip
+                ? "bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-orange-500/5 border-2 border-orange-400 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex items-start gap-4 relative overflow-hidden"
+                : "bg-white rounded-2xl p-5 border border-neutral-100 shadow-sm hover:shadow-md hover:border-orange-200 transition-all flex items-start gap-4"
+            }
           >
-            <CheckCircle2 color="#9fce00" className="h-6 w-6 shrink-0" />
-            <span className="text-sm font-semibold">{p}</span>
-          </motion.li>
+            {/* Numeric Badge */}
+            <div
+              className={
+                item.isVip
+                  ? "w-10 h-10 rounded-xl bg-orange-500 text-white font-black text-sm flex items-center justify-center shrink-0 shadow-sm"
+                  : "w-10 h-10 rounded-xl bg-orange-50 text-[#FF6E00] font-black text-sm flex items-center justify-center shrink-0 border border-orange-100/60"
+              }
+            >
+              {item.num}
+            </div>
+
+            {/* Content */}
+            <div className="flex-1">
+              <div className="flex items-center justify-between gap-2">
+                <h3 className="font-display font-black text-base text-neutral-900 tracking-tight">
+                  {item.title}
+                </h3>
+                {item.isVip && (
+                  <span className="bg-[#9FCE00] text-neutral-900 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase shrink-0">
+                    Главное преимущество
+                  </span>
+                )}
+              </div>
+              <p className="mt-1 text-xs sm:text-sm text-neutral-600 font-medium leading-relaxed">
+                {item.hasBrand ? (
+                  <>
+                    Подключение к POS-кассе, аналитике и мобильному приложению{" "}
+                    <span className="font-black text-[#FF6E00]">HOTY DOGY</span>.
+                  </>
+                ) : (
+                  item.desc
+                )}
+              </p>
+            </div>
+          </motion.div>
         ))}
-      </motion.ul>
+      </motion.div>
     </Section>
   );
 }
 
 /* ---------------------------------- 12 --------------------------------- */
 
-const branches = [
-  { img: branch1, t: "Compass Mall", d: "Киоск · 12 м²" },
-  { img: branch2, t: "Samarqand Darvoza", d: "Фудкорт · 28 м²" },
-  { img: branch3, t: "Chilonzor Street", d: "Express · 8 м²" },
+const officialBranches = [
+  {
+    name: "Hoty Dogy Тараса Шевченко",
+    address: "ул. Саид Барака, 14",
+    format: "Street Retail • 55 м²",
+    img: branch1,
+  },
+  {
+    name: "Hoty Dogy Атлас Чимган",
+    address: "ул. Тимура Малика, 3А (ТРЦ Atlas)",
+    format: "Food Court • 28 м²",
+    img: branch2,
+  },
+  {
+    name: "Hoty Dogy NEXT",
+    address: "ул. Бабура, 6 (ТРК NEXT)",
+    format: "Food Court • 25 м²",
+    img: branch3,
+  },
+  {
+    name: "Hoty Dogy Чиланзар",
+    address: "ул. Лутфий, 56",
+    format: "Street Retail • 58 м²",
+    img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    name: "Hoty Dogy IT Park",
+    address: "Мирзо-Улугбекский р-н, ул. Тепамасжид, 4-й проезд",
+    format: "Express • 30 м²",
+    img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    name: "Hoty Dogy Ц-1",
+    address: "Мирзо-Улугбекский р-н, ул. Буюк Ипак Йули, 31",
+    format: "Street Retail • 60 м²",
+    img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
+  },
 ];
 
 export function LocationsGallery() {
+  const scrollToLead = () => {
+    document.getElementById("lead")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <Section>
-      <Eyebrow>Наши точки</Eyebrow>
-      <Title>Как это выглядит вживую</Title>
-      <div className="no-scrollbar mt-10 -mx-5 flex snap-x gap-5 overflow-x-auto px-5 pb-3">
-        {branches.map((b) => (
-          <motion.figure
-            key={b.t}
-            whileHover={{ scale: 1.02 }}
-            className="min-w-[80%] snap-center overflow-hidden rounded-[2rem] bg-white shadow-xl shadow-brand-orange/10 md:min-w-[420px]"
+    <Section id="locations" className="py-16 sm:py-20 max-w-6xl mx-auto px-4">
+      {/* 1. Header & Section Settings */}
+      <div className="flex justify-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-4 py-1 text-xs font-bold uppercase text-orange-600">
+          НАШИ ТОЧКИ
+        </span>
+      </div>
+
+      <h2 className="mt-3 text-center font-display text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
+        Действующие филиалы <span className="font-black text-[#FF6E00]">HOTY DOGY</span>
+      </h2>
+
+      <p className="mx-auto mb-10 mt-2 max-w-2xl text-center text-base font-medium text-neutral-600">
+        Реальные точки сети в топовых локациях Ташкента. Оцените концепцию и поток гостей вживую.
+      </p>
+
+      {/* 2. 6-Card Responsive Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {officialBranches.map((b) => (
+          <motion.div
+            key={b.name}
+            whileHover={{ y: -6 }}
+            className="bg-white rounded-3xl overflow-hidden border border-neutral-100 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
           >
-            <img
-              src={b.img}
-              alt={`Филиал ХОТИ ДОГИ ${b.t}`}
-              width={1024}
-              height={768}
-              loading="lazy"
-              className="h-56 w-full object-cover"
-            />
-            <figcaption className="flex items-center justify-between p-5">
+            {/* Image aspect ratio aspect-[4/3] rounded-t-3xl overflow-hidden relative */}
+            <div className="aspect-[4/3] relative overflow-hidden rounded-t-3xl bg-neutral-100">
+              <img
+                src={b.img}
+                alt={`Филиал ${b.name}`}
+                loading="lazy"
+                className="group-hover:scale-105 transition-transform duration-500 object-cover w-full h-full"
+              />
+              {/* Floating Format Pill */}
+              <span className="bg-black/65 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full absolute top-3 left-3 shadow-sm">
+                {b.format}
+              </span>
+              {/* Floating Green Status Badge */}
+              <span className="bg-emerald-500/90 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full absolute top-3 right-3 shadow-sm flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                ● Работает
+              </span>
+            </div>
+
+            {/* Card Body */}
+            <div className="p-5 flex flex-col justify-between flex-1">
               <div>
-                <div className="font-display text-lg font-black">{b.t}</div>
-                <div className="text-xs font-semibold text-brand-dark/50">
-                  {b.d}
+                <h3 className="font-display font-black text-lg text-neutral-900 tracking-tight">
+                  {b.name}
+                </h3>
+                <div className="flex items-start gap-1.5 text-xs text-neutral-500 font-medium mt-2 leading-relaxed">
+                  <MapPin className="w-3.5 h-3.5 text-[#FF6E00] shrink-0 mt-0.5" />
+                  <span>{b.address}</span>
                 </div>
               </div>
-              <Pill className="bg-brand-lime/20 text-brand-dark">
-                <MapPin className="h-4 w-4" /> Ташкент
-              </Pill>
-            </figcaption>
-          </motion.figure>
+            </div>
+          </motion.div>
         ))}
+      </div>
+
+      {/* 4. Bottom CTA Card */}
+      <div className="mt-12 bg-neutral-900 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 max-w-4xl mx-auto shadow-xl">
+        <div>
+          <h4 className="font-display font-black text-lg sm:text-xl text-white">
+            Хотите открыть филиал в своем районе или другом городе Узбекистана?
+          </h4>
+          <p className="text-xs sm:text-sm text-neutral-400 font-medium mt-1">
+            Проверьте доступность и забронируйте эксклюзивную локацию.
+          </p>
+        </div>
+        <motion.button
+          {...tap}
+          onClick={scrollToLead}
+          className="bg-[#FF6E00] hover:bg-orange-600 text-white font-bold px-6 py-3.5 rounded-2xl transition-all shadow-md shrink-0 cursor-pointer text-sm whitespace-nowrap flex items-center gap-2"
+        >
+          Проверить доступность локации ↗
+        </motion.button>
       </div>
     </Section>
   );
@@ -713,91 +920,157 @@ export function LocationsGallery() {
 
 /* ---------------------------------- 13 --------------------------------- */
 
-const steps = [
-  { t: "Заявка", i: Sparkles },
-  { t: "Знакомство", i: Users },
-  { t: "Расчёт модели", i: LineChart },
-  { t: "Договор", i: BadgePercent },
-  { t: "Локация", i: MapPin },
-  { t: "Ремонт и оборудование", i: Wrench },
-  { t: "Обучение команды", i: ChefHat },
-  { t: "Запуск", i: Rocket },
+const roadmapSteps = [
+  { num: "01", icon: Sparkles, title: "Заявка", desc: "Оставляете контакты на сайте" },
+  { num: "02", icon: Users, title: "Знакомство", desc: "Онлайн-встреча с фаундерами" },
+  { num: "03", icon: BarChart3, title: "Расчёт модели", desc: "Финмодель под ваш бюджет" },
+  { num: "04", icon: FileCheck, title: "Договор", desc: "Юридическое оформление" },
+  { num: "05", icon: MapPin, title: "Локация", desc: "Аудит трафика и аренда" },
+  { num: "06", icon: Wrench, title: "Ремонт и оборудование", desc: "Дизайн-проект и брендинг" },
+  { num: "07", icon: ChefHat, title: "Обучение команды", desc: "Стандарты сервиса и меню" },
+  { num: "08", icon: Rocket, title: "Торжественный запуск", desc: "Digital-промо и первые продажи", isAccent: true },
 ];
 
 export function LaunchStepper() {
   return (
-    <Section>
-      <Eyebrow>Дорожная карта</Eyebrow>
-      <Title>От заявки до запуска — 45 дней</Title>
-      <motion.div
-        variants={staggerParent}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-80px" }}
-        className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
-      >
-        {steps.map((s, i) => (
-          <motion.div
-            key={s.t}
-            variants={staggerChild}
-            whileHover={{ scale: 1.04 }}
-            className="rounded-[2rem] border-2 border-brand-dark/5 bg-white p-6 shadow-lg shadow-brand-orange/10"
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-display text-3xl font-black text-brand-orange/30">
-                0{i + 1}
-              </span>
-              <s.i className="h-6 w-6 text-brand-orange" />
+    <Section id="roadmap" className="py-16 sm:py-20 max-w-7xl mx-auto px-4">
+      {/* 1. Section Header */}
+      <div className="flex justify-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-lime-100 px-4 py-1 text-xs font-bold uppercase text-lime-800">
+          ДОРОЖНАЯ КАРТА
+        </span>
+      </div>
+
+      <h2 className="mt-3 text-center font-display text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
+        От заявки до запуска — за 45 дней
+      </h2>
+
+      <p className="mx-auto mb-12 mt-2 max-w-xl text-center text-base font-medium text-neutral-600">
+        Чёткий пошаговый roadmap от первого звонка до торжественного открытия вашей точки{" "}
+        <span className="font-black text-[#FF6E00]">HOTY DOGY</span>.
+      </p>
+
+      {/* 2. 8-Step Roadmap Grid */}
+      <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 relative">
+        {roadmapSteps.map((step, index) => {
+          const Icon = step.icon;
+          return (
+            <motion.div
+              key={step.num}
+              variants={staggerChild}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-40px" }}
+              whileHover={{ y: -4 }}
+              className={
+                step.isAccent
+                  ? "bg-gradient-to-br from-orange-50/80 via-amber-50/50 to-white rounded-3xl p-6 border-2 border-orange-400 shadow-md hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between min-h-[160px]"
+                  : "bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm hover:shadow-lg transition-all duration-300 relative flex flex-col justify-between min-h-[160px]"
+              }
+            >
+              {/* Connector line for desktop */}
+              {index !== 3 && index !== 7 && (
+                <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 w-6 border-t-2 border-dashed border-orange-200 z-10 pointer-events-none" />
+              )}
+
+              {/* Card Header: Number Badge + Orange Icon */}
+              <div className="flex items-center justify-between">
+                <span className="w-9 h-9 rounded-xl bg-neutral-100 text-neutral-900 font-black text-xs flex items-center justify-center">
+                  {step.num}
+                </span>
+                <div className="w-10 h-10 rounded-2xl bg-orange-50 text-[#FF6E00] flex items-center justify-center">
+                  <Icon className="w-5 h-5" />
+                </div>
+              </div>
+
+              {/* Card Body: Title & Description */}
+              <div className="mt-4">
+                <h3 className="font-display font-black text-base text-neutral-900 tracking-tight leading-snug">
+                  {step.title}
+                </h3>
+                <p className="mt-1 text-xs text-neutral-500 font-medium leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* 3. Post-Launch Support Conclusion Card */}
+      <div className="max-w-6xl mx-auto mt-8 bg-neutral-900 text-white rounded-3xl p-6 sm:p-8 border border-neutral-800 shadow-xl">
+        <div className="flex flex-col md:flex-row gap-8 items-start">
+          {/* Header */}
+          <div className="md:w-1/3 shrink-0">
+            <span className="bg-orange-500/20 text-orange-400 font-bold text-xs px-3 py-1 rounded-full uppercase inline-block">
+              ПОСЛЕ ОТКРЫТИЯ
+            </span>
+            <h3 className="text-xl sm:text-2xl font-black text-white mt-4 leading-tight tracking-tight">
+              Мы остаёмся рядом на каждом этапе
+            </h3>
+            <p className="text-neutral-400 text-sm mt-2 leading-relaxed">
+              Ваш бизнес не останется без внимания — управляющая компания обеспечивает бесперебойную работу сети.
+            </p>
+          </div>
+          
+          {/* 4 Pillars Grid */}
+          <div className="md:w-2/3 w-full grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {/* Pillar 1 */}
+            <div className="bg-neutral-800/50 rounded-2xl p-5 border border-neutral-700/50 flex items-start gap-4 transition-all hover:bg-neutral-800">
+              <div className="w-10 h-10 rounded-xl bg-[#FF6E00] text-white flex items-center justify-center shrink-0">
+                <Megaphone className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-display font-bold text-base text-white">Маркетинг</h4>
+                <p className="text-neutral-400 text-xs mt-1 leading-relaxed">
+                  Федеральные промо-кампании, SMM и привлечение трафика.
+                </p>
+              </div>
             </div>
-            <div className="mt-4 font-display text-lg leading-tight font-black">
-              {s.t}
+            {/* Pillar 2 */}
+            <div className="bg-neutral-800/50 rounded-2xl p-5 border border-neutral-700/50 flex items-start gap-4 transition-all hover:bg-neutral-800">
+              <div className="w-10 h-10 rounded-xl bg-[#F60019] text-white flex items-center justify-center shrink-0">
+                <MonitorSmartphone className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-display font-bold text-base text-white">IT и Приложение</h4>
+                <p className="text-neutral-400 text-xs mt-1 leading-relaxed">
+                  Обновления POS-системы, мобильного приложения и аналитики.
+                </p>
+              </div>
             </div>
-          </motion.div>
-        ))}
-      </motion.div>
+            {/* Pillar 3 */}
+            <div className="bg-neutral-800/50 rounded-2xl p-5 border border-neutral-700/50 flex items-start gap-4 transition-all hover:bg-neutral-800">
+              <div className="w-10 h-10 rounded-xl bg-[#9FCE00] text-neutral-900 flex items-center justify-center shrink-0">
+                <Boxes className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-display font-bold text-base text-white">Бесперебойное снабжение</h4>
+                <p className="text-neutral-400 text-xs mt-1 leading-relaxed">
+                  Поставки фирменных полуфабрикатов и упаковки точно в срок.
+                </p>
+              </div>
+            </div>
+            {/* Pillar 4 */}
+            <div className="bg-neutral-800/50 rounded-2xl p-5 border border-neutral-700/50 flex items-start gap-4 transition-all hover:bg-neutral-800">
+              <div className="w-10 h-10 rounded-xl bg-[#FFD000] text-neutral-900 flex items-center justify-center shrink-0">
+                <Lightbulb className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-display font-bold text-base text-white">Развитие меню</h4>
+                <p className="text-neutral-400 text-xs mt-1 leading-relaxed">
+                  Регулярный ввод сезонных новинок и комбо для роста среднего чека.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </Section>
   );
 }
 
-/* ---------------------------------- 14 --------------------------------- */
 
-const support = [
-  { i: Megaphone, t: "Маркетинг", d: "Ежемесячные кампании, SMM и акции сети.", c: "bg-brand-orange" },
-  { i: MonitorSmartphone, t: "IT", d: "Обновления POS, приложения и аналитики.", c: "bg-brand-red" },
-  { i: Boxes, t: "Снабжение", d: "Логистика продуктов и упаковки по графику.", c: "bg-brand-lime" },
-  { i: Lightbulb, t: "Развитие", d: "Новые позиции меню каждый квартал.", c: "bg-brand-yellow" },
-];
-
-export function SupportGrid() {
-  return (
-    <Section>
-      <Eyebrow>После открытия</Eyebrow>
-      <Title>Мы остаёмся рядом</Title>
-      <motion.div
-        variants={staggerParent}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-80px" }}
-        className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
-      >
-        {support.map((s) => (
-          <motion.div
-            key={s.t}
-            variants={staggerChild}
-            whileHover={{ scale: 1.04 }}
-            className="rounded-[2rem] bg-white p-7 shadow-xl shadow-brand-orange/10"
-          >
-            <div className={`grid h-12 w-12 place-items-center rounded-full ${s.c}`}>
-              <s.i className="h-6 w-6 text-white" />
-            </div>
-            <h3 className="mt-5 font-display text-xl font-black">{s.t}</h3>
-            <p className="mt-2 text-sm text-brand-dark/60">{s.d}</p>
-          </motion.div>
-        ))}
-      </motion.div>
-    </Section>
-  );
-}
 
 export function Footer() {
   return (
@@ -810,7 +1083,9 @@ export function Footer() {
             className="h-13 w-auto object-contain md:h-14 transition-transform hover:scale-105"
           />
         </a>
-        <p className="text-sm">© 2026 ХОТИ ДОГИ · Ташкент, Узбекистан</p>
+        <p className="text-sm">
+          © 2026 <span className="font-black text-brand-yellow">HOTY DOGY</span> · Ташкент, Узбекистан
+        </p>
         <a
           href="tel:+998900000000"
           className="inline-flex items-center gap-2 text-sm font-semibold text-brand-yellow"

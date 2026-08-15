@@ -10,7 +10,6 @@ import {
   LocationsGallery,
   MarketingTraction,
   MetricsRow,
-  SupportGrid,
   WhyUsGrid,
 } from "@/components/hoty/blocks";
 import {
@@ -20,6 +19,7 @@ import {
   LeadGenForm,
   ROICalculator,
   SuccessModal,
+  FaqAccordion,
 } from "@/components/hoty/interactive";
 
 export const Route = createFileRoute("/")({
@@ -82,9 +82,9 @@ function Index() {
         <FranchisePackage />
         <FormatsPricing onCta={scrollToForm} />
         <ROICalculator calcData={calcData} setCalcData={setCalcData} />
-        <LocationsGallery />
         <LaunchStepper />
-        <SupportGrid />
+        <LocationsGallery />
+        <FaqAccordion />
         <LeadGenForm
           lang={lang}
           isSubmitting={isSubmitting}
