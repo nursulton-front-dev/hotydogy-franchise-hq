@@ -4,8 +4,11 @@ export interface LeadData {
   city: string;
   budget: string;
   format?: string;
+  language?: string;
   lang?: "ru" | "uz";
 }
+
+export type LeadPayload = LeadData;
 
 export async function handleLeadSubmission(payload: LeadData): Promise<boolean> {
   const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
@@ -22,19 +25,32 @@ export async function handleLeadSubmission(payload: LeadData): Promise<boolean> 
   // Compile list of unique recipient chat IDs (group + direct users)
   const recipients = Array.from(new Set([groupChatId, ...adminIds])).filter(Boolean);
 
-  const timestamp = new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Tashkent' });
+  const now = new Date();
+  const timestamp = new Intl.DateTimeFormat('ru-RU', {
+    timeZone: 'Asia/Tashkent',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(now);
+
+  const langCode = (payload.language || payload.lang || 'RU').toUpperCase();
+  const langDisplay = langCode === 'UZ' ? '🇺🇿 O‘zbekcha (UZ)' : '🇷🇺 Русский (RU)';
 
   const telegramMessage = `
 🌭 <b>НОВАЯ ЗАЯВКА НА ФРАНШИЗУ HOTY DOGY!</b>
 ━━━━━━━━━━━━━━━━━━
 👤 <b>Имя:</b> ${payload.name || 'Не указано'}
 📞 <b>Телефон:</b> ${payload.phone || 'Не указан'}
-📍 <b>Город / Локация:</b> ${payload.city || 'Не указан'}
-💰 <b>Планируемый бюджет:</b> ${payload.budget || 'Не указан'}
-🏢 <b>Формат точки:</b> ${payload.format || 'Не выбран'}
-⏰ <b>Время (Ташкент):</b> ${timestamp}
+🌐 <b>Язык сайта:</b> ${langDisplay}
+📍 <b>Город:</b> ${payload.city || 'Не указан'}
+💰 <b>Бюджет:</b> ${payload.budget || 'Не указан'}
+🏢 <b>Формат:</b> ${payload.format || 'Не выбран'}
+⏰ <b>Время:</b> ${timestamp}
 ━━━━━━━━━━━━━━━━━━
-<i>Заявка с официального лендинга</i>
+<i>Заявка с официального сайта</i>
 `.trim();
 
   // 1. Telegram Dispatch Promises
@@ -53,14 +69,21 @@ export async function handleLeadSubmission(payload: LeadData): Promise<boolean> 
     : [];
 
   // 2. Google Sheets Webhook Promise
+  const sheetsPayload = {
+    date: timestamp,
+    name: payload.name || '',
+    phone: payload.phone || '',
+    city: payload.city || '',
+    budget: payload.budget || '',
+    format: payload.format || 'Не указан',
+    language: langCode,
+  };
+
   const sheetsPromise = sheetsUrl
     ? fetch(sheetsUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...payload,
-          date: timestamp,
-        }),
+        body: JSON.stringify(sheetsPayload),
         mode: 'no-cors',
       })
     : Promise.resolve();

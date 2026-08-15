@@ -492,6 +492,7 @@ export function LeadGenForm({
     city: string;
     budget: string;
     format: string;
+    language: string;
     lang: "ru" | "uz";
   }) => void;
 }) {
@@ -553,7 +554,12 @@ export function LeadGenForm({
               className="space-y-4"
               onSubmit={(e) => {
                 e.preventDefault();
-                onSubmit({ ...form, format: resolveFormat(), lang: currentLang });
+                onSubmit({
+                  ...form,
+                  format: resolveFormat(),
+                  language: currentLang.toUpperCase(),
+                  lang: currentLang,
+                });
               }}
             >
               {/* Name */}

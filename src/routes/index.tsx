@@ -70,6 +70,7 @@ function IndexContent() {
     city: string;
     budget: string;
     format: string;
+    language?: string;
     lang: "ru" | "uz";
   }) => {
     setIsSubmitting(true);
