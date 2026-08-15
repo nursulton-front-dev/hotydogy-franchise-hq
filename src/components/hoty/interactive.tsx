@@ -66,11 +66,10 @@ export function HeaderNavigation({
               key={l}
               {...tap}
               onClick={() => changeLang(l)}
-              className={`rounded-full px-3.5 py-1 text-xs md:text-sm font-black uppercase transition-all ${
-                currentLang === l
+              className={`rounded-full px-3.5 py-1 text-xs md:text-sm font-black uppercase transition-all ${currentLang === l
                   ? "bg-brand-orange text-white shadow-sm"
                   : "text-brand-dark/60 hover:text-brand-dark"
-              }`}
+                }`}
             >
               {l}
             </motion.button>
@@ -136,11 +135,10 @@ export function AudienceTabs() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`text-xs sm:text-sm whitespace-nowrap cursor-pointer transition-all duration-300 ${
-                isActive
+              className={`text-xs sm:text-sm whitespace-nowrap cursor-pointer transition-all duration-300 ${isActive
                   ? "bg-[#FF6E00] text-white font-bold rounded-full px-5 py-2.5 shadow-md"
                   : "text-neutral-600 hover:text-neutral-900 font-semibold px-4 py-2.5"
-              }`}
+                }`}
             >
               {tab.label}
             </button>
@@ -743,9 +741,8 @@ export function FaqAccordion() {
           return (
             <div
               key={i}
-              className={`bg-white rounded-2xl border transition-all duration-300 overflow-hidden ${
-                isOpen ? "border-orange-200 shadow-md" : "border-neutral-100 shadow-sm"
-              }`}
+              className={`bg-white rounded-2xl border transition-all duration-300 overflow-hidden ${isOpen ? "border-orange-200 shadow-md" : "border-neutral-100 shadow-sm"
+                }`}
             >
               <button
                 onClick={() => toggleOpen(i)}
@@ -755,14 +752,12 @@ export function FaqAccordion() {
                   {item.q}
                 </span>
                 <div
-                  className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${
-                    isOpen ? "bg-orange-100 text-[#FF6E00]" : "bg-neutral-100 text-neutral-500"
-                  }`}
+                  className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${isOpen ? "bg-orange-100 text-[#FF6E00]" : "bg-neutral-100 text-neutral-500"
+                    }`}
                 >
                   <ChevronDown
-                    className={`w-5 h-5 transition-transform duration-300 ${
-                      isOpen ? "rotate-180" : "rotate-0"
-                    }`}
+                    className={`w-5 h-5 transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"
+                      }`}
                   />
                 </div>
               </button>
