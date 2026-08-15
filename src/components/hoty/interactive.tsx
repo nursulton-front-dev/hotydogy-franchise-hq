@@ -17,6 +17,7 @@ import {
   X,
   Zap,
   ChevronDown,
+  Send,
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
@@ -582,64 +583,158 @@ export function LeadGenForm({
     name: string;
     phone: string;
     city: string;
+    budget: string;
     lang: "ru" | "uz";
   }) => void;
 }) {
-  const [form, setForm] = useState({ name: "", phone: "", city: "" });
-
-  const fields = [
-    { k: "name" as const, ru: "Ваше имя", uz: "Ismingiz" },
-    { k: "phone" as const, ru: "Телефон", uz: "Telefon" },
-    { k: "city" as const, ru: "Город", uz: "Shahar" },
-  ];
+  const [form, setForm] = useState({ name: "", phone: "", city: "", budget: "" });
 
   return (
-    <Section id="lead">
-      <div className="rounded-[2rem] bg-white p-8 shadow-xl shadow-brand-orange/15 md:p-14">
-        <Eyebrow>Заявка</Eyebrow>
-        <Title>
-          Получите презентацию
-          <span className="block text-brand-orange">франшизы за 1 минуту</span>
-        </Title>
-        <form
-          className="mt-10 grid gap-4 md:grid-cols-3"
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSubmit({ ...form, lang });
-          }}
-        >
-          {fields.map((f) => (
-            <input
-              key={f.k}
-              required
-              value={form[f.k]}
-              onChange={(e) =>
-                setForm((p) => ({ ...p, [f.k]: e.target.value }))
-              }
-              placeholder={lang === "ru" ? f.ru : f.uz}
-              className="w-full rounded-full border-2 border-brand-dark/10 bg-brand-light px-6 py-4 text-base font-semibold outline-none focus:border-brand-orange"
-            />
-          ))}
-          <input type="hidden" name="lang" value={lang} />
-          <motion.button
-            {...tap}
-            type="submit"
-            disabled={isSubmitting}
-            className="pulse-cta md:col-span-3 inline-flex items-center justify-center gap-3 rounded-full bg-brand-red py-6 font-display text-2xl font-black text-white disabled:opacity-80"
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="h-7 w-7 animate-spin" />
-                Отправляем...
-              </>
-            ) : (
-              <>Забрать презентацию</>
-            )}
-          </motion.button>
-        </form>
-        <p className="mt-4 text-center text-xs font-semibold text-brand-dark/40">
-          Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
-        </p>
+    <Section id="lead" className="py-16 sm:py-24 max-w-6xl mx-auto px-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        {/* Left Column (Value & Offer) */}
+        <div className="lg:col-span-6 space-y-6">
+          <div>
+            <span className="bg-red-50 text-[#F60019] font-bold px-3.5 py-1 rounded-full text-xs uppercase tracking-wider inline-block">
+              ЗАЯВКА
+            </span>
+          </div>
+          <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-neutral-900 leading-tight">
+            Получите презентацию франшизы
+          </h2>
+          <p className="text-neutral-600 text-base leading-relaxed">
+            Оставьте заявку — мы свяжемся с вами, пришлём полную презентацию и рассчитаем индивидуальную финансовую модель для вашей локации.
+          </p>
+          <div className="space-y-3.5 pt-2">
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="w-6 h-6 text-[#9FCE00] shrink-0" />
+              <span className="text-neutral-800 font-semibold mt-0.5">Полная презентация франшизы (PDF)</span>
+            </div>
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="w-6 h-6 text-[#9FCE00] shrink-0" />
+              <span className="text-neutral-800 font-semibold mt-0.5">Индивидуальный расчёт окупаемости и финмодель</span>
+            </div>
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="w-6 h-6 text-[#9FCE00] shrink-0" />
+              <span className="text-neutral-800 font-semibold mt-0.5">Подбор оптимального формата точки и аудит района</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column (Form Card) */}
+        <div className="lg:col-span-6">
+          <div className="bg-white rounded-3xl p-7 sm:p-9 border border-neutral-100 shadow-xl shadow-neutral-200/50">
+            <form
+              className="space-y-4"
+              onSubmit={(e) => {
+                e.preventDefault();
+                onSubmit({ ...form, lang });
+              }}
+            >
+              {/* Name */}
+              <div>
+                <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wide mb-1.5">
+                  Имя
+                </label>
+                <input
+                  required
+                  value={form.name}
+                  onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
+                  placeholder="Введите ваше имя"
+                  className="w-full px-4 py-3.5 rounded-2xl border border-neutral-200 focus:border-[#FF6E00] focus:ring-2 focus:ring-orange-100 outline-none text-sm transition-all"
+                />
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wide mb-1.5">
+                  Номер телефона / Telegram
+                </label>
+                <input
+                  required
+                  type="tel"
+                  value={form.phone}
+                  onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
+                  placeholder="+998 (__) ___-__-__"
+                  className="w-full px-4 py-3.5 rounded-2xl border border-neutral-200 focus:border-[#FF6E00] focus:ring-2 focus:ring-orange-100 outline-none text-sm transition-all"
+                />
+              </div>
+
+              {/* City */}
+              <div>
+                <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wide mb-1.5">
+                  Город / Регион
+                </label>
+                <div className="relative">
+                  <select
+                    required
+                    value={form.city}
+                    onChange={(e) => setForm((p) => ({ ...p, city: e.target.value }))}
+                    className="w-full px-4 py-3.5 rounded-2xl border border-neutral-200 focus:border-[#FF6E00] focus:ring-2 focus:ring-orange-100 outline-none text-sm transition-all bg-white appearance-none pr-10"
+                  >
+                    <option value="" disabled>Выберите город</option>
+                    <option value="Ташкент">Ташкент</option>
+                    <option value="Самарканд">Самарканд</option>
+                    <option value="Бухара">Бухара</option>
+                    <option value="Фергана">Фергана</option>
+                    <option value="Наманган">Наманган</option>
+                    <option value="Андижан">Андижан</option>
+                    <option value="Другой город">Другой город</option>
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Budget */}
+              <div>
+                <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wide mb-1.5">
+                  Планируемый бюджет
+                </label>
+                <div className="relative">
+                  <select
+                    required
+                    value={form.budget}
+                    onChange={(e) => setForm((p) => ({ ...p, budget: e.target.value }))}
+                    className="w-full px-4 py-3.5 rounded-2xl border border-neutral-200 focus:border-[#FF6E00] focus:ring-2 focus:ring-orange-100 outline-none text-sm transition-all bg-white appearance-none pr-10"
+                  >
+                    <option value="" disabled>Выберите бюджет</option>
+                    <option value="$30 000 – $40 000 (Food Court)">$30 000 – $40 000 (Food Court)</option>
+                    <option value="$40 000 – $50 000 (Street Retail)">$40 000 – $50 000 (Street Retail)</option>
+                    <option value="Свыше $50 000 (Масштабирование / Несколько точек)">Свыше $50 000 (Масштабирование / Несколько точек)</option>
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="pt-2">
+                <motion.button
+                  {...tap}
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-[#F60019] hover:bg-[#d50015] text-white font-bold py-4 rounded-2xl w-full shadow-lg shadow-red-500/25 transition-all flex items-center justify-center gap-2 text-base disabled:opacity-80 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                      Отправляем...
+                    </>
+                  ) : (
+                    <>
+                      Отправить заявку и получить презентацию
+                      <Send className="w-5 h-5 ml-1" />
+                    </>
+                  )}
+                </motion.button>
+              </div>
+
+              {/* Privacy Notice */}
+              <p className="text-[11px] text-center text-neutral-400 mt-2 leading-tight">
+                Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
+              </p>
+            </form>
+          </div>
+        </div>
       </div>
     </Section>
   );
@@ -680,11 +775,11 @@ export function SuccessModal({
             <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-brand-lime">
               <PartyPopper className="h-10 w-10 text-white" />
             </div>
-            <h3 className="mt-6 font-display text-3xl font-black">
-              Презентация отправлена
+            <h3 className="mt-6 font-display text-2xl font-black">
+              Спасибо!
             </h3>
-            <p className="mt-2 text-sm font-semibold text-brand-dark/60">
-              Менеджер свяжется с вами в течение 30 минут.
+            <p className="mt-2 text-sm font-semibold text-brand-dark/60 leading-relaxed">
+              Презентация и финмодель отправлены в Telegram.
             </p>
             <motion.a
               {...tap}

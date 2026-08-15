@@ -57,6 +57,7 @@ function Index() {
     name: string;
     phone: string;
     city: string;
+    budget: string;
     lang: "ru" | "uz";
   }) => {
     setIsSubmitting(true);
