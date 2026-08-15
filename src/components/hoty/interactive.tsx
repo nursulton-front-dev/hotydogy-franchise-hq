@@ -410,79 +410,67 @@ export function ROICalculator({
           </div>
         </div>
 
-        {/* RIGHT COLUMN: 4 Metric Cards Grid + CTA */}
-        <div className="lg:col-span-7 flex flex-col justify-between">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Card 1 */}
-            <div className="bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm flex flex-col justify-between">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
-                  {t.calc.dailyRevenue}
-                </span>
-                <div className="bg-amber-100 text-amber-700 p-2.5 rounded-xl">
-                  <DollarSign className="w-5 h-5" />
-                </div>
-              </div>
-              <div className="text-2xl font-black text-neutral-900 mt-4 tracking-tight">
-                {fmt(dailyRevenue)} {t.calc.sumSuffix}
+        {/* RIGHT COLUMN: 4 Metric Cards Grid (Symmetric 2x2 stretch) */}
+        <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 h-full">
+          {/* Card 1 */}
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-neutral-100 shadow-sm flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+                {t.calc.dailyRevenue}
+              </span>
+              <div className="bg-amber-100 text-amber-700 p-2.5 rounded-xl">
+                <DollarSign className="w-5 h-5" />
               </div>
             </div>
-
-            {/* Card 2 */}
-            <div className="bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm flex flex-col justify-between">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
-                  {t.calc.monthlyRevenue}
-                </span>
-                <div className="bg-lime-100 text-lime-800 p-2.5 rounded-xl">
-                  <TrendingUp className="w-5 h-5" />
-                </div>
-              </div>
-              <div className="text-2xl font-black text-neutral-900 mt-4 tracking-tight">
-                {fmt(monthlyRevenue)} {t.calc.sumSuffix}
-              </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className="bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm flex flex-col justify-between">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
-                  {t.calc.monthlyProfit}
-                </span>
-                <div className="bg-purple-100 text-purple-700 p-2.5 rounded-xl">
-                  <Calculator className="w-5 h-5" />
-                </div>
-              </div>
-              <div className="text-2xl font-black text-[#FF6E00] mt-4 tracking-tight">
-                {fmt(Math.round(monthlyProfit))} {t.calc.sumSuffix}
-              </div>
-            </div>
-
-            {/* Card 4 */}
-            <div className="bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm flex flex-col justify-between">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
-                  {t.calc.paybackPeriod}
-                </span>
-                <div className="bg-red-100 text-red-700 p-2.5 rounded-xl">
-                  <Calendar className="w-5 h-5" />
-                </div>
-              </div>
-              <div className="text-2xl font-black text-neutral-900 mt-4 tracking-tight">
-                {t.calc.paybackPrefix ? `${t.calc.paybackPrefix} ` : ""}{paybackMonths} {t.calc.paybackSuffix}
-              </div>
+            <div className="text-2xl sm:text-3xl font-black text-neutral-900 mt-6 tracking-tight">
+              {fmt(dailyRevenue)} {t.calc.sumSuffix}
             </div>
           </div>
 
-          {/* CTA Conversion Button */}
-          <motion.button
-            {...tap}
-            onClick={scrollToLead}
-            className="bg-[#F60019] hover:bg-[#d50015] text-white font-bold py-4 rounded-2xl shadow-lg shadow-red-500/20 transition-all w-full text-center mt-4 cursor-pointer flex items-center justify-center gap-2 text-base"
-          >
-            <FileText className="w-5 h-5" />
-            {t.calc.downloadPdfBtn}
-          </motion.button>
+          {/* Card 2 */}
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-neutral-100 shadow-sm flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+                {t.calc.monthlyRevenue}
+              </span>
+              <div className="bg-lime-100 text-lime-800 p-2.5 rounded-xl">
+                <TrendingUp className="w-5 h-5" />
+              </div>
+            </div>
+            <div className="text-2xl sm:text-3xl font-black text-neutral-900 mt-6 tracking-tight">
+              {fmt(monthlyRevenue)} {t.calc.sumSuffix}
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-neutral-100 shadow-sm flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+                {t.calc.monthlyProfit}
+              </span>
+              <div className="bg-purple-100 text-purple-700 p-2.5 rounded-xl">
+                <Calculator className="w-5 h-5" />
+              </div>
+            </div>
+            <div className="text-2xl sm:text-3xl font-black text-[#FF6E00] mt-6 tracking-tight">
+              {fmt(Math.round(monthlyProfit))} {t.calc.sumSuffix}
+            </div>
+          </div>
+
+          {/* Card 4 */}
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-neutral-100 shadow-sm flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+                {t.calc.paybackPeriod}
+              </span>
+              <div className="bg-red-100 text-red-700 p-2.5 rounded-xl">
+                <Calendar className="w-5 h-5" />
+              </div>
+            </div>
+            <div className="text-2xl sm:text-3xl font-black text-neutral-900 mt-6 tracking-tight">
+              {t.calc.paybackPrefix ? `${t.calc.paybackPrefix} ` : ""}{paybackMonths} {t.calc.paybackSuffix}
+            </div>
+          </div>
         </div>
       </div>
     </Section>

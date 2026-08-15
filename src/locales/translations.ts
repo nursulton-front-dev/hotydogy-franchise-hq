@@ -18,28 +18,23 @@ export const translations = {
     },
     hero: {
       pill: "Франшиза fast food в Узбекистане",
-      titleLine1: "ХОЧЕШЬ НАЧАТЬ СВОЙ БИЗНЕС?",
-      titleLine2: "Начни с",
+      titleLine1: "ХОТИТЕ НАЧАТЬ СВОЙ БИЗНЕС?",
+      titleLine2: "Начните с",
       subtitle:
         "Не нужно придумывать бизнес с нуля. Мы создали готовую концепцию fast food, протестировали продукт и процессы и сегодня развиваем сеть ",
       stat1: "⚡ 8 действующих филиалов",
       stat2: "1 млн+ хот-догов продано",
       ctaPresentation: "Получить презентацию франшизы",
       ctaCalc: "Расчёт прибыли",
-      badges: {
-        delicious: "Вкусный",
-        spicy: "Острый",
-        price: "23 000 сум",
-        juicy: "Сочный",
-      },
+      sauceBadge: "Все дело в соусе",
     },
     metrics: {
-      title: "Цифры, которые говорят сами",
+      title: "Цифры — лучшее доказательство результата.",
       subtitle:
-        "За 3 года мы построили сеть, которая ежедневно обслуживает тысячи гостей по всему Узбекистану.",
+        "За 2+ года мы построили сеть, которая ежедневно обслуживает тысячи гостей по всему Узбекистану.",
       m1Val: "8",
       m1Lbl: "Действующих филиалов",
-      m2Val: "3 года",
+      m2Val: "2+ года",
       m2Lbl: "На рынке Узбекистана",
       m3Val: "1 000 000+",
       m3Lbl: "Проданных хот-догов",
@@ -52,7 +47,7 @@ export const translations = {
     },
     timeline: {
       title: "Эволюция бренда",
-      subtitle: "Путь от идеи до запуска франчайзинга за 3 года.",
+      subtitle: "Путь от идеи до запуска франчайзинга за 2+ года.",
       items: [
         {
           year: "2024",
@@ -109,6 +104,8 @@ export const translations = {
       card4Val: "32%",
       card4Desc: "Дополнительных позиций в чеке (картофель, напитки, соусы)",
       spotBtn: "Читать полный кейс на Spot.uz ↗",
+      caseStudyBtn: "Читать разбор кейса на Spot.uz ↗",
+      interviewBtn: "Интервью основателей на Spot.uz ↗",
     },
     why: {
       eyebrow: "ПОЧЕМУ МЫ",
@@ -151,15 +148,15 @@ export const translations = {
     audience: {
       eyebrow: "ЦЕЛЕВАЯ АУДИТОРИЯ",
       titleStart: "",
-      titleEnd: " — если ты давно хочешь начать своё дело",
+      titleEnd: " — если вы давно хотите начать своё дело",
       subtitle:
-        "Выбери свой профиль и посмотри, как франшиза закрывает твои задачи.",
+        "Выберите свой профиль и посмотрите, как франшиза закрывает ваши задачи.",
       tabs: [
         {
           id: "first-business",
           label: "Первый бизнес",
           headline:
-            "Ты никогда не открывал бизнес, но хочешь попробовать себя в предпринимательстве.",
+            "Вы никогда не открывали бизнес, но хотите попробовать себя в предпринимательстве.",
           bullets: [
             "Обучение владельца и команды всем процессам с нуля",
             "Полная поддержка управляющего на этапе открытия",
@@ -170,7 +167,7 @@ export const translations = {
           id: "young-entrepreneur",
           label: "Молодой предприниматель",
           headline:
-            "У тебя есть энергия, идеи и желание создать свой сильный проект.",
+            "У вас есть энергия, идеи и желание создать свой сильный проект.",
           bullets: [
             "Современный бренд и сильный визуальный стиль",
             "Готовая база лояльных клиентов и мобильное приложение",
@@ -181,7 +178,7 @@ export const translations = {
           id: "interested",
           label: "Интересуешься бизнесом",
           headline:
-            "Ты изучаешь разные направления, но хочешь начать с понятной модели.",
+            "Вы изучаете разные направления, но хотите начать с понятной модели.",
           bullets: [
             "Прозрачная юнит-экономика и расчет окупаемости",
             "Простой продукт со стабильным ежедневным спросом",
@@ -192,7 +189,7 @@ export const translations = {
           id: "existing-business",
           label: "Уже есть бизнес",
           headline:
-            "Хочешь добавить новый высокодоходный проект в свой портфель.",
+            "Хотите добавить новый высокодоходный проект в свой портфель.",
           bullets: [
             "Отработанная операционная модель и контроль качества",
             "Централизованные оптовые поставки ингредиентов",
@@ -203,7 +200,7 @@ export const translations = {
           id: "investor",
           label: "Инвестор",
           headline:
-            "Хочешь вложиться в готовую концепцию и работать по понятной модели.",
+            "Хотите вложиться в готовую концепцию и работать по понятной модели.",
           bullets: [
             "Прогнозируемая доходность и короткий срок окупаемости",
             "Полный аудит и операционная поддержка сети",
@@ -579,20 +576,15 @@ export const translations = {
       stat2: "1 mln+ sotilgan hot-dog",
       ctaPresentation: "Franshiza taqdimotini olish",
       ctaCalc: "Daromadni hisoblash",
-      badges: {
-        delicious: "Mazali",
-        spicy: "Achchiq",
-        price: "23 000 so'mdan",
-        juicy: "Sersuv",
-      },
+      sauceBadge: "Barchasi sousda",
     },
     metrics: {
-      title: "Raqamlar so'zlaganda",
+      title: "Raqamlar — natijaning eng yaxshi isboti.",
       subtitle:
-        "3 yil davomida butun O'zbekiston bo'ylab har kuni minglab mehmonlarga xizmat ko'rsatuvchi mustahkam tarmoq barpo etdik.",
+        "2+ yil davomida butun O'zbekiston bo'ylab har kuni minglab mehmonlarga xizmat ko'rsatuvchi mustahkam tarmoq barpo etdik.",
       m1Val: "8",
       m1Lbl: "Faoliyat yuritayotgan filiallar",
-      m2Val: "3 yil",
+      m2Val: "2+ yil",
       m2Lbl: "O'zbekiston bozorida",
       m3Val: "1 000 000+",
       m3Lbl: "Sotilgan hot-doglar",
@@ -606,7 +598,7 @@ export const translations = {
     timeline: {
       title: "Brend evolyutsiyasi",
       subtitle:
-        "G'oyadan tortib franchayzing tizimigacha — 3 yillik muvaffaqiyat yo'li.",
+        "G'oyadan tortib franchayzing tizimigacha — 2+ yillik muvaffaqiyat yo'li.",
       items: [
         {
           year: "2024",
@@ -663,6 +655,8 @@ export const translations = {
       card4Val: "32%",
       card4Desc: "Chekdagi qo'shimcha mahsulotlar ulushi (fri kartoshkasi, ichimliklar, souslar)",
       spotBtn: "Spot.uz'da to'liq keysni o'qish ↗",
+      caseStudyBtn: "Spot.uz'da keys tahlilini o'qish ↗",
+      interviewBtn: "Spot.uz'da muassislar intervyusi ↗",
     },
     why: {
       eyebrow: "NEGA BIZ",

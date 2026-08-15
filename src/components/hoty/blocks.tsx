@@ -47,13 +47,6 @@ import { useLanguage } from "@/locales/LanguageContext";
 export function HeroSection({ onCta }: { onCta: () => void }) {
   const { lang, t } = useLanguage();
 
-  const floatBadges = [
-    { label: t.hero.badges.delicious, cls: "bg-brand-yellow text-brand-dark", pos: "left-[4%] top-[18%]" },
-    { label: t.hero.badges.spicy, cls: "bg-brand-red text-white", pos: "right-[6%] top-[12%]" },
-    { label: t.hero.badges.price, cls: "bg-brand-lime text-brand-dark", pos: "left-[8%] bottom-[16%]" },
-    { label: t.hero.badges.juicy, cls: "bg-white text-brand-orange", pos: "right-[4%] bottom-[22%]" },
-  ];
-
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-[#ff5500] via-[#ff6e00] to-[#ff8500] min-h-[600px] h-auto md:h-[calc(100vh-80px)] max-h-[850px] flex items-center pt-24 pb-16 md:pt-20 md:pb-16">
       {/* Background ambient lighting effects */}
@@ -124,13 +117,6 @@ export function HeroSection({ onCta }: { onCta: () => void }) {
             >
               {t.hero.ctaPresentation}
             </motion.button>
-            <motion.a
-              {...tap}
-              href="#calc"
-              className="rounded-full bg-white px-7 py-3.5 font-display text-sm md:text-base font-black text-brand-dark shadow-md hover:bg-white/95 transition-transform text-center"
-            >
-              {t.hero.ctaCalc}
-            </motion.a>
           </div>
         </motion.div>
 
@@ -145,22 +131,19 @@ export function HeroSection({ onCta }: { onCta: () => void }) {
             animate={{ y: [0, -14, 0], rotate: [-1.5, 1.5, -1.5] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           />
-          {floatBadges.map((b, i) => (
-            <motion.div
-              key={i}
-              className={`absolute ${b.pos}`}
-              animate={{ y: [0, -10, 0] }}
-              transition={{
-                duration: 2.8 + i * 0.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <Pill className={`${b.cls} shadow-lg shadow-brand-dark/15 text-xs md:text-sm font-bold`}>
-                {b.label}
-              </Pill>
-            </motion.div>
-          ))}
+          <motion.div
+            className="absolute bottom-[5%] right-[2%] md:bottom-[8%] md:right-[5%]"
+            animate={{ y: [0, -8, 0] }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <Pill className="bg-brand-yellow text-brand-dark shadow-xl shadow-black/15 text-xs md:text-sm font-black tracking-wide px-5 py-2 rounded-full border border-white/20">
+              {t.hero.sauceBadge}
+            </Pill>
+          </motion.div>
         </div>
       </div>
 
@@ -366,7 +349,7 @@ export function FounderQuote() {
             <div className="mt-7 flex flex-wrap items-center justify-center md:justify-start">
               <motion.a
                 {...tap}
-                href="https://www.spot.uz"
+                href="https://www.spot.uz/ru/2025/04/30/hoty-dogy/"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 hover:border-white/40"
@@ -479,14 +462,24 @@ export function MarketingTraction() {
             </div>
           </div>
 
-          <div className="mt-7">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 mt-6">
             <a
               href="https://www.spot.uz/ru/2025/04/30/hoty-dogy/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-6 py-3 text-sm font-bold text-neutral-800 hover:bg-neutral-50 transition-colors shadow-sm"
+              className="inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-neutral-100 hover:bg-[#212620] hover:text-white text-neutral-900 font-bold text-xs sm:text-sm border border-neutral-200/80 transition-all duration-200 group"
             >
-              {t.traction.spotBtn} <ExternalLink className="h-4 w-4 text-neutral-500" />
+              <span>{t.traction.caseStudyBtn}</span>
+              <ExternalLink className="w-4 h-4 text-orange-500 group-hover:text-white transition-colors" />
+            </a>
+            <a
+              href="https://www.spot.uz/ru/2025/04/30/hoty-dogy/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-neutral-100 hover:bg-[#212620] hover:text-white text-neutral-900 font-bold text-xs sm:text-sm border border-neutral-200/80 transition-all duration-200 group"
+            >
+              <span>{t.traction.interviewBtn}</span>
+              <ExternalLink className="w-4 h-4 text-orange-500 group-hover:text-white transition-colors" />
             </a>
           </div>
         </div>
@@ -667,10 +660,6 @@ const branchImages = [
 export function LocationsGallery() {
   const { lang, t } = useLanguage();
 
-  const scrollToLead = () => {
-    document.getElementById("lead")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   const branches = t.locations.branches.map((b, idx) => ({
     ...b,
     img: branchImages[idx] || branchImages[0],
@@ -729,24 +718,6 @@ export function LocationsGallery() {
             </div>
           </motion.div>
         ))}
-      </div>
-
-      <div className="mt-12 bg-neutral-900 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 max-w-4xl mx-auto shadow-xl">
-        <div>
-          <h4 className="font-display font-black text-lg sm:text-xl text-white">
-            {t.locations.bottomTitle}
-          </h4>
-          <p className="text-xs sm:text-sm text-neutral-400 font-medium mt-1">
-            {t.locations.bottomSub}
-          </p>
-        </div>
-        <motion.button
-          {...tap}
-          onClick={scrollToLead}
-          className="bg-[#FF6E00] hover:bg-orange-600 text-white font-bold px-6 py-3.5 rounded-2xl transition-all shadow-md shrink-0 cursor-pointer text-sm whitespace-nowrap flex items-center gap-2"
-        >
-          {t.locations.bottomBtn}
-        </motion.button>
       </div>
     </Section>
   );
