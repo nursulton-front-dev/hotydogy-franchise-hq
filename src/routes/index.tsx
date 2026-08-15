@@ -102,7 +102,7 @@ function IndexContent() {
         <ROICalculator calcData={calcData} setCalcData={setCalcData} />
         <LaunchStepper />
         <LocationsGallery />
-        <FaqAccordion />
+        <FaqAccordion onCta={scrollToForm} />
         <LeadGenForm
           isSubmitting={isSubmitting}
           selectedFormat={selectedFormat}

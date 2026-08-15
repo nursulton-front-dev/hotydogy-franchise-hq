@@ -783,7 +783,7 @@ export function SuccessModal({
 
 /* ---------------------------------- FAQ --------------------------------- */
 
-export function FaqAccordion() {
+export function FaqAccordion({ onCta }: { onCta?: () => void }) {
   const { lang, t } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -792,57 +792,60 @@ export function FaqAccordion() {
   };
 
   const scrollToLead = () => {
-    document.getElementById("lead")?.scrollIntoView({ behavior: "smooth" });
+    if (onCta) {
+      onCta();
+    } else {
+      const el = document.getElementById("lead");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+    setTimeout(() => {
+      const input = document.getElementById("lead")?.querySelector("input");
+      if (input) {
+        input.focus();
+      }
+    }, 500);
   };
 
   return (
     <Section className="py-16 sm:py-20 max-w-5xl mx-auto px-4">
       <div className="flex justify-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-4 py-1 text-xs font-bold uppercase text-orange-600">
+        <span className="bg-red-50 text-[#F60019] font-bold px-3.5 py-1 rounded-full text-xs uppercase tracking-wider inline-block mb-3">
           {t.faq.eyebrow}
         </span>
       </div>
-      <h2 className="mt-3 text-center font-display text-3xl sm:text-4xl font-black text-neutral-900 tracking-tight">
+      <h2 className="font-display font-black text-3xl sm:text-4xl text-center text-neutral-900 mb-10">
         {t.faq.title}
       </h2>
-      <p className="mx-auto mb-10 mt-2 max-w-xl text-center text-base font-medium text-neutral-600">
-        {t.faq.subtitle}
-        {lang === "ru" && <><span className="font-black text-[#FF6E00]">HOTY DOGY</span>{t.faq.subtitleEnd}</>}
-      </p>
 
-      <div className="max-w-4xl mx-auto space-y-4">
-        {t.faq.items.map((item, i) => {
-          const isOpen = openIndex === i;
+      <div className="space-y-3">
+        {t.faq.items.map((item, index) => {
+          const isOpen = openIndex === index;
           return (
             <div
-              key={i}
-              className={`bg-white rounded-2xl border transition-all duration-300 overflow-hidden ${isOpen ? "border-orange-200 shadow-md" : "border-neutral-100 shadow-sm"
-                }`}
+              key={index}
+              className="bg-white rounded-2xl border border-neutral-100 overflow-hidden shadow-sm transition-all"
             >
               <button
-                onClick={() => toggleOpen(i)}
-                className="w-full flex items-center justify-between p-5 sm:p-6 text-left focus:outline-none"
+                onClick={() => toggleOpen(index)}
+                className="w-full px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-4 text-left transition-colors hover:bg-neutral-50/80"
               >
-                <span className="font-display font-black text-base sm:text-lg text-neutral-900 pr-4 leading-snug">
+                <span className="font-display font-bold text-base sm:text-lg text-neutral-900">
                   {item.q}
                 </span>
-                <div
-                  className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${isOpen ? "bg-orange-100 text-[#FF6E00]" : "bg-neutral-100 text-neutral-500"
-                    }`}
-                >
-                  <ChevronDown
-                    className={`w-5 h-5 transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"
-                      }`}
-                  />
-                </div>
+                <ChevronDown
+                  className={`w-5 h-5 text-neutral-400 shrink-0 transition-transform duration-300 ${
+                    isOpen ? "rotate-180 text-[#F60019]" : ""
+                  }`}
+                />
               </button>
-              <AnimatePresence initial={false}>
+              <AnimatePresence>
                 {isOpen && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     <div className="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base font-medium text-neutral-600 leading-relaxed border-t border-neutral-50 pt-4">
                       {item.a}
@@ -867,7 +870,7 @@ export function FaqAccordion() {
         <motion.button
           {...tap}
           onClick={scrollToLead}
-          className="bg-[#FF6E00] hover:bg-orange-600 text-white font-bold px-6 py-3.5 rounded-2xl transition-all shadow-md shrink-0 cursor-pointer text-sm whitespace-nowrap"
+          className="bg-[#FF6E00] hover:bg-orange-600 text-white font-bold px-6 py-3.5 rounded-2xl transition-all shadow-md shrink-0 cursor-pointer text-sm whitespace-nowrap flex items-center gap-1.5"
         >
           {t.faq.telegramBtn}
         </motion.button>

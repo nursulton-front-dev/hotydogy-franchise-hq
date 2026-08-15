@@ -68,7 +68,7 @@ export async function handleLeadSubmission(payload: LeadData): Promise<boolean> 
       )
     : [];
 
-  // 2. Google Sheets Webhook Promise
+  // 2. Google Sheets Webhook Promise (Sending in both Body & Query string for maximum AppsScript compatibility)
   const sheetsPayload = {
     date: timestamp,
     name: payload.name || '',
@@ -77,10 +77,28 @@ export async function handleLeadSubmission(payload: LeadData): Promise<boolean> 
     budget: payload.budget || '',
     format: payload.format || 'Не указан',
     language: langCode,
+    lang: langCode.toLowerCase(),
+    Language: langCode,
+    Lang: langCode.toLowerCase(),
+    'Язык': langCode,
+    'Язык сайта': langDisplay,
   };
 
+  const queryParams = new URLSearchParams({
+    date: timestamp,
+    name: payload.name || '',
+    phone: payload.phone || '',
+    city: payload.city || '',
+    budget: payload.budget || '',
+    format: payload.format || 'Не указан',
+    language: langCode,
+    lang: langCode.toLowerCase(),
+  }).toString();
+
+  const targetUrl = sheetsUrl.includes('?') ? `${sheetsUrl}&${queryParams}` : `${sheetsUrl}?${queryParams}`;
+
   const sheetsPromise = sheetsUrl
-    ? fetch(sheetsUrl, {
+    ? fetch(targetUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(sheetsPayload),
