@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { LanguageProvider, useLanguage } from "@/locales/LanguageContext";
 import {
   BrandTimeline,
   Footer,
@@ -35,7 +36,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "6 филиалов, 1400+ заказов в день, своё приложение. Считайте прибыль и получите презентацию франшизы.",
+          "8 филиалов, 1 000 000+ проданных хот-догов, своё приложение. Считайте прибыль и получите презентацию франшизы.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -44,11 +45,15 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-function Index() {
-  const [lang, setLang] = useState<"ru" | "uz">("ru");
+function IndexContent() {
+  const { t } = useLanguage();
   const [calcData, setCalcData] = useState({ traffic: 200, check: 45000 });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    document.title = t.meta.title;
+  }, [t.meta.title]);
 
   const scrollToForm = () =>
     document.getElementById("lead")?.scrollIntoView({ behavior: "smooth" });
@@ -69,7 +74,7 @@ function Index() {
 
   return (
     <div id="top" className="min-h-screen bg-brand-light">
-      <HeaderNavigation lang={lang} setLang={setLang} onCta={scrollToForm} />
+      <HeaderNavigation onCta={scrollToForm} />
       <main>
         <HeroSection onCta={scrollToForm} />
         <MetricsRow />
@@ -87,7 +92,6 @@ function Index() {
         <LocationsGallery />
         <FaqAccordion />
         <LeadGenForm
-          lang={lang}
           isSubmitting={isSubmitting}
           onSubmit={handleSubmit}
         />
@@ -95,5 +99,13 @@ function Index() {
       <Footer />
       <SuccessModal open={showSuccess} onClose={() => setShowSuccess(false)} />
     </div>
+  );
+}
+
+function Index() {
+  return (
+    <LanguageProvider>
+      <IndexContent />
+    </LanguageProvider>
   );
 }

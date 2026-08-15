@@ -13,60 +13,63 @@ import {
   PartyPopper,
   Search,
   TrendingUp,
-  Trophy,
   X,
   Zap,
   ChevronDown,
   Send,
 } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
-import { Eyebrow, Pill, Section, Title, fmt, tap } from "./common";
+import { Section, fmt, tap } from "./common";
 import logo from "@/assets/logo.png";
+import { useLanguage } from "@/locales/LanguageContext";
 
-/* ---------------------------------- 01 --------------------------------- */
+/* ---------------------------------- 01: Header --------------------------------- */
 
 export function HeaderNavigation({
-  lang,
-  setLang,
+  lang: propLang,
+  setLang: propSetLang,
   onCta,
 }: {
-  lang: "ru" | "uz";
-  setLang: (l: "ru" | "uz") => void;
+  lang?: "ru" | "uz";
+  setLang?: (l: "ru" | "uz") => void;
   onCta: () => void;
 }) {
+  const { lang: contextLang, setLang: contextSetLang, t } = useLanguage();
+  const currentLang = propLang || contextLang;
+  const changeLang = propSetLang || contextSetLang;
+
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-brand-dark/5 bg-white/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center gap-4 px-5 py-3">
         <a href="#top" className="flex items-center">
           <img
             src={logo}
-            alt="ХОТИ ДОГИ"
+            alt="HOTY DOGY"
             className="h-11 w-auto object-contain md:h-13 drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)] transition-transform hover:scale-105"
           />
         </a>
         <nav className="ml-6 hidden gap-6 text-sm font-bold text-brand-dark/70 md:flex">
           <a href="#why" className="hover:text-brand-orange">
-            Почему мы
+            {t.nav.whyUs}
           </a>
           <a href="#formats" className="hover:text-brand-orange">
-            Форматы
+            {t.nav.formats}
           </a>
           <a href="#calc" className="hover:text-brand-orange">
-            Калькулятор
+            {t.nav.calculator}
           </a>
         </nav>
 
-        <div className="ml-auto flex items-center gap-2 rounded-full bg-brand-dark/5 p-1">
+        <div className="ml-auto flex items-center gap-1.5 rounded-full bg-brand-dark/5 p-1">
           {(["ru", "uz"] as const).map((l) => (
             <motion.button
               key={l}
               {...tap}
-              onClick={() => setLang(l)}
-              className={`rounded-full px-4 py-1 text-sm font-bold uppercase transition-colors ${
-                lang === l
-                  ? "bg-brand-orange text-white"
-                  : "text-brand-dark/60"
+              onClick={() => changeLang(l)}
+              className={`rounded-full px-3.5 py-1 text-xs md:text-sm font-black uppercase transition-all ${
+                currentLang === l
+                  ? "bg-brand-orange text-white shadow-sm"
+                  : "text-brand-dark/60 hover:text-brand-dark"
               }`}
             >
               {l}
@@ -79,108 +82,55 @@ export function HeaderNavigation({
           onClick={onCta}
           className="rounded-full bg-brand-red px-5 py-2 text-sm font-black text-white shadow-lg shadow-brand-red/25"
         >
-          {lang === "ru" ? "Стать партнёром" : "Hamkor bo'lish"}
+          {t.nav.cta}
         </motion.button>
       </div>
     </header>
   );
 }
 
-/* ---------------------------------- 08 --------------------------------- */
+/* ---------------------------------- 08: Audience Tabs --------------------------------- */
 
-const audienceTabsData = [
-  {
-    id: "first-business",
-    label: "Первый бизнес",
-    icon: GraduationCap,
-    iconBg: "bg-[#FFD000] text-neutral-900",
-    headline:
-      "Ты никогда не открывал бизнес, но хочешь попробовать себя в предпринимательстве.",
-    bullets: [
-      "Обучение владельца и команды всем процессам с нуля",
-      "Полная поддержка управляющего на этапе открытия",
-      "Проверенные готовые технологические карты и рецептуры",
-    ],
-  },
-  {
-    id: "young-entrepreneur",
-    label: "Молодой предприниматель",
-    icon: Zap,
-    iconBg: "bg-[#FF6E00] text-white",
-    headline:
-      "У тебя есть энергия, идеи и желание создать свой сильный проект.",
-    bullets: [
-      "Современный бренд и сильный визуальный стиль",
-      "Готовая база лояльных клиентов и мобильное приложение",
-      "Быстрый старт и возможность масштабирования сети",
-    ],
-  },
-  {
-    id: "interested",
-    label: "Интересуешься бизнесом",
-    icon: Search,
-    iconBg: "bg-purple-600 text-white",
-    headline:
-      "Ты изучаешь разные направления, но хочешь начать с понятной модели.",
-    bullets: [
-      "Прозрачная юнит-экономика и расчет окупаемости",
-      "Простой продукт со стабильным ежедневным спросом",
-      "Готовые чек-листы и стандарты работы",
-    ],
-  },
-  {
-    id: "existing-business",
-    label: "Уже есть бизнес",
-    icon: TrendingUp,
-    iconBg: "bg-[#F60019] text-white",
-    headline:
-      "Хочешь добавить новый высокодоходный проект в свой портфель.",
-    bullets: [
-      "Отработанная операционная модель и контроль качества",
-      "Централизованные оптовые поставки ингредиентов",
-      "IT-система аналитики и удаленный контроль показателей",
-    ],
-  },
-  {
-    id: "investor",
-    label: "Инвестор",
-    icon: Briefcase,
-    iconBg: "bg-[#212620] text-white",
-    headline:
-      "Хочешь вложиться в готовую концепцию и работать по понятной модели.",
-    bullets: [
-      "Прогнозируемая доходность и короткий срок окупаемости",
-      "Полный аудит и операционная поддержка сети",
-      "Масштабирование на несколько точек в регионе",
-    ],
-  },
-];
+const audienceIconsMap: Record<string, { icon: typeof GraduationCap; iconBg: string }> = {
+  "first-business": { icon: GraduationCap, iconBg: "bg-[#FFD000] text-neutral-900" },
+  "young-entrepreneur": { icon: Zap, iconBg: "bg-[#FF6E00] text-white" },
+  "interested": { icon: Search, iconBg: "bg-purple-600 text-white" },
+  "existing-business": { icon: TrendingUp, iconBg: "bg-[#F60019] text-white" },
+  "investor": { icon: Briefcase, iconBg: "bg-[#212620] text-white" },
+};
 
 export function AudienceTabs() {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("first-business");
-  const current =
-    audienceTabsData.find((t) => t.id === activeTab) || audienceTabsData[0];
+
+  const tabData = t.audience.tabs.map((tab) => ({
+    ...tab,
+    ...(audienceIconsMap[tab.id] || { icon: GraduationCap, iconBg: "bg-[#FF6E00] text-white" }),
+  }));
+
+  const current = tabData.find((item) => item.id === activeTab) || tabData[0];
+  if (!current) return null;
 
   return (
     <Section className="py-16 sm:py-20 max-w-7xl mx-auto px-4">
       {/* 1. Section Header */}
       <div className="flex justify-center">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-4 py-1 text-xs font-extrabold uppercase text-orange-600">
-          ЦЕЛЕВАЯ АУДИТОРИЯ
+          {t.audience.eyebrow}
         </span>
       </div>
 
       <h2 className="mt-3 text-center font-display text-3xl font-black tracking-tight text-[#212620] sm:text-4xl">
-        <span className="text-[#FF6E00]">HOTY DOGY</span> — если ты давно хочешь начать своё дело
+        <span className="text-[#FF6E00]">HOTY DOGY</span>{t.audience.titleEnd}
       </h2>
 
       <p className="mx-auto mb-8 mt-2 max-w-xl text-center text-base font-medium text-neutral-600">
-        Выбери свой профиль и посмотри, как франшиза закрывает твои задачи.
+        {t.audience.subtitle}
       </p>
 
       {/* 2. Tab Controls */}
       <div className="bg-neutral-100 p-1.5 rounded-full flex flex-wrap sm:flex-nowrap gap-1 max-w-4xl mx-auto mb-8 justify-center overflow-x-auto no-scrollbar">
-        {audienceTabsData.map((tab) => {
+        {tabData.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
             <button
@@ -240,62 +190,26 @@ export function AudienceTabs() {
   );
 }
 
-/* ---------------------------------- 10 --------------------------------- */
+/* ---------------------------------- 10: Formats & Pricing --------------------------------- */
 
-const storeFormats = [
-  {
-    id: "food-court",
-    title: "Food Court",
-    subtitleLabel: "Остров в ТРЦ",
-    isRecommended: true,
-    topBadge: "ХИТ СЕТИ • БЫСТРЫЙ СТАРТ",
-    topBadgeCls:
-      "bg-[#F60019] text-white font-black text-xs px-3 py-1 rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xs whitespace-nowrap",
-    containerCls:
-      "border-2 border-[#F60019] relative shadow-lg bg-white rounded-3xl p-8 flex flex-col justify-between hover:shadow-xl transition-all",
-    areaPill: "15 – 30 м²",
-    areaPillCls:
-      "bg-orange-50 text-[#FF6E00] font-bold px-3 py-1 rounded-full text-xs inline-block",
-    investmentHeading: "$30 000 – $40 000",
-    subPrice: "инвестиции под ключ (от ~390 млн сум)",
-    features: [
-      "Локация: Зона фуд-корта в популярных ТРЦ",
-      "Срок запуска: от 3 недель",
-      "Персонал: 2 сотрудника в смену",
-      "Срок окупаемости: от 8–10 месяцев",
-    ],
-    ctaText: "Выбрать Food Court",
-    ctaCls:
-      "bg-[#212620] hover:bg-[#FF6E00] text-white font-bold py-3.5 rounded-xl transition-colors w-full mt-6 shadow-sm cursor-pointer",
+const formatStyles: Record<string, { topBadgeCls: string; containerCls: string; areaPillCls: string; ctaCls: string }> = {
+  "food-court": {
+    topBadgeCls: "bg-[#F60019] text-white font-black text-xs px-3 py-1 rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xs whitespace-nowrap",
+    containerCls: "border-2 border-[#F60019] relative shadow-lg bg-white rounded-3xl p-8 flex flex-col justify-between hover:shadow-xl transition-all",
+    areaPillCls: "bg-orange-50 text-[#FF6E00] font-bold px-3 py-1 rounded-full text-xs inline-block",
+    ctaCls: "bg-[#212620] hover:bg-[#FF6E00] text-white font-bold py-3.5 rounded-xl transition-colors w-full mt-6 shadow-sm cursor-pointer",
   },
-  {
-    id: "street-retail",
-    title: "Street Retail",
-    subtitleLabel: "Отдельный вход / Стрит",
-    isRecommended: false,
-    topBadge: "МАКСИМАЛЬНЫЙ ТРАФИК",
-    topBadgeCls:
-      "bg-neutral-900 text-white font-bold text-xs px-3 py-1 rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xs whitespace-nowrap",
-    containerCls:
-      "border border-neutral-200 hover:border-orange-300 relative shadow-sm hover:shadow-md bg-white rounded-3xl p-8 flex flex-col justify-between transition-all",
-    areaPill: "от 55 м²",
-    areaPillCls:
-      "bg-neutral-100 text-neutral-800 font-bold px-3 py-1 rounded-full text-xs inline-block",
-    investmentHeading: "$40 000 – $50 000",
-    subPrice: "инвестиции под ключ (до ~650 млн сум)",
-    features: [
-      "Локация: Первая линия, высокий пешеходный трафик",
-      "Срок запуска: 3 недели – 1 месяц",
-      "Персонал: 3–4 сотрудника в смену",
-      "Срок окупаемости: от 10–12 месяцев",
-    ],
-    ctaText: "Выбрать Street Retail",
-    ctaCls:
-      "bg-neutral-100 hover:bg-neutral-900 hover:text-white text-neutral-900 font-bold py-3.5 rounded-xl transition-colors w-full mt-6 cursor-pointer",
+  "street-retail": {
+    topBadgeCls: "bg-neutral-900 text-white font-bold text-xs px-3 py-1 rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xs whitespace-nowrap",
+    containerCls: "border border-neutral-200 hover:border-orange-300 relative shadow-sm hover:shadow-md bg-white rounded-3xl p-8 flex flex-col justify-between transition-all",
+    areaPillCls: "bg-neutral-100 text-neutral-800 font-bold px-3 py-1 rounded-full text-xs inline-block",
+    ctaCls: "bg-neutral-100 hover:bg-neutral-900 hover:text-white text-neutral-900 font-bold py-3.5 rounded-xl transition-colors w-full mt-6 cursor-pointer",
   },
-];
+};
 
 export function FormatsPricing({ onCta }: { onCta?: (format?: string) => void }) {
+  const { t } = useLanguage();
+
   const handleSelectFormat = (formatId: string) => {
     if (onCta) {
       onCta(formatId);
@@ -311,83 +225,87 @@ export function FormatsPricing({ onCta }: { onCta?: (format?: string) => void })
       {/* 1. Section Header */}
       <div className="flex justify-center">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-4 py-1 text-xs font-bold uppercase text-orange-600">
-          ФОРМАТЫ ТОЧЕК
+          {t.formats.eyebrow}
         </span>
       </div>
 
       <h2 className="mt-3 text-center font-display text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
-        Форматы, которые приносят стабильную прибыль
+        {t.formats.title}
       </h2>
 
       <p className="mx-auto mb-12 mt-2 max-w-xl text-center text-base font-medium text-neutral-600">
-        Компактный, быстрый в запуске и прозрачный по инвестициям бизнес.
+        {t.formats.subtitle}
       </p>
 
       {/* 2. 2-Column Format Cards */}
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-        {storeFormats.map((f) => (
-          <motion.div
-            key={f.id}
-            whileHover={{ y: -4 }}
-            className={f.containerCls}
-          >
-            {/* Top Badge */}
-            <span className={f.topBadgeCls}>{f.topBadge}</span>
+        {t.formats.items.map((f) => {
+          const style = formatStyles[f.id] ?? formatStyles["food-court"];
+          if (!style) return null;
+          return (
+            <motion.div
+              key={f.id}
+              whileHover={{ y: -4 }}
+              className={style.containerCls}
+            >
+              {/* Top Badge */}
+              <span className={style.topBadgeCls}>{f.topBadge}</span>
 
-            <div>
-              {/* Header */}
-              <div className="flex items-center justify-between gap-2 mt-2">
-                <div>
-                  <h3 className="font-display text-2xl sm:text-3xl font-black text-neutral-900">
-                    {f.title}
-                  </h3>
-                  <div className="text-xs font-bold text-neutral-500 mt-0.5">
-                    {f.subtitleLabel}
+              <div>
+                {/* Header */}
+                <div className="flex items-center justify-between gap-2 mt-2">
+                  <div>
+                    <h3 className="font-display text-2xl sm:text-3xl font-black text-neutral-900">
+                      {f.title}
+                    </h3>
+                    <div className="text-xs font-bold text-neutral-500 mt-0.5">
+                      {f.subtitleLabel}
+                    </div>
+                  </div>
+                  <span className={style.areaPillCls}>{f.areaPill}</span>
+                </div>
+
+                {/* Investment Price */}
+                <div className="mt-6">
+                  <div className="text-3xl sm:text-4xl font-black text-neutral-900 tracking-tight">
+                    {f.investmentHeading}
+                  </div>
+                  <div className="text-xs font-medium text-neutral-500 mt-1">
+                    {f.subPrice}
                   </div>
                 </div>
-                <span className={f.areaPillCls}>{f.areaPill}</span>
+
+                {/* Divider */}
+                <div className="my-6 border-t border-neutral-100" />
+
+                {/* Feature List */}
+                <ul className="space-y-3">
+                  {f.features.map((feat) => (
+                    <li key={feat} className="flex items-start gap-3 text-xs sm:text-sm font-semibold text-neutral-800">
+                      <CheckCircle2 className="h-5 w-5 text-[#9FCE00] shrink-0 mt-0.5" />
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              {/* Investment Price */}
-              <div className="mt-6">
-                <div className="text-3xl sm:text-4xl font-black text-neutral-900 tracking-tight">
-                  {f.investmentHeading}
-                </div>
-                <div className="text-xs font-medium text-neutral-500 mt-1">
-                  {f.subPrice}
-                </div>
-              </div>
-
-              {/* Divider */}
-              <div className="my-6 border-t border-neutral-100" />
-
-              {/* Feature List with Lime checkmarks */}
-              <ul className="space-y-3">
-                {f.features.map((feat) => (
-                  <li key={feat} className="flex items-start gap-3 text-xs sm:text-sm font-semibold text-neutral-800">
-                    <CheckCircle2 className="h-5 w-5 text-[#9FCE00] shrink-0 mt-0.5" />
-                    <span>{feat}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* CTA Button */}
-            <motion.button
-              {...tap}
-              onClick={() => handleSelectFormat(f.id)}
-              className={f.ctaCls}
-            >
-              {f.ctaText}
-            </motion.button>
-          </motion.div>
-        ))}
+              {/* CTA Button */}
+              <motion.button
+                {...tap}
+                onClick={() => handleSelectFormat(f.id)}
+                className={style.ctaCls}
+              >
+                {f.ctaText}
+              </motion.button>
+            </motion.div>
+          );
+        })}
       </div>
     </Section>
   );
 }
 
-/* ---------------------------------- 11 --------------------------------- */
+/* ---------------------------------- 11: ROI Calculator --------------------------------- */
 
 export function ROICalculator({
   calcData,
@@ -398,6 +316,7 @@ export function ROICalculator({
     React.SetStateAction<{ traffic: number; check: number }>
   >;
 }) {
+  const { t } = useLanguage();
   const dailyOrders = calcData.traffic;
   const avgCheck = calcData.check;
 
@@ -415,16 +334,16 @@ export function ROICalculator({
       {/* 1. Section Header */}
       <div className="flex justify-center">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-4 py-1 text-xs font-bold uppercase text-orange-600">
-          КАЛЬКУЛЯТОР
+          {t.calc.eyebrow}
         </span>
       </div>
 
       <h2 className="mt-3 text-center font-display text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
-        Рассчитайте окупаемость
+        {t.calc.title}
       </h2>
 
       <p className="mx-auto mb-8 mt-2 max-w-xl text-center text-base font-medium text-neutral-600">
-        Двигайте ползунки и увидите финансовую модель в реальном времени.
+        {t.calc.subtitle}
       </p>
 
       {/* 2. 2-Column Calculator Container */}
@@ -436,7 +355,7 @@ export function ROICalculator({
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-bold text-neutral-700">
-                  Заказов в день
+                  {t.calc.ordersPerDay}
                 </span>
                 <span className="text-2xl font-black text-[#FF6E00]">
                   {fmt(dailyOrders)}
@@ -462,10 +381,10 @@ export function ROICalculator({
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-bold text-neutral-700">
-                  Средний чек
+                  {t.calc.avgCheck}
                 </span>
                 <span className="text-2xl font-black text-[#FF6E00]">
-                  {fmt(avgCheck)} сум
+                  {fmt(avgCheck)} {t.calc.sumSuffix}
                 </span>
               </div>
               <Slider
@@ -479,15 +398,15 @@ export function ROICalculator({
                 className="mt-4 [&_[data-slot=slider-range]]:bg-[#FF6E00]"
               />
               <div className="flex justify-between text-[11px] font-bold text-neutral-400 mt-2">
-                <span>35 000 сум</span>
-                <span>100 000 сум</span>
+                <span>35 000 {t.calc.sumSuffix}</span>
+                <span>100 000 {t.calc.sumSuffix}</span>
               </div>
             </div>
           </div>
 
           {/* Footnote Note Box */}
           <div className="bg-amber-50/80 border border-amber-100 rounded-2xl p-4 text-xs text-neutral-600 mt-8 leading-relaxed">
-            💡 Расчёт основан на операционной марже ~22% и инвестициях ~$35 000–$50 000. Food cost и базовые расходы учтены в модели.
+            {t.calc.footnote}
           </div>
         </div>
 
@@ -498,14 +417,14 @@ export function ROICalculator({
             <div className="bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm flex flex-col justify-between">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
-                  Выручка в день
+                  {t.calc.dailyRevenue}
                 </span>
                 <div className="bg-amber-100 text-amber-700 p-2.5 rounded-xl">
                   <DollarSign className="w-5 h-5" />
                 </div>
               </div>
               <div className="text-2xl font-black text-neutral-900 mt-4 tracking-tight">
-                {fmt(dailyRevenue)} сум
+                {fmt(dailyRevenue)} {t.calc.sumSuffix}
               </div>
             </div>
 
@@ -513,14 +432,14 @@ export function ROICalculator({
             <div className="bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm flex flex-col justify-between">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
-                  Выручка в месяц
+                  {t.calc.monthlyRevenue}
                 </span>
                 <div className="bg-lime-100 text-lime-800 p-2.5 rounded-xl">
                   <TrendingUp className="w-5 h-5" />
                 </div>
               </div>
               <div className="text-2xl font-black text-neutral-900 mt-4 tracking-tight">
-                {fmt(monthlyRevenue)} сум
+                {fmt(monthlyRevenue)} {t.calc.sumSuffix}
               </div>
             </div>
 
@@ -528,14 +447,14 @@ export function ROICalculator({
             <div className="bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm flex flex-col justify-between">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
-                  Операционная прибыль / мес
+                  {t.calc.monthlyProfit}
                 </span>
                 <div className="bg-purple-100 text-purple-700 p-2.5 rounded-xl">
                   <Calculator className="w-5 h-5" />
                 </div>
               </div>
               <div className="text-2xl font-black text-[#FF6E00] mt-4 tracking-tight">
-                {fmt(Math.round(monthlyProfit))} сум
+                {fmt(Math.round(monthlyProfit))} {t.calc.sumSuffix}
               </div>
             </div>
 
@@ -543,14 +462,14 @@ export function ROICalculator({
             <div className="bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm flex flex-col justify-between">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
-                  Срок окупаемости
+                  {t.calc.paybackPeriod}
                 </span>
                 <div className="bg-red-100 text-red-700 p-2.5 rounded-xl">
                   <Calendar className="w-5 h-5" />
                 </div>
               </div>
               <div className="text-2xl font-black text-neutral-900 mt-4 tracking-tight">
-                от {paybackMonths} мес
+                {t.calc.paybackPrefix ? `${t.calc.paybackPrefix} ` : ""}{paybackMonths} {t.calc.paybackSuffix}
               </div>
             </div>
           </div>
@@ -562,7 +481,7 @@ export function ROICalculator({
             className="bg-[#F60019] hover:bg-[#d50015] text-white font-bold py-4 rounded-2xl shadow-lg shadow-red-500/20 transition-all w-full text-center mt-4 cursor-pointer flex items-center justify-center gap-2 text-base"
           >
             <FileText className="w-5 h-5" />
-            Получить детальную финмодель (PDF)
+            {t.calc.downloadPdfBtn}
           </motion.button>
         </div>
       </div>
@@ -570,14 +489,14 @@ export function ROICalculator({
   );
 }
 
-/* -------------------------------- 15 & 16 ------------------------------- */
+/* -------------------------------- Lead Gen Form ------------------------------- */
 
 export function LeadGenForm({
-  lang,
+  lang: propLang,
   isSubmitting,
   onSubmit,
 }: {
-  lang: "ru" | "uz";
+  lang?: "ru" | "uz";
   isSubmitting: boolean;
   onSubmit: (data: {
     name: string;
@@ -587,6 +506,9 @@ export function LeadGenForm({
     lang: "ru" | "uz";
   }) => void;
 }) {
+  const { lang: contextLang, t } = useLanguage();
+  const currentLang = propLang || contextLang;
+
   const [form, setForm] = useState({ name: "", phone: "", city: "", budget: "" });
 
   return (
@@ -596,27 +518,27 @@ export function LeadGenForm({
         <div className="lg:col-span-6 space-y-6">
           <div>
             <span className="bg-red-50 text-[#F60019] font-bold px-3.5 py-1 rounded-full text-xs uppercase tracking-wider inline-block">
-              ЗАЯВКА
+              {t.lead.eyebrow}
             </span>
           </div>
           <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-neutral-900 leading-tight">
-            Получите презентацию франшизы
+            {t.lead.title}
           </h2>
           <p className="text-neutral-600 text-base leading-relaxed">
-            Оставьте заявку — мы свяжемся с вами, пришлём полную презентацию и рассчитаем индивидуальную финансовую модель для вашей локации.
+            {t.lead.subtitle}
           </p>
           <div className="space-y-3.5 pt-2">
             <div className="flex items-start gap-3">
               <CheckCircle2 className="w-6 h-6 text-[#9FCE00] shrink-0" />
-              <span className="text-neutral-800 font-semibold mt-0.5">Полная презентация франшизы (PDF)</span>
+              <span className="text-neutral-800 font-semibold mt-0.5">{t.lead.check1}</span>
             </div>
             <div className="flex items-start gap-3">
               <CheckCircle2 className="w-6 h-6 text-[#9FCE00] shrink-0" />
-              <span className="text-neutral-800 font-semibold mt-0.5">Индивидуальный расчёт окупаемости и финмодель</span>
+              <span className="text-neutral-800 font-semibold mt-0.5">{t.lead.check2}</span>
             </div>
             <div className="flex items-start gap-3">
               <CheckCircle2 className="w-6 h-6 text-[#9FCE00] shrink-0" />
-              <span className="text-neutral-800 font-semibold mt-0.5">Подбор оптимального формата точки и аудит района</span>
+              <span className="text-neutral-800 font-semibold mt-0.5">{t.lead.check3}</span>
             </div>
           </div>
         </div>
@@ -628,19 +550,19 @@ export function LeadGenForm({
               className="space-y-4"
               onSubmit={(e) => {
                 e.preventDefault();
-                onSubmit({ ...form, lang });
+                onSubmit({ ...form, lang: currentLang });
               }}
             >
               {/* Name */}
               <div>
                 <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wide mb-1.5">
-                  Имя
+                  {t.lead.labelName}
                 </label>
                 <input
                   required
                   value={form.name}
                   onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
-                  placeholder="Введите ваше имя"
+                  placeholder={t.lead.placeholderName}
                   className="w-full px-4 py-3.5 rounded-2xl border border-neutral-200 focus:border-[#FF6E00] focus:ring-2 focus:ring-orange-100 outline-none text-sm transition-all"
                 />
               </div>
@@ -648,14 +570,14 @@ export function LeadGenForm({
               {/* Phone */}
               <div>
                 <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wide mb-1.5">
-                  Номер телефона / Telegram
+                  {t.lead.labelPhone}
                 </label>
                 <input
                   required
                   type="tel"
                   value={form.phone}
                   onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
-                  placeholder="+998 (__) ___-__-__"
+                  placeholder={t.lead.placeholderPhone}
                   className="w-full px-4 py-3.5 rounded-2xl border border-neutral-200 focus:border-[#FF6E00] focus:ring-2 focus:ring-orange-100 outline-none text-sm transition-all"
                 />
               </div>
@@ -663,7 +585,7 @@ export function LeadGenForm({
               {/* City */}
               <div>
                 <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wide mb-1.5">
-                  Город / Регион
+                  {t.lead.labelCity}
                 </label>
                 <div className="relative">
                   <select
@@ -672,14 +594,12 @@ export function LeadGenForm({
                     onChange={(e) => setForm((p) => ({ ...p, city: e.target.value }))}
                     className="w-full px-4 py-3.5 rounded-2xl border border-neutral-200 focus:border-[#FF6E00] focus:ring-2 focus:ring-orange-100 outline-none text-sm transition-all bg-white appearance-none pr-10"
                   >
-                    <option value="" disabled>Выберите город</option>
-                    <option value="Ташкент">Ташкент</option>
-                    <option value="Самарканд">Самарканд</option>
-                    <option value="Бухара">Бухара</option>
-                    <option value="Фергана">Фергана</option>
-                    <option value="Наманган">Наманган</option>
-                    <option value="Андижан">Андижан</option>
-                    <option value="Другой город">Другой город</option>
+                    <option value="" disabled>{t.lead.selectCity}</option>
+                    {t.lead.cityOptions.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
                   </select>
                   <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none" />
                 </div>
@@ -688,7 +608,7 @@ export function LeadGenForm({
               {/* Budget */}
               <div>
                 <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wide mb-1.5">
-                  Планируемый бюджет
+                  {t.lead.labelBudget}
                 </label>
                 <div className="relative">
                   <select
@@ -697,10 +617,12 @@ export function LeadGenForm({
                     onChange={(e) => setForm((p) => ({ ...p, budget: e.target.value }))}
                     className="w-full px-4 py-3.5 rounded-2xl border border-neutral-200 focus:border-[#FF6E00] focus:ring-2 focus:ring-orange-100 outline-none text-sm transition-all bg-white appearance-none pr-10"
                   >
-                    <option value="" disabled>Выберите бюджет</option>
-                    <option value="$30 000 – $40 000 (Food Court)">$30 000 – $40 000 (Food Court)</option>
-                    <option value="$40 000 – $50 000 (Street Retail)">$40 000 – $50 000 (Street Retail)</option>
-                    <option value="Свыше $50 000 (Масштабирование / Несколько точек)">Свыше $50 000 (Масштабирование / Несколько точек)</option>
+                    <option value="" disabled>{t.lead.selectBudget}</option>
+                    {t.lead.budgetOptions.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
                   </select>
                   <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none" />
                 </div>
@@ -717,11 +639,11 @@ export function LeadGenForm({
                   {isSubmitting ? (
                     <>
                       <Loader2 className="h-5 w-5 animate-spin" />
-                      Отправляем...
+                      {t.lead.submitting}
                     </>
                   ) : (
                     <>
-                      Отправить заявку и получить презентацию
+                      {t.lead.submitBtn}
                       <Send className="w-5 h-5 ml-1" />
                     </>
                   )}
@@ -730,7 +652,7 @@ export function LeadGenForm({
 
               {/* Privacy Notice */}
               <p className="text-[11px] text-center text-neutral-400 mt-2 leading-tight">
-                Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
+                {t.lead.privacy}
               </p>
             </form>
           </div>
@@ -747,6 +669,8 @@ export function SuccessModal({
   open: boolean;
   onClose: () => void;
 }) {
+  const { t } = useLanguage();
+
   return (
     <AnimatePresence>
       {open && (
@@ -776,10 +700,10 @@ export function SuccessModal({
               <PartyPopper className="h-10 w-10 text-white" />
             </div>
             <h3 className="mt-6 font-display text-2xl font-black">
-              Спасибо!
+              {t.successModal.title}
             </h3>
             <p className="mt-2 text-sm font-semibold text-brand-dark/60 leading-relaxed">
-              Презентация и финмодель отправлены в Telegram.
+              {t.successModal.desc}
             </p>
             <motion.a
               {...tap}
@@ -787,7 +711,7 @@ export function SuccessModal({
               onClick={onClose}
               className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-red py-4 font-display text-lg font-black text-white"
             >
-              <Download className="h-5 w-5" /> Скачать PDF
+              <Download className="h-5 w-5" /> {t.successModal.downloadBtn}
             </motion.a>
           </motion.div>
         </motion.div>
@@ -796,36 +720,10 @@ export function SuccessModal({
   );
 }
 
-/* ---------------------------------- 13 --------------------------------- */
-
-const faqData = [
-  {
-    q: "Нужен ли опыт в ресторанном бизнесе или фастфуде для старта?",
-    a: "Нет, опыт не обязателен. Мы передаем готовую пошаговую систему, технологические карты и обучаем как владельца, так и весь линейный персонал с нуля до официального открытия точки.",
-  },
-  {
-    q: "Сколько времени занимает открытие точки с нуля?",
-    a: "В среднем процесс от подписания договора до первого чека занимает от 3 недель до 45 дней в зависимости от выбранного формата (Food Court или Street Retail) и состояния помещения.",
-  },
-  {
-    q: "Какой размер инвестиций требуется и что в них входит?",
-    a: "Общий объем инвестиций составляет от $30 000 до $50 000 (в зависимости от формата и площади). В эту сумму входят паушальный взнос, ремонтные работы, вывеска, полное торговое и кухонное оборудование, первоначальный запас сырья и маркетинговый запуск.",
-  },
-  {
-    q: "Как устроены поставки продуктов и ингредиентов?",
-    a: "У нас налажена централизованная цепочка поставок. Все фирменные булочки, сосиски, соусы и брендированная упаковка поставляются проверенными сетевыми поставщиками по единым оптовым ценам.",
-  },
-  {
-    q: "Помогаете ли вы с подбором и оценкой локации?",
-    a: "Да, наша команда лично анализирует пешеходный трафик, целевую аудиторию, конкурентное окружение и согласовывает условия аренды перед подписанием договора по помещению.",
-  },
-  {
-    q: "Как работает мобильное приложение и IT-система для франчайзи?",
-    a: "Ваша точка подключается к единому мобильному приложению HOTY DOGY (с готовой базой клиентов) и современной POS-системе. Вы получаете прозрачную сквозную аналитику продаж и расходов в реальном времени с телефона.",
-  },
-];
+/* ---------------------------------- FAQ --------------------------------- */
 
 export function FaqAccordion() {
+  const { lang, t } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleOpen = (index: number) => {
@@ -840,18 +738,19 @@ export function FaqAccordion() {
     <Section className="py-16 sm:py-20 max-w-5xl mx-auto px-4">
       <div className="flex justify-center">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-4 py-1 text-xs font-bold uppercase text-orange-600">
-          FAQ
+          {t.faq.eyebrow}
         </span>
       </div>
       <h2 className="mt-3 text-center font-display text-3xl sm:text-4xl font-black text-neutral-900 tracking-tight">
-        Часто задаваемые вопросы
+        {t.faq.title}
       </h2>
       <p className="mx-auto mb-10 mt-2 max-w-xl text-center text-base font-medium text-neutral-600">
-        Всё, что важно знать о франшизе <span className="font-black text-[#FF6E00]">HOTY DOGY</span> до подписания договора.
+        {t.faq.subtitle}
+        {lang === "ru" && <><span className="font-black text-[#FF6E00]">HOTY DOGY</span>{t.faq.subtitleEnd}</>}
       </p>
 
       <div className="max-w-4xl mx-auto space-y-4">
-        {faqData.map((item, i) => {
+        {t.faq.items.map((item, i) => {
           const isOpen = openIndex === i;
           return (
             <div
@@ -901,10 +800,10 @@ export function FaqAccordion() {
       <div className="mt-12 bg-neutral-900 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 max-w-4xl mx-auto shadow-xl">
         <div className="text-center sm:text-left">
           <h4 className="font-display font-black text-lg sm:text-xl text-white">
-            Остались вопросы?
+            {t.faq.bottomTitle}
           </h4>
           <p className="text-xs sm:text-sm text-neutral-400 font-medium mt-1">
-            Задайте их напрямую основателям сети.
+            {t.faq.bottomSub}
           </p>
         </div>
         <motion.button
@@ -912,7 +811,7 @@ export function FaqAccordion() {
           onClick={scrollToLead}
           className="bg-[#FF6E00] hover:bg-orange-600 text-white font-bold px-6 py-3.5 rounded-2xl transition-all shadow-md shrink-0 cursor-pointer text-sm whitespace-nowrap"
         >
-          Задать вопрос в Telegram ↗
+          {t.faq.telegramBtn}
         </motion.button>
       </div>
     </Section>
