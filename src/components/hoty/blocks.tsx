@@ -256,7 +256,7 @@ const timeline = [
 
 export function BrandTimeline() {
   return (
-    <Section className="py-14 md:py-24">
+    <Section id="brand" className="py-14 md:py-24">
       <div className="text-center">
         <h2 className="font-display text-4xl font-black tracking-tight text-brand-dark md:text-5xl">
           Эволюция бренда
@@ -1112,9 +1112,6 @@ export function Footer() {
               Навигация
             </h4>
             <nav className="flex flex-col gap-3">
-              <a href="#why" onClick={(e) => { e.preventDefault(); scrollTo("why"); }} className="text-neutral-400 hover:text-white transition-colors text-sm w-fit">
-                О бренде и основателе
-              </a>
               <a href="#why" onClick={(e) => { e.preventDefault(); scrollTo("why"); }} className="text-neutral-400 hover:text-white transition-colors text-sm w-fit">
                 Преимущества франшизы
               </a>
