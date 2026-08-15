@@ -665,6 +665,8 @@ export function LeadGenForm({
   );
 }
 
+export const LeadFormSection = LeadGenForm;
+
 export function SuccessModal({
   open,
   onClose,

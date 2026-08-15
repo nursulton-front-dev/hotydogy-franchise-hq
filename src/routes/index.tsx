@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { LanguageProvider, useLanguage } from "@/locales/LanguageContext";
-import { submitLeadForm } from "@/lib/lead-submission";
+import { handleLeadSubmission } from "@/services/leadService";
 import {
   BrandTimeline,
   Footer,
@@ -74,7 +74,7 @@ function IndexContent() {
   }) => {
     setIsSubmitting(true);
     try {
-      await submitLeadForm(data);
+      await handleLeadSubmission(data);
     } catch (err) {
       console.error("Error submitting lead:", err);
     } finally {
