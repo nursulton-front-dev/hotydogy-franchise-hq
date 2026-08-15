@@ -499,7 +499,9 @@ export function LeadGenForm({
   const { lang: contextLang, t } = useLanguage();
   const currentLang = propLang || contextLang;
 
-  const [form, setForm] = useState({ name: "", phone: "", city: "", budget: "" });
+  const [form, setForm] = useState({ name: "", phone: "", city: "", budget: "", honeypot: "" });
+  const [spamError, setSpamError] = useState<string>("");
+  const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
 
   const resolveFormat = (): string => {
     if (selectedFormat) {
@@ -513,6 +515,46 @@ export function LeadGenForm({
       if (form.budget.includes("Масштабирование") || form.budget.includes("Kengaytirish")) return "Multi-unit";
     }
     return "Food Court";
+  };
+
+  const handleSubmitForm = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSpamError("");
+
+    // Anti-spam check 1: Honeypot field must be empty
+    if (form.honeypot.trim() !== "") {
+      // Silent rejection for automated bot submissions
+      return;
+    }
+
+    // Anti-spam check 2: Minimum digits validation for phone number
+    const digitsOnly = form.phone.replace(/\D/g, "");
+    if (digitsOnly.length < 7) {
+      setSpamError(
+        currentLang === "uz"
+          ? "Iltimos, haqiqiy telefon raqamini kiriting."
+          : "Пожалуйста, введите корректный номер телефона."
+      );
+      return;
+    }
+
+    // Anti-spam check 3: Cooldown rate limit (30 seconds)
+    const now = Date.now();
+    if (now - lastSubmitTime < 30000) {
+      setSpamError((t.lead as any).spamWarning || "Пожалуйста, подождите перед повторной отправкой.");
+      return;
+    }
+
+    setLastSubmitTime(now);
+    onSubmit({
+      name: form.name.trim(),
+      phone: form.phone.trim(),
+      city: form.city,
+      budget: form.budget,
+      format: resolveFormat(),
+      language: currentLang.toUpperCase(),
+      lang: currentLang,
+    });
   };
 
   return (
@@ -550,18 +592,19 @@ export function LeadGenForm({
         {/* Right Column (Form Card) */}
         <div className="lg:col-span-6">
           <div className="bg-white rounded-3xl p-7 sm:p-9 border border-neutral-100 shadow-xl shadow-neutral-200/50">
-            <form
-              className="space-y-4"
-              onSubmit={(e) => {
-                e.preventDefault();
-                onSubmit({
-                  ...form,
-                  format: resolveFormat(),
-                  language: currentLang.toUpperCase(),
-                  lang: currentLang,
-                });
-              }}
-            >
+            <form className="space-y-4" onSubmit={handleSubmitForm}>
+              {/* Anti-spam Honeypot Field (Hidden from human users) */}
+              <div className="sr-only" aria-hidden="true">
+                <input
+                  type="text"
+                  name="b_website_confirm"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={form.honeypot}
+                  onChange={(e) => setForm((p) => ({ ...p, honeypot: e.target.value }))}
+                />
+              </div>
+
               {/* Name */}
               <div>
                 <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wide mb-1.5">
@@ -637,6 +680,13 @@ export function LeadGenForm({
                 </div>
               </div>
 
+              {/* Anti-spam Error Display */}
+              {spamError && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs font-medium">
+                  {spamError}
+                </div>
+              )}
+
               {/* Submit Button */}
               <div className="pt-2">
                 <motion.button
@@ -707,23 +757,23 @@ export function SuccessModal({
             >
               <X className="h-5 w-5" />
             </button>
-            <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-brand-lime">
-              <PartyPopper className="h-10 w-10 text-white" />
+            <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-[#9FCE00]/20 text-[#9FCE00]">
+              <CheckCircle2 className="h-10 w-10 text-[#9FCE00]" />
             </div>
-            <h3 className="mt-6 font-display text-2xl font-black">
+            <h3 className="mt-6 font-display text-2xl font-black text-neutral-900">
               {t.successModal.title}
             </h3>
-            <p className="mt-2 text-sm font-semibold text-brand-dark/60 leading-relaxed">
+            <p className="mt-2 text-sm font-semibold text-neutral-600 leading-relaxed">
               {t.successModal.desc}
             </p>
-            <motion.a
+            <motion.button
               {...tap}
-              href="#lead"
+              type="button"
               onClick={onClose}
-              className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-red py-4 font-display text-lg font-black text-white"
+              className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#F60019] hover:bg-[#d50015] py-4 font-display text-base font-bold text-white shadow-lg shadow-red-500/25 transition-all"
             >
-              <Download className="h-5 w-5" /> {t.successModal.downloadBtn}
-            </motion.a>
+              {t.successModal.downloadBtn}
+            </motion.button>
           </motion.div>
         </motion.div>
       )}

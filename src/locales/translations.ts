@@ -523,11 +523,12 @@ export const translations = {
       submitBtn: "Отправить заявку и получить презентацию",
       privacy:
         "Нажимая кнопку, вы соглашаетесь с обработкой персональных данных",
+      spamWarning: "Вы недавно отправляли заявку. Пожалуйста, подождите перед повторной отправкой.",
     },
     successModal: {
-      title: "Спасибо!",
-      desc: "Презентация и финмодель отправлены в Telegram.",
-      downloadBtn: "Скачать PDF",
+      title: "Заявка успешно отправлена!",
+      desc: "С вами скоро свяжутся наши менеджеры для подробной консультации.",
+      downloadBtn: "Понятно",
     },
     footer: {
       bio: "Сеть сочных хот-догов и готовый прибыльный fast-food бизнес в Узбекистане.",
@@ -1074,11 +1075,12 @@ export const translations = {
       submitBtn: "Arizani yuborish va taqdimotni olish ✈",
       privacy:
         "Tugmani bosish orqali shaxsiy ma'lumotlarni qayta ishlash shartlariga rozilik bildirasiz",
+      spamWarning: "Siz yaqinda ariza yuborgansiz. Iltimos, qayta yuborishdan oldin biroz kuting.",
     },
     successModal: {
-      title: "Rahmat!",
-      desc: "Taqdimot va moliyaviy model Telegram ga yuborildi.",
-      downloadBtn: "PDF-ni yuklab olish",
+      title: "Arizangiz muvaffaqiyatli yuborildi!",
+      desc: "Menejerlarimiz tez orada siz bilan bog'lanishadi va barcha savollaringizga javob berishadi.",
+      downloadBtn: "Tushunarli",
     },
     footer: {
       bio: "O'zbekistonda mazali va sersuv hot-doglar tarmog'i hamda tayyor, yuqori daromadli fast-food biznesi.",
