@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { LanguageProvider, useLanguage } from "@/locales/LanguageContext";
+import { submitLeadForm } from "@/lib/lead-submission";
 import {
   BrandTimeline,
   Footer,
@@ -48,6 +49,7 @@ export const Route = createFileRoute("/")({
 function IndexContent() {
   const { t } = useLanguage();
   const [calcData, setCalcData] = useState({ traffic: 200, check: 45000 });
+  const [selectedFormat, setSelectedFormat] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -55,21 +57,30 @@ function IndexContent() {
     document.title = t.meta.title;
   }, [t.meta.title]);
 
-  const scrollToForm = () =>
+  const scrollToForm = (format?: string) => {
+    if (format) {
+      setSelectedFormat(format);
+    }
     document.getElementById("lead")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleSubmit = async (data: {
     name: string;
     phone: string;
     city: string;
     budget: string;
+    format: string;
     lang: "ru" | "uz";
   }) => {
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.info("lead", data);
-    setIsSubmitting(false);
-    setShowSuccess(true);
+    try {
+      await submitLeadForm(data);
+    } catch (err) {
+      console.error("Error submitting lead:", err);
+    } finally {
+      setIsSubmitting(false);
+      setShowSuccess(true);
+    }
   };
 
   return (
@@ -93,6 +104,7 @@ function IndexContent() {
         <FaqAccordion />
         <LeadGenForm
           isSubmitting={isSubmitting}
+          selectedFormat={selectedFormat}
           onSubmit={handleSubmit}
         />
       </main>

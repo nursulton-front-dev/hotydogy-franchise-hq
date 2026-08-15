@@ -480,15 +480,18 @@ export function ROICalculator({
 export function LeadGenForm({
   lang: propLang,
   isSubmitting,
+  selectedFormat,
   onSubmit,
 }: {
   lang?: "ru" | "uz";
   isSubmitting: boolean;
+  selectedFormat?: string;
   onSubmit: (data: {
     name: string;
     phone: string;
     city: string;
     budget: string;
+    format: string;
     lang: "ru" | "uz";
   }) => void;
 }) {
@@ -496,6 +499,20 @@ export function LeadGenForm({
   const currentLang = propLang || contextLang;
 
   const [form, setForm] = useState({ name: "", phone: "", city: "", budget: "" });
+
+  const resolveFormat = (): string => {
+    if (selectedFormat) {
+      if (selectedFormat.toLowerCase().includes("food")) return "Food Court";
+      if (selectedFormat.toLowerCase().includes("street")) return "Street Retail";
+      return selectedFormat;
+    }
+    if (form.budget) {
+      if (form.budget.toLowerCase().includes("food court")) return "Food Court";
+      if (form.budget.toLowerCase().includes("street retail")) return "Street Retail";
+      if (form.budget.includes("Масштабирование") || form.budget.includes("Kengaytirish")) return "Multi-unit";
+    }
+    return "Food Court";
+  };
 
   return (
     <Section id="lead" className="py-16 sm:py-24 max-w-6xl mx-auto px-4">
@@ -536,7 +553,7 @@ export function LeadGenForm({
               className="space-y-4"
               onSubmit={(e) => {
                 e.preventDefault();
-                onSubmit({ ...form, lang: currentLang });
+                onSubmit({ ...form, format: resolveFormat(), lang: currentLang });
               }}
             >
               {/* Name */}

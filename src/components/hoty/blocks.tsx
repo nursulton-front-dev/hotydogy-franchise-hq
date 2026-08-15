@@ -546,23 +546,23 @@ export function WhyUsGrid() {
                     <Icon className="h-6 w-6" />
                   </div>
 
-                {f.badge && (
-                  <span className="rounded-full bg-orange-100 text-[#FF6E00] px-3 py-1 text-[11px] font-extrabold tracking-tight">
-                    {f.badge}
-                  </span>
-                )}
-              </div>
+                  {f.badge && (
+                    <span className="rounded-full bg-orange-100 text-[#FF6E00] px-3 py-1 text-[11px] font-extrabold tracking-tight">
+                      {f.badge}
+                    </span>
+                  )}
+                </div>
 
-              <h3 className="mt-6 font-display text-xl font-black text-neutral-900 tracking-tight">
-                {f.t}
-              </h3>
-              <p className="mt-2 text-sm font-medium leading-relaxed text-neutral-600">
-                {f.d}
-              </p>
-            </div>
-          </motion.div>
-        );
-      })}
+                <h3 className="mt-6 font-display text-xl font-black text-neutral-900 tracking-tight">
+                  {f.t}
+                </h3>
+                <p className="mt-2 text-sm font-medium leading-relaxed text-neutral-600">
+                  {f.d}
+                </p>
+              </div>
+            </motion.div>
+          );
+        })}
       </motion.div>
     </Section>
   );
