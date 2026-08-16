@@ -191,17 +191,11 @@ export function AudienceTabs() {
 /* ---------------------------------- 10: Formats & Pricing --------------------------------- */
 
 const formatStyles: Record<string, { topBadgeCls: string; containerCls: string; areaPillCls: string; ctaCls: string }> = {
-  "food-court": {
-    topBadgeCls: "bg-[#F60019] text-white font-black text-xs px-3 py-1 rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xs whitespace-nowrap",
-    containerCls: "border-2 border-[#F60019] relative shadow-lg bg-white rounded-3xl p-8 flex flex-col justify-between hover:shadow-xl transition-all",
-    areaPillCls: "bg-orange-50 text-[#FF6E00] font-bold px-3 py-1 rounded-full text-xs inline-block",
-    ctaCls: "bg-[#212620] hover:bg-[#FF6E00] text-white font-bold py-3.5 rounded-xl transition-colors w-full mt-6 shadow-sm cursor-pointer",
-  },
   "street-retail": {
-    topBadgeCls: "bg-neutral-900 text-white font-bold text-xs px-3 py-1 rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-xs whitespace-nowrap",
-    containerCls: "border border-neutral-200 hover:border-orange-300 relative shadow-sm hover:shadow-md bg-white rounded-3xl p-8 flex flex-col justify-between transition-all",
-    areaPillCls: "bg-neutral-100 text-neutral-800 font-bold px-3 py-1 rounded-full text-xs inline-block",
-    ctaCls: "bg-neutral-100 hover:bg-neutral-900 hover:text-white text-neutral-900 font-bold py-3.5 rounded-xl transition-colors w-full mt-6 cursor-pointer",
+    topBadgeCls: "bg-[#F60019] text-white font-black text-xs px-3.5 py-1 rounded-full absolute -top-3.5 left-1/2 -translate-x-1/2 shadow-md whitespace-nowrap uppercase tracking-wider",
+    containerCls: "border-2 border-[#FF6E00] relative shadow-xl bg-white rounded-3xl p-8 flex flex-col justify-between hover:shadow-2xl transition-all duration-300",
+    areaPillCls: "bg-orange-50 text-[#FF6E00] font-bold px-3.5 py-1 rounded-full text-xs inline-block border border-orange-100",
+    ctaCls: "bg-[#F60019] hover:bg-[#d50015] text-white font-bold py-4 rounded-2xl transition-all w-full mt-6 shadow-lg shadow-red-500/25 cursor-pointer text-center text-sm md:text-base flex items-center justify-center gap-2",
   },
 };
 
@@ -235,10 +229,10 @@ export function FormatsPricing({ onCta }: { onCta?: (format?: string) => void })
         {t.formats.subtitle}
       </p>
 
-      {/* 2. 2-Column Format Cards */}
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+      {/* 2. Format Card (Centered horizontally max-w-xl mx-auto) */}
+      <div className="max-w-xl mx-auto">
         {t.formats.items.map((f) => {
-          const style = formatStyles[f.id] ?? formatStyles["food-court"];
+          const style = formatStyles[f.id] ?? formatStyles["street-retail"];
           if (!style) return null;
           return (
             <motion.div
@@ -514,7 +508,7 @@ export function LeadGenForm({
       if (form.budget.toLowerCase().includes("street retail")) return "Street Retail";
       if (form.budget.includes("Масштабирование") || form.budget.includes("Kengaytirish")) return "Multi-unit";
     }
-    return "Food Court";
+    return "Street Retail";
   };
 
   const handleSubmitForm = (e: React.FormEvent) => {

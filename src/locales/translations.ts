@@ -31,7 +31,7 @@ export const translations = {
     metrics: {
       title: "Цифры — лучшее доказательство результата.",
       subtitle:
-        "За 2+ года мы построили сеть, которая ежедневно обслуживает тысячи гостей по всему Узбекистану.",
+        "За 2+ года мы построили сеть, которая ежедневно обслуживает тысячу гостей в Ташкенте.",
       m1Val: "8",
       m1Lbl: "Действующих филиалов",
       m2Val: "2+ года",
@@ -130,8 +130,8 @@ export const translations = {
         },
         {
           t: "Доступный вход",
-          d: "Инвестиции от $30 000 до $50 000.",
-          badge: "от $30 000",
+          d: "Инвестиции от $35 000 до $50 000.",
+          badge: "от $35 000",
         },
         {
           t: "Масштабируемость",
@@ -278,28 +278,12 @@ export const translations = {
       currency: "сум",
       items: [
         {
-          id: "food-court",
-          title: "Food Court",
-          subtitleLabel: "Остров в ТРЦ",
-          topBadge: "ХИТ СЕТИ • БЫСТРЫЙ СТАРТ",
-          areaPill: "15 – 30 м²",
-          investmentHeading: "$30 000 – $40 000",
-          subPrice: "инвестиции под ключ (от ~390 млн сум)",
-          features: [
-            "Локация: Зона фуд-корта в популярных ТРЦ",
-            "Срок запуска: от 3 недель",
-            "Персонал: 2 сотрудника в смену",
-            "Срок окупаемости: от 8–10 месяцев",
-          ],
-          ctaText: "Выбрать Food Court",
-        },
-        {
           id: "street-retail",
           title: "Street Retail",
           subtitleLabel: "Отдельный вход / Стрит",
           topBadge: "МАКСИМАЛЬНЫЙ ТРАФИК",
           areaPill: "от 55 м²",
-          investmentHeading: "$40 000 – $50 000",
+          investmentHeading: "от $35 000",
           subPrice: "инвестиции под ключ (до ~650 млн сум)",
           features: [
             "Локация: Первая линия, высокий пешеходный трафик",
@@ -405,8 +389,7 @@ export const translations = {
     locations: {
       eyebrow: "НАШИ ТОЧКИ",
       titleStart: "Действующие филиалы ",
-      subtitle:
-        "Реальные точки сети в топовых локациях Ташкента. Оцените концепцию и поток гостей вживую.",
+      subtitle: "Реальные точки сети",
       workingBadge: "● Работает",
       bottomTitle:
         "Хотите открыть филиал в своем районе или другом городе Узбекистана?",
@@ -461,7 +444,7 @@ export const translations = {
         },
         {
           q: "Какой размер инвестиций требуется и что в них входит?",
-          a: "Общий объем инвестиций составляет от $30 000 до $50 000 (в зависимости от формата и площади). В эту сумму входят паушальный взнос, ремонтные работы, вывеска, полное торговое и кухонное оборудование, первоначальный запас сырья и маркетинговый запуск.",
+          a: "Общий объем инвестиций составляет от $35 000 до $50 000 (в зависимости от формата и площади). В эту сумму входят паушальный взнос, ремонтные работы, вывеска, полное торговое и кухонное оборудование, первоначальный запас сырья и маркетинговый запуск.",
         },
         {
           q: "Как устроены поставки продуктов и ингредиентов?",
@@ -507,12 +490,8 @@ export const translations = {
       selectBudget: "Выберите бюджет",
       budgetOptions: [
         {
-          value: "$30 000 – $40 000 (Food Court)",
-          label: "$30 000 – $40 000 (Food Court)",
-        },
-        {
-          value: "$40 000 – $50 000 (Street Retail)",
-          label: "$40 000 – $50 000 (Street Retail)",
+          value: "от $35 000 (Street Retail)",
+          label: "от $35 000 (Street Retail)",
         },
         {
           value: "Свыше $50 000 (Масштабирование / Несколько точек)",
@@ -540,7 +519,7 @@ export const translations = {
       locationsLink: "Действующие точки сети",
       faqLink: "Часто задаваемые вопросы (FAQ)",
       franchiseTitle: "Франшиза",
-      investments: "Инвестиции от $30 000",
+      investments: "Инвестиции от $35 000",
       payback: "Окупаемость от 8 мес.",
       downloadPdf: "Скачать презентацию (PDF)",
       privacyPolicy: "Политика конфиденциальности",
@@ -582,7 +561,7 @@ export const translations = {
     metrics: {
       title: "Raqamlar — natijaning eng yaxshi isboti.",
       subtitle:
-        "2+ yil davomida butun O'zbekiston bo'ylab har kuni minglab mehmonlarga xizmat ko'rsatuvchi mustahkam tarmoq barpo etdik.",
+        "2+ yil davomida biz Toshkentda har kuni minglab mehmonlarga xizmat ko‘rsatadigan tarmoqni qurdik.",
       m1Val: "8",
       m1Lbl: "Faoliyat yuritayotgan filiallar",
       m2Val: "2+ yil",
@@ -682,8 +661,8 @@ export const translations = {
         },
         {
           t: "Qulay kirish chegarasi",
-          d: "Boshlang'ich investitsiyalar $30 000 dan $50 000 gacha.",
-          badge: "$30 000 dan",
+          d: "Boshlang'ich investitsiyalar $35 000 dan $50 000 gacha.",
+          badge: "$35 000 dan",
         },
         {
           t: "Oson miqyoslash",
@@ -830,28 +809,12 @@ export const translations = {
       currency: "so'm",
       items: [
         {
-          id: "food-court",
-          title: "Food Court",
-          subtitleLabel: "Savdo markazidagi orolcha",
-          topBadge: "XIT • TEZKOR START",
-          areaPill: "15 – 30 m²",
-          investmentHeading: "$30 000 – $40 000",
-          subPrice: "tayyor biznes investitsiyasi (~390 mln so'mdan)",
-          features: [
-            "Joylashuv: Ommabop SKM lardagi fud-kort hududi",
-            "Ochilish muddati: 3 haftadan boshlab",
-            "Xodimlar soni: Bir smenada 2 nafar xodim",
-            "O'zini oqlash muddati: 8–10 oydan boshlab",
-          ],
-          ctaText: "Food Court formatini tanlash",
-        },
-        {
           id: "street-retail",
           title: "Street Retail",
           subtitleLabel: "Alohida kirish joyiga ega ko'cha formati",
           topBadge: "MAKSIMAL TRAFIK",
           areaPill: "55 m² dan",
-          investmentHeading: "$40 000 – $50 000",
+          investmentHeading: "$35 000 dan",
           subPrice: "tayyor biznes investitsiyasi (~650 mln so'mgacha)",
           features: [
             "Joylashuv: Birinchi qator, yuqori piyodalar trafigi",
@@ -957,8 +920,7 @@ export const translations = {
     locations: {
       eyebrow: "BIZNING LOKATSIYALAR",
       titleStart: "HOTY DOGY tarmog'ining faol filiallari",
-      subtitle:
-        "Toshkentning eng gavjum va nufuzli nuqtalaridagi real filiallarimiz. Biznes konsepsiyasi va mijozlar oqimini shaxsan borib baholang.",
+      subtitle: "Tarmoqning amaldagi filiallari",
       workingBadge: "● Faoliyat yuritmoqda",
       bottomTitle:
         "O'z hududingizda yoki O'zbekistonning boshqa shahrida filial ochmoqchimisiz?",
@@ -1013,7 +975,7 @@ export const translations = {
         },
         {
           q: "Qancha investitsiya talab qilinadi va unga nimalar kiradi?",
-          a: "Boshlang'ich investitsiyalar $30 000 dan $50 000 gacha bo'lib, unga barcha zarur uskunalar, dizayn-ta'mirlash ishlari, dastlabki mahsulot zaxirasi, xodimlarni o'qitish va marketing starti to'liq kiradi.",
+          a: "Boshlang'ich investitsiyalar $35 000 dan $50 000 gacha bo'lib, unga barcha zarur uskunalar, dizayn-ta'mirlash ishlari, dastlabki mahsulot zaxirasi, xodimlarni o'qitish va marketing starti to'liq kiradi.",
         },
         {
           q: "Mahsulotlar va masalliqlar ta'minoti qanday yo'lga qo'yilgan?",
@@ -1059,12 +1021,8 @@ export const translations = {
       selectBudget: "Byudjet hajmini tanlang",
       budgetOptions: [
         {
-          value: "$30 000 – $40 000 (Food Court)",
-          label: "$30 000 – $40 000 (Food Court)",
-        },
-        {
-          value: "$40 000 – $50 000 (Street Retail)",
-          label: "$40 000 – $50 000 (Street Retail)",
+          value: "от $35 000 (Street Retail)",
+          label: "$35 000 dan (Street Retail)",
         },
         {
           value: "Свыше $50 000 (Масштабирование / Несколько точек)",
@@ -1092,7 +1050,7 @@ export const translations = {
       locationsLink: "Tarmoqning faol filiallari",
       faqLink: "Ko'p beriladigan savollar",
       franchiseTitle: "Franshiza",
-      investments: "Investitsiyalar: $30 000 dan",
+      investments: "Investitsiyalar: $35 000 dan",
       payback: "O'zini oqlash: 8 oydan boshlab",
       downloadPdf: "Taqdimotni yuklab olish (PDF)",
       privacyPolicy: "Maxfiylik siyosati",
