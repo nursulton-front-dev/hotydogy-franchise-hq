@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { motion } from "motion/react";
 import {
   BarChart3,
   Boxes,
   ChefHat,
+  ChevronLeft,
+  ChevronRight,
   Download,
   ExternalLink,
   FileCheck,
@@ -648,80 +651,218 @@ export function FranchisePackage() {
 
 /* ---------------------------------- 12: Locations Gallery --------------------------------- */
 
-const branchImages = [
-  branch1,
-  branch2,
-  branch3,
-  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
+interface PhotoItem {
+  url: string;
+  alt: string;
+}
+
+interface BranchItem {
+  name: string;
+  address: string;
+  format: string;
+  photos: PhotoItem[];
+}
+
+const defaultBranches: BranchItem[] = [
+  {
+    name: "Hoty Dogy IT Park",
+    address: "ул. Тепамасжид, 4-й проезд",
+    format: "Express • 30 м²",
+    photos: [
+      {
+        url: "/branches/itpark-1.jpg",
+        alt: "Фасад и экстерьер",
+      },
+      {
+        url: "/branches/itpark-2.jpg",
+        alt: "Интерьер и зал",
+      },
+      {
+        url: "/branches/itpark-3.jpg",
+        alt: "Зона выдачи",
+      },
+    ],
+  },
+  {
+    name: "Hoty Dogy Ц-1",
+    address: "ул. Буюк Ипак Йули, 31",
+    format: "Street Retail • 60 м²",
+    photos: [
+      {
+        url: "/branches/c1-1.jpg",
+        alt: "Фасад и вывеска",
+      },
+      {
+        url: "/branches/c1-2.jpg",
+        alt: "Интерьер и посадка",
+      },
+      {
+        url: "/branches/c1-3.jpg",
+        alt: "Атмосфера филиала",
+      },
+    ],
+  },
 ];
 
-export function LocationsGallery() {
-  const { lang, t } = useLanguage();
+function BranchCard({ branch, workingBadge }: { branch: BranchItem; workingBadge: string }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  const branches = t.locations.branches.map((b, idx) => ({
-    ...b,
-    img: branchImages[idx] || branchImages[0],
-  }));
+  const minSwipeDistance = 40;
+
+  const nextSlide = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % branch.photos.length);
+  };
+
+  const prevSlide = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + branch.photos.length) % branch.photos.length);
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+  };
 
   return (
-    <Section id="locations" className="py-16 sm:py-20 max-w-6xl mx-auto px-4">
+    <div className="bg-white rounded-3xl overflow-hidden border border-neutral-100 shadow-lg shadow-neutral-100/60 transition-all duration-300 hover:shadow-xl flex flex-col">
+      {/* Integrated Slider Component */}
+      <div
+        className="aspect-[4/3] w-full relative overflow-hidden rounded-t-3xl group select-none"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        {/* Floating Badges */}
+        <span className="bg-black/60 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full absolute top-3 left-3 z-10 shadow-sm">
+          {branch.format}
+        </span>
+        <span className="bg-emerald-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1 absolute top-3 right-3 z-10 shadow-sm">
+          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+          {workingBadge.startsWith("●") ? workingBadge : `● ${workingBadge}`}
+        </span>
+
+        {/* Images slider track */}
+        <div
+          className="flex h-full w-full transition-transform duration-300 ease-out"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
+          {branch.photos.map((photo, i) => (
+            <img
+              key={i}
+              src={photo.url}
+              alt={photo.alt}
+              className="w-full h-full object-cover shrink-0"
+              loading="lazy"
+            />
+          ))}
+        </div>
+
+        {/* Slider Controls */}
+        <button
+          type="button"
+          onClick={prevSlide}
+          aria-label="Previous photo"
+          className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md text-white flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-3 transition-opacity duration-200 opacity-0 group-hover:opacity-100 cursor-pointer z-10"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+
+        <button
+          type="button"
+          onClick={nextSlide}
+          aria-label="Next photo"
+          className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md text-white flex items-center justify-center absolute top-1/2 -translate-y-1/2 right-3 transition-opacity duration-200 opacity-0 group-hover:opacity-100 cursor-pointer z-10"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+
+        {/* Bottom Pagination Dots */}
+        <div className="flex gap-1.5 absolute bottom-3 left-1/2 -translate-x-1/2 z-10">
+          {branch.photos.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentIndex(i);
+              }}
+              aria-label={`Go to slide ${i + 1}`}
+              className={
+                i === currentIndex
+                  ? "w-5 h-1.5 rounded-full bg-white transition-all duration-300 cursor-pointer"
+                  : "w-1.5 h-1.5 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-300 cursor-pointer"
+              }
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Card Body Details */}
+      <h3 className="text-xl font-black text-neutral-900 mt-4 px-6 font-display">
+        {branch.name}
+      </h3>
+      <div className="text-neutral-500 text-sm flex items-center gap-1.5 px-6 pb-6 mt-1 font-medium">
+        <MapPin className="w-4 h-4 text-[#FF6E00] shrink-0" />
+        <span>{branch.address}</span>
+      </div>
+    </div>
+  );
+}
+
+export function LocationsGallery() {
+  const { t } = useLanguage();
+
+  const branches = (t.locations.branches as unknown as BranchItem[]) || defaultBranches;
+
+  return (
+    <section id="locations" className="max-w-5xl mx-auto px-4 py-16 sm:py-20">
       <div className="flex justify-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-4 py-1 text-xs font-bold uppercase text-orange-600">
-          {t.locations.eyebrow}
+        <span className="bg-orange-100 text-orange-600 font-bold px-4 py-1 rounded-full text-xs uppercase">
+          {t.locations.eyebrow || "НАШИ ТОЧКИ"}
         </span>
       </div>
 
-      <h2 className="mt-3 text-center font-display text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
-        {t.locations.titleStart}
-        {lang === "ru" && <span className="font-black text-[#FF6E00]">HOTY DOGY</span>}
+      <h2 className="text-neutral-900 font-black text-3xl sm:text-4xl text-center mt-3 font-display tracking-tight">
+        {t.locations.titleStart || "Действующие филиалы "}<span className="text-[#FF6E00]">HOTY DOGY</span>
       </h2>
 
-      <p className="mx-auto mb-10 mt-2 max-w-2xl text-center text-base font-medium text-neutral-600">
-        {t.locations.subtitle}
+      <p className="text-neutral-500 text-sm font-medium text-center mt-1 mb-10">
+        {t.locations.subtitle || "Реальные точки сети"}
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
         {branches.map((b) => (
-          <motion.div
+          <BranchCard
             key={b.name}
-            whileHover={{ y: -6 }}
-            className="bg-white rounded-3xl overflow-hidden border border-neutral-100 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
-          >
-            <div className="aspect-[4/3] relative overflow-hidden rounded-t-3xl bg-neutral-100">
-              <img
-                src={b.img}
-                alt={b.name}
-                loading="lazy"
-                className="group-hover:scale-105 transition-transform duration-500 object-cover w-full h-full"
-              />
-              <span className="bg-black/65 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full absolute top-3 left-3 shadow-sm">
-                {b.format}
-              </span>
-              <span className="bg-emerald-500/90 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full absolute top-3 right-3 shadow-sm flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                {t.locations.workingBadge}
-              </span>
-            </div>
-
-            <div className="p-5 flex flex-col justify-between flex-1">
-              <div>
-                <h3 className="font-display font-black text-lg text-neutral-900 tracking-tight">
-                  {b.name}
-                </h3>
-                <div className="flex items-start gap-1.5 text-xs text-neutral-500 font-medium mt-2 leading-relaxed">
-                  <MapPin className="w-3.5 h-3.5 text-[#FF6E00] shrink-0 mt-0.5" />
-                  <span>{b.address}</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+            branch={b}
+            workingBadge={t.locations.workingBadge || "Работает"}
+          />
         ))}
       </div>
-    </Section>
+    </section>
   );
 }
+
+export const LocationsSection = LocationsGallery;
 
 /* ---------------------------------- 13: Launch Stepper --------------------------------- */
 

@@ -390,41 +390,45 @@ export const translations = {
       eyebrow: "НАШИ ТОЧКИ",
       titleStart: "Действующие филиалы ",
       subtitle: "Реальные точки сети",
-      workingBadge: "● Работает",
-      bottomTitle:
-        "Хотите открыть филиал в своем районе или другом городе Узбекистана?",
-      bottomSub: "Проверьте доступность и забронируйте эксклюзивную локацию.",
-      bottomBtn: "Проверить доступность локации ↗",
+      workingBadge: "Работает",
       branches: [
         {
-          name: "Hoty Dogy Тараса Шевченко",
-          address: "ул. Саид Барака, 14",
-          format: "Street Retail • 55 м²",
-        },
-        {
-          name: "Hoty Dogy Атлас Чимган",
-          address: "ул. Тимура Малика, 3А (ТРЦ Atlas)",
-          format: "Food Court • 28 м²",
-        },
-        {
-          name: "Hoty Dogy NEXT",
-          address: "ул. Бабура, 6 (ТРК NEXT)",
-          format: "Food Court • 25 м²",
-        },
-        {
-          name: "Hoty Dogy Чиланзар",
-          address: "ул. Лутфий, 56",
-          format: "Street Retail • 58 м²",
-        },
-        {
           name: "Hoty Dogy IT Park",
-          address: "Мирзо-Улугбекский р-н, ул. Тепамасжид, 4-й проезд",
+          address: "ул. Тепамасжид, 4-й проезд",
           format: "Express • 30 м²",
+          photos: [
+            {
+              url: "/branches/itpark-1.jpg",
+              alt: "Фасад и экстерьер",
+            },
+            {
+              url: "/branches/itpark-2.jpg",
+              alt: "Интерьер и зал",
+            },
+            {
+              url: "/branches/itpark-3.jpg",
+              alt: "Зона выдачи",
+            },
+          ],
         },
         {
           name: "Hoty Dogy Ц-1",
-          address: "Мирзо-Улугбекский р-н, ул. Буюк Ипак Йули, 31",
+          address: "ул. Буюк Ипак Йули, 31",
           format: "Street Retail • 60 м²",
+          photos: [
+            {
+              url: "/branches/c1-1.jpg",
+              alt: "Фасад и вывеска",
+            },
+            {
+              url: "/branches/c1-2.jpg",
+              alt: "Интерьер и посадка",
+            },
+            {
+              url: "/branches/c1-3.jpg",
+              alt: "Атмосфера филиала",
+            },
+          ],
         },
       ],
     },
@@ -921,41 +925,45 @@ export const translations = {
       eyebrow: "BIZNING LOKATSIYALAR",
       titleStart: "HOTY DOGY tarmog'ining faol filiallari",
       subtitle: "Tarmoqning amaldagi filiallari",
-      workingBadge: "● Faoliyat yuritmoqda",
-      bottomTitle:
-        "O'z hududingizda yoki O'zbekistonning boshqa shahrida filial ochmoqchimisiz?",
-      bottomSub: "Bo'sh hududlar mavjudligini tekshiring va daromadli eksklyuziv lokatsiyani hoziroq band qiling.",
-      bottomBtn: "Lokatsiya bandligini tekshirish ↗",
+      workingBadge: "Faoliyat yuritmoqda",
       branches: [
         {
-          name: "Hoty Dogy Taras Shevchenko",
-          address: "Said Baraka ko'chasi, 14",
-          format: "Street Retail • 55 m²",
-        },
-        {
-          name: "Hoty Dogy Atlas Chimgan",
-          address: "Timur Malika ko'chasi, 3A (Atlas SKM)",
-          format: "Food Court • 28 m²",
-        },
-        {
-          name: "Hoty Dogy NEXT",
-          address: "Bobur ko'chasi, 6 (NEXT SKM)",
-          format: "Food Court • 25 m²",
-        },
-        {
-          name: "Hoty Dogy Chilonzor",
-          address: "Lutfiy ko'chasi, 56",
-          format: "Street Retail • 58 m²",
-        },
-        {
           name: "Hoty Dogy IT Park",
-          address: "Mirzo Ulug'bek tumani, Tepamasjid ko'chasi, 4-o'tish joyi",
+          address: "Tepamasjid ko'chasi, 4-o'tish joyi",
           format: "Express • 30 m²",
+          photos: [
+            {
+              url: "/branches/itpark-1.jpg",
+              alt: "Fasad va eksteryer",
+            },
+            {
+              url: "/branches/itpark-2.jpg",
+              alt: "Interyer va zal",
+            },
+            {
+              url: "/branches/itpark-3.jpg",
+              alt: "Topshirish zonasi",
+            },
+          ],
         },
         {
           name: "Hoty Dogy C-1",
-          address: "Mirzo Ulug'bek tumani, Buyuk Ipak Yo'li ko'chasi, 31",
+          address: "Buyuk Ipak Yo'li ko'chasi, 31",
           format: "Street Retail • 60 m²",
+          photos: [
+            {
+              url: "/branches/c1-1.jpg",
+              alt: "Fasad va peshlavha",
+            },
+            {
+              url: "/branches/c1-2.jpg",
+              alt: "Interyer va o'rindiqlar",
+            },
+            {
+              url: "/branches/c1-3.jpg",
+              alt: "Filial atmosferasi",
+            },
+          ],
         },
       ],
     },
