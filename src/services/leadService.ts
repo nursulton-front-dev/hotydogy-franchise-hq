@@ -20,7 +20,7 @@ export async function handleLeadSubmission(payload: LeadData): Promise<boolean> 
 
   const sheetsUrl =
     import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK_URL ||
-    "https://script.google.com/macros/s/AKfycbzsDM0x0tXHdhd4Uam2FzcfkFDLhRnHLqwxqBO28kii5VLT691lg9LbbhA5CxNNlSmFYg/exec";
+    "https://script.google.com/macros/s/AKfycbzZrGHd2IZDTFI2J2xdRFUC2kbHhTABJ6HvjHmgo1XPHq4vH8z1ZJM7GDZhy1n_XdCnFQ/exec";
 
   // Compile list of unique recipient chat IDs (group + direct users)
   const recipients = Array.from(new Set([groupChatId, ...adminIds])).filter(Boolean);
@@ -80,6 +80,7 @@ export async function handleLeadSubmission(payload: LeadData): Promise<boolean> 
     lang: langCode.toLowerCase(),
     Language: langCode,
     Lang: langCode.toLowerCase(),
+    langDisplay: langDisplay,
     'Язык': langCode,
     'Язык сайта': langDisplay,
   };
@@ -93,6 +94,11 @@ export async function handleLeadSubmission(payload: LeadData): Promise<boolean> 
     format: payload.format || 'Не указан',
     language: langCode,
     lang: langCode.toLowerCase(),
+    Language: langCode,
+    Lang: langCode.toLowerCase(),
+    langDisplay: langDisplay,
+    'Язык': langCode,
+    'Язык сайта': langDisplay,
   }).toString();
 
   const targetUrl = sheetsUrl.includes('?') ? `${sheetsUrl}&${queryParams}` : `${sheetsUrl}?${queryParams}`;

@@ -395,7 +395,7 @@ export const translations = {
         {
           name: "Hoty Dogy IT Park",
           address: "ул. Тепамасжид, 4-й проезд",
-          format: "Express • 30 м²",
+          format: "Express • 105 м²",
           photos: [
             {
               url: "/branches/itpark-1.jpg",
@@ -414,7 +414,7 @@ export const translations = {
         {
           name: "Hoty Dogy Ц-1",
           address: "ул. Буюк Ипак Йули, 31",
-          format: "Street Retail • 60 м²",
+          format: "Street Retail • 95 м²",
           photos: [
             {
               url: "/branches/c1-1.jpg",
@@ -930,7 +930,7 @@ export const translations = {
         {
           name: "Hoty Dogy IT Park",
           address: "Tepamasjid ko'chasi, 4-o'tish joyi",
-          format: "Express • 30 m²",
+          format: "Express • 105 m²",
           photos: [
             {
               url: "/branches/itpark-1.jpg",
@@ -949,7 +949,7 @@ export const translations = {
         {
           name: "Hoty Dogy C-1",
           address: "Buyuk Ipak Yo'li ko'chasi, 31",
-          format: "Street Retail • 60 m²",
+          format: "Street Retail • 95 m²",
           photos: [
             {
               url: "/branches/c1-1.jpg",
