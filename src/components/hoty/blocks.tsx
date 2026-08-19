@@ -51,25 +51,27 @@ export function HeroSection({ onCta }: { onCta: () => void }) {
   const { lang, t } = useLanguage();
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#ff5500] via-[#ff6e00] to-[#ff8500] min-h-[600px] h-auto md:h-[calc(100vh-80px)] max-h-[850px] flex items-center pt-24 pb-16 md:pt-20 md:pb-16">
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#ff4500] via-[#ff6a00] to-[#ff8c00] min-h-[620px] h-auto md:h-[calc(100vh-80px)] max-h-[880px] flex items-center pt-24 pb-16 md:pt-20 md:pb-16 z-0">
       {/* Background ambient lighting effects */}
-      <div className="pointer-events-none absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-brand-yellow/35 blur-[120px]" />
-      <div className="pointer-events-none absolute top-1/2 -right-40 h-[500px] w-[500px] -translate-y-1/2 rounded-full bg-brand-red/30 blur-[130px]" />
+      <div className="pointer-events-none absolute -top-40 -left-40 h-[550px] w-[550px] rounded-full bg-brand-yellow/40 blur-[130px]" />
+      <div className="pointer-events-none absolute top-1/2 -right-40 h-[550px] w-[550px] -translate-y-1/2 rounded-full bg-brand-red/35 blur-[140px]" />
+      <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 h-[450px] w-[450px] rounded-full bg-amber-400/20 blur-[110px]" />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-5 md:grid-cols-2 w-full">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-12 w-full">
         {/* Left Column: Text & CTAs */}
         <motion.div
+          className="md:col-span-6 z-10"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
         >
           {/* Badge */}
-          <Pill className="bg-brand-dark/80 text-brand-yellow px-4 py-1 text-xs md:text-sm font-bold shadow-md">
-            <Flame className="h-4 w-4 fill-brand-yellow text-brand-yellow" /> {t.hero.pill}
+          <Pill className="bg-brand-dark/80 text-brand-yellow px-4 py-1.5 text-xs md:text-sm font-bold shadow-lg border border-white/10 backdrop-blur-md">
+            <Flame className="h-4 w-4 fill-brand-yellow text-brand-yellow animate-pulse" /> {t.hero.pill}
           </Pill>
 
           {/* H1 Heading */}
-          <h1 className="mt-4 font-display text-3xl md:text-5xl leading-tight font-black tracking-tight text-white">
+          <h1 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl leading-tight font-black tracking-tight text-white drop-shadow-sm">
             <div>{t.hero.titleLine1}</div>
             <div className="mt-2 flex flex-wrap items-center gap-3">
               {lang === "uz" ? (
@@ -99,15 +101,15 @@ export function HeroSection({ onCta }: { onCta: () => void }) {
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-4 max-w-lg text-sm md:text-base font-medium text-white/90 leading-relaxed">
+          <p className="mt-4 max-w-lg text-sm md:text-base font-medium text-white/95 leading-relaxed">
             {t.hero.subtitle}
             {lang === "ru" && <><span className="font-black text-brand-yellow">HOTY DOGY</span>.</>}
           </p>
 
           {/* Stat Line */}
-          <div className="mt-3 text-sm md:text-base font-bold text-yellow-300 flex flex-wrap items-center gap-2">
+          <div className="mt-4 text-sm md:text-base font-bold text-yellow-300 flex flex-wrap items-center gap-2 bg-black/15 backdrop-blur-md w-fit px-4 py-2 rounded-2xl border border-white/10">
             <span>{t.hero.stat1}</span>
-            <span>•</span>
+            <span className="text-white/40">•</span>
             <span>{t.hero.stat2}</span>
           </div>
 
@@ -116,37 +118,74 @@ export function HeroSection({ onCta }: { onCta: () => void }) {
             <motion.button
               {...tap}
               onClick={onCta}
-              className="rounded-full bg-[#F60019] px-7 py-3.5 font-display text-sm md:text-base font-black text-white shadow-lg shadow-brand-red/30 transition-transform text-center"
+              className="rounded-full bg-[#F60019] hover:bg-[#ff1a31] px-8 py-4 font-display text-sm md:text-base font-black text-white shadow-xl shadow-brand-red/40 transition-all text-center border border-white/20 cursor-pointer"
             >
               {t.hero.ctaPresentation}
             </motion.button>
           </div>
         </motion.div>
 
-        {/* Right Column: Mascot Illustration */}
-        <div className="relative flex justify-center items-center">
-          <motion.img
-            src={mascot}
-            alt="HOTY DOGY mascot"
-            width={1024}
-            height={1024}
-            className="w-[75%] max-w-xs md:max-w-sm max-h-[380px] object-contain drop-shadow-2xl"
-            animate={{ y: [0, -14, 0], rotate: [-1.5, 1.5, -1.5] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute bottom-[5%] right-[2%] md:bottom-[8%] md:right-[5%]"
-            animate={{ y: [0, -8, 0] }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <Pill className="bg-brand-yellow text-brand-dark shadow-xl shadow-black/15 text-xs md:text-sm font-black tracking-wide px-5 py-2 rounded-full border border-white/20">
-              {t.hero.sauceBadge}
-            </Pill>
-          </motion.div>
+        {/* Right Column: Mascot as Main Hero Character */}
+        <div className="md:col-span-6 relative flex justify-center items-center py-6 md:py-0">
+          {/* Spotlight aura behind mascot */}
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[340px] sm:h-[420px] w-[340px] sm:w-[420px] rounded-full bg-gradient-to-tr from-brand-yellow/45 via-amber-300/30 to-transparent blur-[80px]" />
+          
+          {/* Outer glowing ring */}
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[300px] sm:h-[380px] w-[300px] sm:w-[380px] rounded-full border-2 border-white/20 animate-spin" style={{ animationDuration: "35s" }} />
+
+          {/* Floating mascot character wrapper */}
+          <div className="relative flex justify-center items-center w-full">
+            {/* Mascot Image with levitation animation */}
+            <motion.img
+              src={mascot}
+              alt="HOTY DOGY mascot"
+              width={1024}
+              height={1024}
+              className="w-full max-w-[280px] sm:max-w-[360px] md:max-w-[430px] lg:max-w-[480px] h-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.35)] relative z-10"
+              animate={{
+                y: [0, -20, 0],
+                rotate: [-2.5, 2.5, -2.5],
+                scale: [1, 1.02, 1],
+              }}
+              transition={{
+                duration: 4.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+
+            {/* Dynamic levitation shadow under mascot */}
+            <motion.div
+              className="absolute -bottom-2 sm:bottom-0 left-1/2 -translate-x-1/2 w-48 sm:w-64 h-7 bg-black/30 rounded-[100%] blur-md z-0"
+              animate={{
+                scale: [0.75, 1.05, 0.75],
+                opacity: [0.25, 0.55, 0.25],
+              }}
+              transition={{
+                duration: 4.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+
+
+            {/* Floating Badge 2 (Bottom Right): Sauce Badge */}
+            <motion.div
+              className="absolute bottom-[8%] right-[0%] sm:right-[4%] z-20"
+              animate={{ y: [0, -12, 0] }}
+              transition={{
+                duration: 4.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.8,
+              }}
+            >
+              <Pill className="bg-brand-yellow text-brand-dark shadow-2xl text-xs md:text-sm font-black tracking-wide px-5 py-2.5 rounded-full border-2 border-white/50 flex items-center gap-2">
+                <Flame className="h-4 w-4 text-brand-dark fill-brand-dark" />
+                {t.hero.sauceBadge}
+              </Pill>
+            </motion.div>
+          </div>
         </div>
       </div>
 
