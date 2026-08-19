@@ -667,7 +667,7 @@ const defaultBranches: BranchItem[] = [
   {
     name: "Hoty Dogy IT Park",
     address: "ул. Тепамасжид, 4-й проезд",
-    format: "Express • 105 м²",
+    format: "Street Retail • 105 м²",
     photos: [
       {
         url: "/branches/itpark-1.jpg",

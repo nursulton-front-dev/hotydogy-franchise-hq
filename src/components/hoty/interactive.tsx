@@ -15,13 +15,17 @@ import {
   TrendingUp,
   X,
   Zap,
-  ChevronDown,
   Send,
+  Receipt,
+  Wallet,
+  Quote,
+  ChevronDown,
 } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Section, fmt, tap } from "./common";
 import logo from "@/assets/logo.png";
 import { useLanguage } from "@/locales/LanguageContext";
+import { LeadForm } from "@/components/LeadForm";
 
 /* ---------------------------------- 01: Header --------------------------------- */
 
@@ -76,13 +80,12 @@ export function HeaderNavigation({
           ))}
         </div>
 
-        <motion.button
-          {...tap}
+        <button
           onClick={onCta}
-          className="rounded-full bg-brand-red px-5 py-2 text-sm font-black text-white shadow-lg shadow-brand-red/25"
+          className="bg-[#F60019] hover:bg-[#d50015] text-white font-bold px-5 py-2.5 rounded-full text-sm shadow-md shadow-red-500/20 transition-all cursor-pointer"
         >
           {t.nav.cta}
-        </motion.button>
+        </button>
       </div>
     </header>
   );
@@ -190,12 +193,27 @@ export function AudienceTabs() {
 
 /* ---------------------------------- 10: Formats & Pricing --------------------------------- */
 
-const formatStyles: Record<string, { topBadgeCls: string; containerCls: string; areaPillCls: string; ctaCls: string }> = {
+const formatStyles: Record<
+  string,
+  { topBadgeCls?: string; containerCls: string; areaPillCls: string; ctaCls: string }
+> = {
+  "food-court": {
+    containerCls:
+      "bg-white rounded-3xl p-8 border border-neutral-200 shadow-sm flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative h-full",
+    areaPillCls:
+      "bg-orange-50 text-[#FF6E00] font-bold px-3.5 py-1 rounded-full text-xs inline-block border border-orange-100",
+    ctaCls:
+      "bg-[#F60019] hover:bg-[#d50015] text-white font-bold py-4 rounded-2xl transition-all w-full mt-6 shadow-lg shadow-red-500/25 cursor-pointer text-center text-sm md:text-base flex items-center justify-center gap-2",
+  },
   "street-retail": {
-    topBadgeCls: "bg-[#F60019] text-white font-black text-xs px-3.5 py-1 rounded-full absolute -top-3.5 left-1/2 -translate-x-1/2 shadow-md whitespace-nowrap uppercase tracking-wider",
-    containerCls: "border-2 border-[#FF6E00] relative shadow-xl bg-white rounded-3xl p-8 flex flex-col justify-between hover:shadow-2xl transition-all duration-300",
-    areaPillCls: "bg-orange-50 text-[#FF6E00] font-bold px-3.5 py-1 rounded-full text-xs inline-block border border-orange-100",
-    ctaCls: "bg-[#F60019] hover:bg-[#d50015] text-white font-bold py-4 rounded-2xl transition-all w-full mt-6 shadow-lg shadow-red-500/25 cursor-pointer text-center text-sm md:text-base flex items-center justify-center gap-2",
+    topBadgeCls:
+      "bg-[#FF6E00] text-white font-black text-xs px-3.5 py-1 rounded-full absolute -top-3.5 left-1/2 -translate-x-1/2 shadow-md whitespace-nowrap uppercase tracking-wider",
+    containerCls:
+      "bg-white rounded-3xl p-8 border-2 border-[#FF6E00] shadow-lg flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative h-full",
+    areaPillCls:
+      "bg-orange-50 text-[#FF6E00] font-bold px-3.5 py-1 rounded-full text-xs inline-block border border-orange-100",
+    ctaCls:
+      "bg-[#F60019] hover:bg-[#d50015] text-white font-bold py-4 rounded-2xl transition-all w-full mt-6 shadow-lg shadow-red-500/25 cursor-pointer text-center text-sm md:text-base flex items-center justify-center gap-2",
   },
 };
 
@@ -203,12 +221,12 @@ export function FormatsPricing({ onCta }: { onCta?: (format?: string) => void })
   const { t } = useLanguage();
 
   const handleSelectFormat = (formatId: string) => {
+    const budgetVal =
+      formatId === "food-court"
+        ? "$30 000 – $40 000 (Food Court)"
+        : "$40 000 – $50 000 (Street Retail)";
     if (onCta) {
-      onCta(formatId);
-    }
-    const el = document.getElementById("lead");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      onCta(budgetVal);
     }
   };
 
@@ -229,19 +247,20 @@ export function FormatsPricing({ onCta }: { onCta?: (format?: string) => void })
         {t.formats.subtitle}
       </p>
 
-      {/* 2. Format Card (Centered horizontally max-w-xl mx-auto) */}
-      <div className="max-w-xl mx-auto">
+      {/* 2. Format Cards Grid (2 columns on desktop) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
         {t.formats.items.map((f) => {
-          const style = formatStyles[f.id] ?? formatStyles["street-retail"];
-          if (!style) return null;
+          const style = formatStyles[f.id] ?? formatStyles["food-court"];
           return (
             <motion.div
               key={f.id}
               whileHover={{ y: -4 }}
               className={style.containerCls}
             >
-              {/* Top Badge */}
-              <span className={style.topBadgeCls}>{f.topBadge}</span>
+              {/* Top Badge (Only if present and styled) */}
+              {f.topBadge && style.topBadgeCls && (
+                <span className={style.topBadgeCls}>{f.topBadge}</span>
+              )}
 
               <div>
                 {/* Header */}
@@ -308,18 +327,29 @@ export function ROICalculator({
     React.SetStateAction<{ traffic: number; check: number }>
   >;
 }) {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const dailyOrders = calcData.traffic;
   const avgCheck = calcData.check;
 
+  // 1. Выручка в день
   const dailyRevenue = dailyOrders * avgCheck;
-  const monthlyRevenue = dailyRevenue * 30;
-  const monthlyProfit = monthlyRevenue * 0.22;
-  const paybackMonths = Math.max(4, Math.round(450000000 / (monthlyProfit || 1)));
 
-  const scrollToLead = () => {
-    document.getElementById("lead")?.scrollIntoView({ behavior: "smooth" });
-  };
+  // 2. Выручка в месяц (30 дней)
+  const monthlyRevenue = dailyRevenue * 30;
+
+  // 3. Операционная / Чистая прибыль (Рентабельность строго 10%)
+  const profitMargin = 0.10;
+  const monthlyProfit = monthlyRevenue * profitMargin;
+
+  // 4. Расчет срока окупаемости (при инвестициях $45 000 / ~585 млн сум)
+  // Средний курс: $1 ≈ 13 000 сум (инвестиции ~585 000 000 сум)
+  const totalInvestmentInSum = 45000 * 13000;
+  const paybackMonths = Math.max(
+    8,
+    Math.ceil(totalInvestmentInSum / (monthlyProfit || 1))
+  );
+
+  const checksSuffix = lang === "uz" ? "ta chek" : "чеков";
 
   return (
     <Section id="calc" className="py-16 sm:py-20 max-w-7xl mx-auto px-4">
@@ -350,22 +380,22 @@ export function ROICalculator({
                   {t.calc.ordersPerDay}
                 </span>
                 <span className="text-2xl font-black text-[#FF6E00]">
-                  {fmt(dailyOrders)}
+                  {dailyOrders} {checksSuffix}
                 </span>
               </div>
               <Slider
                 value={[dailyOrders]}
-                min={80}
-                max={500}
-                step={10}
+                min={150}
+                max={300}
+                step={5}
                 onValueChange={(v) =>
                   setCalcData((p) => ({ ...p, traffic: v[0] ?? p.traffic }))
                 }
                 className="mt-4 [&_[data-slot=slider-range]]:bg-[#FF6E00]"
               />
               <div className="flex justify-between text-[11px] font-bold text-neutral-400 mt-2">
-                <span>80</span>
-                <span>500</span>
+                <span>150 {checksSuffix}</span>
+                <span>300 {checksSuffix}</span>
               </div>
             </div>
 
@@ -381,17 +411,17 @@ export function ROICalculator({
               </div>
               <Slider
                 value={[avgCheck]}
-                min={35000}
-                max={100000}
-                step={5000}
+                min={60000}
+                max={70000}
+                step={1000}
                 onValueChange={(v) =>
                   setCalcData((p) => ({ ...p, check: v[0] ?? p.check }))
                 }
                 className="mt-4 [&_[data-slot=slider-range]]:bg-[#FF6E00]"
               />
               <div className="flex justify-between text-[11px] font-bold text-neutral-400 mt-2">
-                <span>35 000 {t.calc.sumSuffix}</span>
-                <span>100 000 {t.calc.sumSuffix}</span>
+                <span>60 000 {t.calc.sumSuffix}</span>
+                <span>70 000 {t.calc.sumSuffix}</span>
               </div>
             </div>
           </div>
@@ -444,7 +474,7 @@ export function ROICalculator({
                 <Calculator className="w-5 h-5" />
               </div>
             </div>
-            <div className="text-2xl sm:text-3xl font-black text-[#FF6E00] mt-6 tracking-tight">
+            <div className="text-2xl sm:text-3xl font-black text-[#9FCE00] mt-6 tracking-tight">
               {fmt(Math.round(monthlyProfit))} {t.calc.sumSuffix}
             </div>
           </div>
@@ -460,7 +490,7 @@ export function ROICalculator({
               </div>
             </div>
             <div className="text-2xl sm:text-3xl font-black text-neutral-900 mt-6 tracking-tight">
-              {t.calc.paybackPrefix ? `${t.calc.paybackPrefix} ` : ""}{paybackMonths} {t.calc.paybackSuffix}
+              {t.calc.paybackPrefix ? `${t.calc.paybackPrefix} ` : "от "}{paybackMonths} {t.calc.paybackSuffix}
             </div>
           </div>
         </div>
@@ -472,84 +502,16 @@ export function ROICalculator({
 /* -------------------------------- Lead Gen Form ------------------------------- */
 
 export function LeadGenForm({
-  lang: propLang,
-  isSubmitting,
   selectedFormat,
-  onSubmit,
+  onSubmitSuccess,
 }: {
   lang?: "ru" | "uz";
-  isSubmitting: boolean;
+  isSubmitting?: boolean;
   selectedFormat?: string;
-  onSubmit: (data: {
-    name: string;
-    phone: string;
-    city: string;
-    budget: string;
-    format: string;
-    language: string;
-    lang: "ru" | "uz";
-  }) => void;
+  onSubmitSuccess?: () => void;
+  onSubmit?: (data: any) => void;
 }) {
-  const { lang: contextLang, t } = useLanguage();
-  const currentLang = propLang || contextLang;
-
-  const [form, setForm] = useState({ name: "", phone: "", city: "", budget: "", honeypot: "" });
-  const [spamError, setSpamError] = useState<string>("");
-  const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
-
-  const resolveFormat = (): string => {
-    if (selectedFormat) {
-      if (selectedFormat.toLowerCase().includes("food")) return "Food Court";
-      if (selectedFormat.toLowerCase().includes("street")) return "Street Retail";
-      return selectedFormat;
-    }
-    if (form.budget) {
-      if (form.budget.toLowerCase().includes("food court")) return "Food Court";
-      if (form.budget.toLowerCase().includes("street retail")) return "Street Retail";
-      if (form.budget.includes("Масштабирование") || form.budget.includes("Kengaytirish")) return "Multi-unit";
-    }
-    return "Street Retail";
-  };
-
-  const handleSubmitForm = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSpamError("");
-
-    // Anti-spam check 1: Honeypot field must be empty
-    if (form.honeypot.trim() !== "") {
-      // Silent rejection for automated bot submissions
-      return;
-    }
-
-    // Anti-spam check 2: Minimum digits validation for phone number
-    const digitsOnly = form.phone.replace(/\D/g, "");
-    if (digitsOnly.length < 7) {
-      setSpamError(
-        currentLang === "uz"
-          ? "Iltimos, haqiqiy telefon raqamini kiriting."
-          : "Пожалуйста, введите корректный номер телефона."
-      );
-      return;
-    }
-
-    // Anti-spam check 3: Cooldown rate limit (30 seconds)
-    const now = Date.now();
-    if (now - lastSubmitTime < 30000) {
-      setSpamError((t.lead as any).spamWarning || "Пожалуйста, подождите перед повторной отправкой.");
-      return;
-    }
-
-    setLastSubmitTime(now);
-    onSubmit({
-      name: form.name.trim(),
-      phone: form.phone.trim(),
-      city: form.city,
-      budget: form.budget,
-      format: resolveFormat(),
-      language: currentLang.toUpperCase(),
-      lang: currentLang,
-    });
-  };
+  const { t } = useLanguage();
 
   return (
     <Section id="lead" className="py-16 sm:py-24 max-w-6xl mx-auto px-4">
@@ -586,128 +548,7 @@ export function LeadGenForm({
         {/* Right Column (Form Card) */}
         <div className="lg:col-span-6">
           <div className="bg-white rounded-3xl p-7 sm:p-9 border border-neutral-100 shadow-xl shadow-neutral-200/50">
-            <form className="space-y-4" onSubmit={handleSubmitForm}>
-              {/* Anti-spam Honeypot Field (Hidden from human users) */}
-              <div className="sr-only" aria-hidden="true">
-                <input
-                  type="text"
-                  name="b_website_confirm"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  value={form.honeypot}
-                  onChange={(e) => setForm((p) => ({ ...p, honeypot: e.target.value }))}
-                />
-              </div>
-
-              {/* Name */}
-              <div>
-                <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wide mb-1.5">
-                  {t.lead.labelName}
-                </label>
-                <input
-                  required
-                  value={form.name}
-                  onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
-                  placeholder={t.lead.placeholderName}
-                  className="w-full px-4 py-3.5 rounded-2xl border border-neutral-200 focus:border-[#FF6E00] focus:ring-2 focus:ring-orange-100 outline-none text-sm transition-all"
-                />
-              </div>
-
-              {/* Phone */}
-              <div>
-                <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wide mb-1.5">
-                  {t.lead.labelPhone}
-                </label>
-                <input
-                  required
-                  type="tel"
-                  value={form.phone}
-                  onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
-                  placeholder={t.lead.placeholderPhone}
-                  className="w-full px-4 py-3.5 rounded-2xl border border-neutral-200 focus:border-[#FF6E00] focus:ring-2 focus:ring-orange-100 outline-none text-sm transition-all"
-                />
-              </div>
-
-              {/* City */}
-              <div>
-                <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wide mb-1.5">
-                  {t.lead.labelCity}
-                </label>
-                <div className="relative">
-                  <select
-                    required
-                    value={form.city}
-                    onChange={(e) => setForm((p) => ({ ...p, city: e.target.value }))}
-                    className="w-full px-4 py-3.5 rounded-2xl border border-neutral-200 focus:border-[#FF6E00] focus:ring-2 focus:ring-orange-100 outline-none text-sm transition-all bg-white appearance-none pr-10"
-                  >
-                    <option value="" disabled>{t.lead.selectCity}</option>
-                    {t.lead.cityOptions.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Budget */}
-              <div>
-                <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wide mb-1.5">
-                  {t.lead.labelBudget}
-                </label>
-                <div className="relative">
-                  <select
-                    required
-                    value={form.budget}
-                    onChange={(e) => setForm((p) => ({ ...p, budget: e.target.value }))}
-                    className="w-full px-4 py-3.5 rounded-2xl border border-neutral-200 focus:border-[#FF6E00] focus:ring-2 focus:ring-orange-100 outline-none text-sm transition-all bg-white appearance-none pr-10"
-                  >
-                    <option value="" disabled>{t.lead.selectBudget}</option>
-                    {t.lead.budgetOptions.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Anti-spam Error Display */}
-              {spamError && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs font-medium">
-                  {spamError}
-                </div>
-              )}
-
-              {/* Submit Button */}
-              <div className="pt-2">
-                <motion.button
-                  {...tap}
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="bg-[#F60019] hover:bg-[#d50015] text-white font-bold py-4 rounded-2xl w-full shadow-lg shadow-red-500/25 transition-all flex items-center justify-center gap-2 text-base disabled:opacity-80 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                      {t.lead.submitting}
-                    </>
-                  ) : (
-                    <>
-                      {t.lead.submitBtn}
-                      <Send className="w-5 h-5 ml-1" />
-                    </>
-                  )}
-                </motion.button>
-              </div>
-
-              {/* Privacy Notice */}
-              <p className="text-[11px] text-center text-neutral-400 mt-2 leading-tight">
-                {t.lead.privacy}
-              </p>
-            </form>
+            <LeadForm onSuccess={onSubmitSuccess} selectedFormat={selectedFormat} />
           </div>
         </div>
       </div>
@@ -868,6 +709,163 @@ export function FaqAccordion({ onCta }: { onCta?: () => void }) {
         >
           {t.faq.telegramBtn}
         </motion.button>
+      </div>
+    </Section>
+  );
+}
+
+/* -------------------------- Block 10.5: Case Study -------------------------- */
+
+export function FranchiseeCaseStudy({
+  onCta,
+}: {
+  onCta?: (budget?: string) => void;
+}) {
+  const { t, lang } = useLanguage();
+  const cs = t.caseStudy || {
+    eyebrow: "РЕАЛЬНЫЙ ОПЫТ",
+    title: "Реальный кейс франчайзи",
+    subtitle: "Подтверждённые показатели действующей точки в Ташкенте.",
+    roleBadge: "ФРАНЧАЙЗИ",
+    partnerNames: "Миракмаль",
+    formatBadge: "Street Retail, 105 м² (Ташкент)",
+    investmentVal: "~450 млн сум",
+    card1Val: "180",
+    card1Label: "Чеков в день",
+    card1Sub: "Средний чек ~65 000 сум",
+    card2Val: "11.8 млн сум",
+    card2Label: "Выручка в день",
+    card2Sub: "~350+ млн сум / месяц",
+    card3Val: "32 млн сум",
+    card3Label: "Опер. прибыль / месяц",
+    card3Sub: "Чистый доход партнёров",
+    quote:
+      "«Запуск точки с HOTY DOGY прошёл за рекордные 25 дней. Мы получили готовую систему, стандарты кухни и поток гостей с первого дня открытия. Цифры полностью совпали с финмоделью.»",
+    ctaBtn: "Хочу такой же результат",
+  };
+
+  const avatarInitial = lang === "uz" ? "M" : "М";
+
+  return (
+    <Section id="case-study" className="max-w-5xl mx-auto px-4 py-16 sm:py-20">
+      {/* Header */}
+      <div className="text-center mb-10">
+        <span className="bg-orange-50 text-[#FF6E00] font-bold text-xs px-3.5 py-1 rounded-full uppercase tracking-wider inline-block mb-3">
+          {cs.eyebrow}
+        </span>
+        <h2 className="font-display font-black text-3xl sm:text-4xl text-neutral-900 text-center leading-tight">
+          {cs.title}
+        </h2>
+        <p className="text-neutral-500 text-sm font-medium text-center mt-1">
+          {cs.subtitle}
+        </p>
+      </div>
+
+      {/* Main Case Card */}
+      <div className="bg-[#212620] rounded-3xl p-6 sm:p-10 text-white shadow-2xl relative overflow-hidden">
+        {/* Decorative background glow */}
+        <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#FF6E00]/10 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Top Row (Partner Info & Meta) */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-6 border-b border-white/10">
+          <div className="flex items-center gap-4">
+            <div className="bg-[#FFD000] text-black w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-xl shadow-md shrink-0">
+              {avatarInitial}
+            </div>
+            <div>
+              <span className="text-neutral-400 text-xs font-bold uppercase tracking-wide block">
+                {cs.roleBadge}
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black text-white font-display">
+                {cs.partnerNames}
+              </h3>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl px-4 py-2.5 border border-white/10 text-sm font-medium text-neutral-200">
+              {cs.formatBadge}
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl px-4 py-2.5 border border-white/10 text-sm font-medium">
+              <span className="text-neutral-400 mr-1.5">
+                {lang === "uz" ? "Investitsiyalar:" : "Инвестиции:"}
+              </span>
+              <span className="text-[#9FCE00] font-black text-lg sm:text-xl">
+                {cs.investmentVal}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Key Financial Metric Cards (3 Columns Grid) */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
+          {/* Card 1 */}
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:border-white/20 transition-all">
+            <div className="flex items-center justify-between mb-3">
+              <Receipt className="w-6 h-6 text-[#FFD000]" />
+            </div>
+            <div className="font-black text-3xl sm:text-4xl text-white font-display">
+              {cs.card1Val}
+            </div>
+            <div className="text-neutral-400 text-xs font-medium mt-1">
+              {cs.card1Label}
+            </div>
+            <div className="text-neutral-500 text-[11px] mt-0.5">
+              {cs.card1Sub}
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:border-white/20 transition-all">
+            <div className="flex items-center justify-between mb-3">
+              <TrendingUp className="w-6 h-6 text-[#FF6E00]" />
+            </div>
+            <div className="font-black text-2xl sm:text-3xl text-white font-display">
+              {cs.card2Val}
+            </div>
+            <div className="text-neutral-400 text-xs font-medium mt-1">
+              {cs.card2Label}
+            </div>
+            <div className="text-neutral-500 text-[11px] mt-0.5">
+              {cs.card2Sub}
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:border-white/20 transition-all">
+            <div className="flex items-center justify-between mb-3">
+              <Wallet className="w-6 h-6 text-[#9FCE00]" />
+            </div>
+            <div className="font-black text-2xl sm:text-3xl text-[#9FCE00] font-display">
+              {cs.card3Val}
+            </div>
+            <div className="text-neutral-400 text-xs font-medium mt-1">
+              {cs.card3Label}
+            </div>
+            <div className="text-neutral-500 text-[11px] mt-0.5">
+              {cs.card3Sub}
+            </div>
+          </div>
+        </div>
+
+        {/* Direct Quote & CTA Bar */}
+        <div className="pt-4 border-t border-white/10">
+          <div className="bg-white/5 rounded-2xl p-5 border border-white/5 flex items-start gap-4">
+            <Quote className="w-8 h-8 text-[#FF6E00] shrink-0 mt-1" />
+            <p className="italic text-neutral-300 text-sm sm:text-base leading-relaxed">
+              {cs.quote}
+            </p>
+          </div>
+
+          <motion.button
+            {...tap}
+            onClick={() => onCta?.("$40 000 – $50 000 (Street Retail)")}
+            className="bg-[#F60019] hover:bg-[#d50015] text-white font-bold px-6 py-3.5 rounded-2xl text-sm transition-all shadow-lg shadow-red-500/30 flex items-center justify-center gap-2 mt-6 sm:mt-8 w-full sm:w-auto mx-auto cursor-pointer"
+          >
+            {cs.ctaBtn}
+            <Send className="w-4 h-4 ml-1" />
+          </motion.button>
+        </div>
       </div>
     </Section>
   );

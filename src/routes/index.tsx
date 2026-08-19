@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { LanguageProvider, useLanguage } from "@/locales/LanguageContext";
-import { handleLeadSubmission } from "@/services/leadService";
+import { LeadModal } from "@/components/LeadModal";
 import {
   BrandTimeline,
   Footer,
@@ -22,6 +22,7 @@ import {
   ROICalculator,
   SuccessModal,
   FaqAccordion,
+  FranchiseeCaseStudy,
 } from "@/components/hoty/interactive";
 
 export const Route = createFileRoute("/")({
@@ -50,45 +51,30 @@ function IndexContent() {
   const { t } = useLanguage();
   const [calcData, setCalcData] = useState({ traffic: 200, check: 45000 });
   const [selectedFormat, setSelectedFormat] = useState<string>("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     document.title = t.meta.title;
   }, [t.meta.title]);
 
-  const scrollToForm = (format?: string) => {
+  const openLeadModal = (format?: string) => {
     if (format) {
       setSelectedFormat(format);
     }
-    document.getElementById("lead")?.scrollIntoView({ behavior: "smooth" });
+    setIsLeadModalOpen(true);
   };
 
-  const handleSubmit = async (data: {
-    name: string;
-    phone: string;
-    city: string;
-    budget: string;
-    format: string;
-    language?: string;
-    lang: "ru" | "uz";
-  }) => {
-    setIsSubmitting(true);
-    try {
-      await handleLeadSubmission(data);
-    } catch (err) {
-      console.error("Error submitting lead:", err);
-    } finally {
-      setIsSubmitting(false);
-      setShowSuccess(true);
-    }
+  const handleSuccessSubmit = () => {
+    setIsLeadModalOpen(false);
+    setShowSuccess(true);
   };
 
   return (
     <div id="top" className="min-h-screen bg-brand-light">
-      <HeaderNavigation onCta={scrollToForm} />
+      <HeaderNavigation onCta={() => openLeadModal()} />
       <main>
-        <HeroSection onCta={scrollToForm} />
+        <HeroSection onCta={() => openLeadModal()} />
         <MetricsRow />
         <BrandTimeline />
         <FounderQuote />
@@ -98,18 +84,26 @@ function IndexContent() {
         </div>
         <AudienceTabs />
         <FranchisePackage />
-        <FormatsPricing onCta={scrollToForm} />
+        <FormatsPricing onCta={(fmt) => openLeadModal(fmt)} />
         <ROICalculator calcData={calcData} setCalcData={setCalcData} />
+        <FranchiseeCaseStudy onCta={(fmt) => openLeadModal(fmt)} />
         <LaunchStepper />
         <LocationsGallery />
-        <FaqAccordion onCta={scrollToForm} />
+        <FaqAccordion onCta={() => openLeadModal()} />
         <LeadGenForm
-          isSubmitting={isSubmitting}
           selectedFormat={selectedFormat}
-          onSubmit={handleSubmit}
+          onSubmitSuccess={handleSuccessSubmit}
         />
       </main>
       <Footer />
+
+      <LeadModal
+        isOpen={isLeadModalOpen}
+        onClose={() => setIsLeadModalOpen(false)}
+        onSuccessSubmit={handleSuccessSubmit}
+        selectedFormat={selectedFormat}
+      />
+
       <SuccessModal open={showSuccess} onClose={() => setShowSuccess(false)} />
     </div>
   );
