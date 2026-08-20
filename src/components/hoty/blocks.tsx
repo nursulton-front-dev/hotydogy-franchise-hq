@@ -713,10 +713,14 @@ interface PhotoItem {
 
 interface BranchMetrics {
   orders: string;
-  revenue: string;
+  revenueVal?: string;
+  revenueUnit?: string;
   revenueExact?: string;
-  avgCheck: string;
+  avgCheckVal?: string;
+  avgCheckUnit?: string;
   avgCheckExact?: string;
+  revenue?: string;
+  avgCheck?: string;
 }
 
 interface MetricsLabels {
@@ -734,9 +738,9 @@ interface BranchItem {
 }
 
 const defaultMetricsLabels: MetricsLabels = {
-  orders: "Заказы",
-  revenue: "Выручка",
-  avgCheck: "Средний чек",
+  orders: "BUYURTMALAR",
+  revenue: "TUSHUM",
+  avgCheck: "O'RTACHA CHEK",
 };
 
 const defaultBranches: BranchItem[] = [
@@ -746,9 +750,11 @@ const defaultBranches: BranchItem[] = [
     format: "Street Retail • 105 м²",
     metrics: {
       orders: "154",
-      revenue: "10.9 млн сум",
+      revenueVal: "10.9 млн",
+      revenueUnit: "сум",
       revenueExact: "10 966 301 сум",
-      avgCheck: "71.1 тыс. сум",
+      avgCheckVal: "71.1 тыс.",
+      avgCheckUnit: "сум",
       avgCheckExact: "71 076 сум",
     },
     photos: [
@@ -772,9 +778,11 @@ const defaultBranches: BranchItem[] = [
     format: "Street Retail • 95 м²",
     metrics: {
       orders: "138",
-      revenue: "9.8 млн сум",
+      revenueVal: "9.8 млн",
+      revenueUnit: "сум",
       revenueExact: "9 783 457 сум",
-      avgCheck: "70.7 тыс. сум",
+      avgCheckVal: "70.7 тыс.",
+      avgCheckUnit: "сум",
       avgCheckExact: "70 663 сум",
     },
     photos: [
@@ -795,12 +803,14 @@ const defaultBranches: BranchItem[] = [
   {
     name: "Hoty Dogy Экобазар",
     address: "ТЦ Экобазар",
-    format: "Food Court / Island • 80 м²",
+    format: "Food Court • 80 м²",
     metrics: {
       orders: "135",
-      revenue: "7.4 млн сум",
+      revenueVal: "7.4 млн",
+      revenueUnit: "сум",
       revenueExact: "7 434 860 сум",
-      avgCheck: "54.9 тыс. сум",
+      avgCheckVal: "54.9 тыс.",
+      avgCheckUnit: "сум",
       avgCheckExact: "54 916 сум",
     },
     photos: [
@@ -864,26 +874,28 @@ const BranchCard = memo(function BranchCard({
     }
   }, [touchStart, touchEnd, nextSlide, prevSlide]);
 
+  const statusText = workingBadge.replace(/^●\s*/, "");
+
   return (
-    <div className="bg-white rounded-3xl overflow-hidden border border-neutral-100 shadow-lg shadow-neutral-100/60 transition-all duration-300 hover:shadow-xl flex flex-col justify-between h-full">
+    <div className="bg-white rounded-[20px] border border-black/[0.06] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.07)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col justify-between h-full">
       <div>
-        {/* Integrated Slider Component */}
+        {/* Integrated Photo Slider Component with aspect-ratio 16/10 */}
         <div
-          className="aspect-[4/3] w-full relative overflow-hidden rounded-t-3xl group select-none bg-neutral-900"
+          className="aspect-[16/10] w-full relative overflow-hidden bg-neutral-900 group select-none"
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
         >
-          {/* Floating Badges */}
-          <span className="bg-black/60 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full absolute top-3 left-3 z-10 shadow-sm">
+          {/* Glassmorphism Badges */}
+          <span className="bg-[#141414]/55 backdrop-blur-[8px] text-white text-[12px] font-medium px-3 py-1.5 rounded-full absolute top-3 left-3 z-10 shadow-xs border border-white/10">
             {branch.format}
           </span>
-          <span className="bg-emerald-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1 absolute top-3 right-3 z-10 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-            {workingBadge.startsWith("●") ? workingBadge : `● ${workingBadge}`}
+          <span className="bg-[#141414]/55 backdrop-blur-[8px] text-white text-[12px] font-medium px-3 py-1.5 rounded-full border border-white/10 flex items-center absolute top-3 right-3 z-10 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 mr-1.5 shrink-0 animate-pulse" />
+            {statusText}
           </span>
 
-          {/* Images slider track */}
+          {/* Images slider track using GPU Accelerated CSS transforms */}
           <div
             className="flex h-full w-full transition-transform duration-300 ease-out"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -893,8 +905,8 @@ const BranchCard = memo(function BranchCard({
                 key={i}
                 src={photo.url}
                 alt={photo.alt}
-                width={600}
-                height={450}
+                width={640}
+                height={400}
                 loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover shrink-0"
@@ -946,50 +958,63 @@ const BranchCard = memo(function BranchCard({
           )}
         </div>
 
-        {/* Card Body Details */}
-        <h3 className="text-xl font-black text-neutral-900 mt-4 px-6 font-display tracking-tight">
-          {branch.name}
-        </h3>
-        <div className="text-neutral-500 text-sm flex items-center gap-1.5 px-6 mt-1 font-medium">
-          <MapPin className="w-4 h-4 text-[#FF6E00] shrink-0" />
-          <span>{branch.address}</span>
+        {/* Card Header & Address Details */}
+        <div className="p-5 pb-3">
+          <h3 className="font-bold text-lg text-neutral-900 tracking-tight font-display">
+            {branch.name}
+          </h3>
+          <div className="text-neutral-500 text-sm font-medium flex items-center gap-1.5 mt-1">
+            <MapPin className="w-4 h-4 text-[#FF6B00] shrink-0" />
+            <span>{branch.address}</span>
+          </div>
         </div>
       </div>
 
-      {/* KPI Performance Metrics Grid */}
+      {/* Modern Unified Bottom Metrics Panel */}
       {branch.metrics && (
-        <div className="mx-6 mb-6 mt-4 grid grid-cols-3 gap-2 rounded-2xl bg-neutral-50 p-2.5 border border-neutral-100">
-          <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white shadow-xs border border-neutral-100 text-center">
-            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-neutral-400">
-              {labels.orders}
-            </span>
-            <span className="mt-0.5 font-display text-sm sm:text-base font-black text-neutral-900">
-              {branch.metrics.orders}
-            </span>
-          </div>
+        <div className="px-4 pb-4 mt-auto">
+          <div className="bg-[#F8F9FA] rounded-[14px] p-3.5 border border-neutral-200/50">
+            <div className="grid grid-cols-3 text-center divide-x divide-neutral-200/60 items-center">
+              {/* Column 1: Orders */}
+              <div className="px-1">
+                <span className="text-[11px] uppercase tracking-wider text-neutral-400 font-semibold mb-1 block">
+                  {labels.orders}
+                </span>
+                <div className="font-bold text-base text-neutral-900 leading-tight">
+                  {branch.metrics.orders}
+                </div>
+              </div>
 
-          <div
-            className="flex flex-col items-center justify-center p-2 rounded-xl bg-white shadow-xs border border-neutral-100 text-center cursor-help"
-            title={branch.metrics.revenueExact}
-          >
-            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-neutral-400">
-              {labels.revenue}
-            </span>
-            <span className="mt-0.5 font-display text-xs sm:text-sm font-black text-[#FF6E00] whitespace-nowrap">
-              {branch.metrics.revenue}
-            </span>
-          </div>
+              {/* Column 2: Revenue */}
+              <div className="px-1" title={branch.metrics.revenueExact}>
+                <span className="text-[11px] uppercase tracking-wider text-neutral-400 font-semibold mb-1 block">
+                  {labels.revenue}
+                </span>
+                <div className="font-bold text-base text-[#FF5500] leading-tight whitespace-nowrap">
+                  {branch.metrics.revenueVal || branch.metrics.revenue}{" "}
+                  {branch.metrics.revenueUnit && (
+                    <span className="text-xs text-neutral-400 font-normal">
+                      {branch.metrics.revenueUnit}
+                    </span>
+                  )}
+                </div>
+              </div>
 
-          <div
-            className="flex flex-col items-center justify-center p-2 rounded-xl bg-white shadow-xs border border-neutral-100 text-center cursor-help"
-            title={branch.metrics.avgCheckExact}
-          >
-            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-neutral-400">
-              {labels.avgCheck}
-            </span>
-            <span className="mt-0.5 font-display text-xs sm:text-sm font-black text-neutral-900 whitespace-nowrap">
-              {branch.metrics.avgCheck}
-            </span>
+              {/* Column 3: Avg Check */}
+              <div className="px-1" title={branch.metrics.avgCheckExact}>
+                <span className="text-[11px] uppercase tracking-wider text-neutral-400 font-semibold mb-1 block">
+                  {labels.avgCheck}
+                </span>
+                <div className="font-bold text-base text-neutral-900 leading-tight whitespace-nowrap">
+                  {branch.metrics.avgCheckVal || branch.metrics.avgCheck}{" "}
+                  {branch.metrics.avgCheckUnit && (
+                    <span className="text-xs text-neutral-400 font-normal">
+                      {branch.metrics.avgCheckUnit}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -1019,12 +1044,12 @@ export function LocationsGallery() {
         {t.locations.subtitle || "Реальные точки сети"}
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-6 items-stretch">
         {branches.map((b) => (
           <BranchCard
             key={b.name}
             branch={b}
-            workingBadge={t.locations.workingBadge || "Работает"}
+            workingBadge={t.locations.workingBadge || "Faoliyat yuritmoqda"}
             labels={metricsLabels}
           />
         ))}

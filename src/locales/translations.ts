@@ -428,9 +428,9 @@ export const translations = {
       subtitle: "Реальные точки сети",
       workingBadge: "Работает",
       metricsLabels: {
-        orders: "Заказы",
-        revenue: "Выручка",
-        avgCheck: "Средний чек",
+        orders: "ЗАКАЗЫ",
+        revenue: "ВЫРУЧКА",
+        avgCheck: "СРЕДНИЙ ЧЕК",
       },
       branches: [
         {
@@ -439,9 +439,11 @@ export const translations = {
           format: "Street Retail • 105 м²",
           metrics: {
             orders: "154",
-            revenue: "10.9 млн сум",
+            revenueVal: "10.9 млн",
+            revenueUnit: "сум",
             revenueExact: "10 966 301 сум",
-            avgCheck: "71.1 тыс. сум",
+            avgCheckVal: "71.1 тыс.",
+            avgCheckUnit: "сум",
             avgCheckExact: "71 076 сум",
           },
           photos: [
@@ -465,9 +467,11 @@ export const translations = {
           format: "Street Retail • 95 м²",
           metrics: {
             orders: "138",
-            revenue: "9.8 млн сум",
+            revenueVal: "9.8 млн",
+            revenueUnit: "сум",
             revenueExact: "9 783 457 сум",
-            avgCheck: "70.7 тыс. сум",
+            avgCheckVal: "70.7 тыс.",
+            avgCheckUnit: "сум",
             avgCheckExact: "70 663 сум",
           },
           photos: [
@@ -488,12 +492,14 @@ export const translations = {
         {
           name: "Hoty Dogy Экобазар",
           address: "ТЦ Экобазар",
-          format: "Food Court / Island • 80 м²",
+          format: "Food Court • 80 м²",
           metrics: {
             orders: "135",
-            revenue: "7.4 млн сум",
+            revenueVal: "7.4 млн",
+            revenueUnit: "сум",
             revenueExact: "7 434 860 сум",
-            avgCheck: "54.9 тыс. сум",
+            avgCheckVal: "54.9 тыс.",
+            avgCheckUnit: "сум",
             avgCheckExact: "54 916 сум",
           },
           photos: [
@@ -1044,9 +1050,9 @@ export const translations = {
       subtitle: "Tarmoqning amaldagi filiallari",
       workingBadge: "Faoliyat yuritmoqda",
       metricsLabels: {
-        orders: "Buyurtmalar",
-        revenue: "Tushum",
-        avgCheck: "O'rtacha chek",
+        orders: "BUYURTMALAR",
+        revenue: "TUSHUM",
+        avgCheck: "O'RTACHA CHEK",
       },
       branches: [
         {
@@ -1055,9 +1061,11 @@ export const translations = {
           format: "Street Retail • 105 m²",
           metrics: {
             orders: "154",
-            revenue: "10.9 mln so'm",
+            revenueVal: "10.9 mln",
+            revenueUnit: "so'm",
             revenueExact: "10 966 301 so'm",
-            avgCheck: "71.1 ming so'm",
+            avgCheckVal: "71.1 ming",
+            avgCheckUnit: "so'm",
             avgCheckExact: "71 076 so'm",
           },
           photos: [
@@ -1081,9 +1089,11 @@ export const translations = {
           format: "Street Retail • 95 m²",
           metrics: {
             orders: "138",
-            revenue: "9.8 mln so'm",
+            revenueVal: "9.8 mln",
+            revenueUnit: "so'm",
             revenueExact: "9 783 457 so'm",
-            avgCheck: "70.7 ming so'm",
+            avgCheckVal: "70.7 ming",
+            avgCheckUnit: "so'm",
             avgCheckExact: "70 663 so'm",
           },
           photos: [
@@ -1104,12 +1114,14 @@ export const translations = {
         {
           name: "Hoty Dogy Ecobozor",
           address: "Ecobozor SK",
-          format: "Food Court / Island • 80 m²",
+          format: "Food Court • 80 m²",
           metrics: {
             orders: "135",
-            revenue: "7.4 mln so'm",
+            revenueVal: "7.4 mln",
+            revenueUnit: "so'm",
             revenueExact: "7 434 860 so'm",
-            avgCheck: "54.9 ming so'm",
+            avgCheckVal: "54.9 ming",
+            avgCheckUnit: "so'm",
             avgCheckExact: "54 916 so'm",
           },
           photos: [
