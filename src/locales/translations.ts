@@ -507,14 +507,6 @@ export const translations = {
               url: "/branches/ecobazar-1.jpg",
               alt: "Hoty Dogy Экобазар - Концепт островка и фасад",
             },
-            {
-              url: "/branches/ecobazar-2.jpg",
-              alt: "Hoty Dogy Экобазар - Зона заказа и посадка",
-            },
-            {
-              url: "/branches/ecobazar-3.jpg",
-              alt: "Hoty Dogy Экобазар - Меню и блюда",
-            },
           ],
         },
       ],
@@ -1128,14 +1120,6 @@ export const translations = {
             {
               url: "/branches/ecobazar-1.jpg",
               alt: "Hoty Dogy Ecobozor - Ostrovok konseptsiyasi va fasad",
-            },
-            {
-              url: "/branches/ecobazar-2.jpg",
-              alt: "Hoty Dogy Ecobozor - Buyurtma berish va o'rindiqlar zonasi",
-            },
-            {
-              url: "/branches/ecobazar-3.jpg",
-              alt: "Hoty Dogy Ecobozor - Menyular va taomlar",
             },
           ],
         },
