@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, memo } from "react";
 import { motion } from "motion/react";
 import {
   BarChart3,
@@ -80,6 +80,9 @@ export function HeroSection({ onCta }: { onCta: () => void }) {
                     <img
                       src={logo}
                       alt="HOTY DOGY"
+                      width={160}
+                      height={64}
+                      decoding="async"
                       className="h-11 md:h-16 w-auto inline-block object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]"
                     />
                   </span>
@@ -92,6 +95,9 @@ export function HeroSection({ onCta }: { onCta: () => void }) {
                     <img
                       src={logo}
                       alt="HOTY DOGY"
+                      width={160}
+                      height={64}
+                      decoding="async"
                       className="h-11 md:h-16 w-auto inline-block object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]"
                     />
                   </span>
@@ -141,6 +147,8 @@ export function HeroSection({ onCta }: { onCta: () => void }) {
               alt="HOTY DOGY mascot"
               width={1024}
               height={1024}
+              decoding="async"
+              loading="eager"
               className="w-full max-w-[280px] sm:max-w-[360px] md:max-w-[430px] lg:max-w-[480px] h-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.35)] relative z-10"
               animate={{
                 y: [0, -20, 0],
@@ -363,6 +371,10 @@ export function FounderQuote() {
             <img
               src={shokhrukh}
               alt={t.founder.name}
+              width={256}
+              height={256}
+              loading="lazy"
+              decoding="async"
               className="h-56 w-56 md:h-64 md:w-64 rounded-[2rem] object-cover shadow-2xl border border-white/10"
             />
             <div className="absolute -bottom-3 -right-3 h-12 w-12 rounded-2xl bg-brand-lime grid place-items-center shadow-lg border-2 border-[#1d221c]">
@@ -446,6 +458,10 @@ export function MarketingTraction() {
                 <img
                   src={appScreenshot}
                   alt="HOTY DOGY App"
+                  width={310}
+                  height={560}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-top"
                 />
               </div>
@@ -695,30 +711,58 @@ interface PhotoItem {
   alt: string;
 }
 
+interface BranchMetrics {
+  orders: string;
+  revenue: string;
+  revenueExact?: string;
+  avgCheck: string;
+  avgCheckExact?: string;
+}
+
+interface MetricsLabels {
+  orders: string;
+  revenue: string;
+  avgCheck: string;
+}
+
 interface BranchItem {
   name: string;
   address: string;
   format: string;
+  metrics?: BranchMetrics;
   photos: PhotoItem[];
 }
+
+const defaultMetricsLabels: MetricsLabels = {
+  orders: "Заказы",
+  revenue: "Выручка",
+  avgCheck: "Средний чек",
+};
 
 const defaultBranches: BranchItem[] = [
   {
     name: "Hoty Dogy IT Park",
     address: "ул. Тепамасжид, 4-й проезд",
     format: "Street Retail • 105 м²",
+    metrics: {
+      orders: "154",
+      revenue: "10.9 млн сум",
+      revenueExact: "10 966 301 сум",
+      avgCheck: "71.1 тыс. сум",
+      avgCheckExact: "71 076 сум",
+    },
     photos: [
       {
         url: "/branches/itpark-1.jpg",
-        alt: "Фасад и экстерьер",
+        alt: "Hoty Dogy IT Park - Фасад и экстерьер",
       },
       {
         url: "/branches/itpark-2.jpg",
-        alt: "Интерьер и зал",
+        alt: "Hoty Dogy IT Park - Интерьер и зал",
       },
       {
         url: "/branches/itpark-3.jpg",
-        alt: "Зона выдачи",
+        alt: "Hoty Dogy IT Park - Зона выдачи",
       },
     ],
   },
@@ -726,154 +770,241 @@ const defaultBranches: BranchItem[] = [
     name: "Hoty Dogy Ц-1",
     address: "ул. Буюк Ипак Йули, 31",
     format: "Street Retail • 95 м²",
+    metrics: {
+      orders: "138",
+      revenue: "9.8 млн сум",
+      revenueExact: "9 783 457 сум",
+      avgCheck: "70.7 тыс. сум",
+      avgCheckExact: "70 663 сум",
+    },
     photos: [
       {
         url: "/branches/c1-1.jpg",
-        alt: "Фасад и вывеска",
+        alt: "Hoty Dogy Ц-1 - Фасад и вывеска",
       },
       {
         url: "/branches/c1-2.jpg",
-        alt: "Интерьер и посадка",
+        alt: "Hoty Dogy Ц-1 - Интерьер и посадка",
       },
       {
         url: "/branches/c1-3.jpg",
-        alt: "Атмосфера филиала",
+        alt: "Hoty Dogy Ц-1 - Атмосфера филиала",
+      },
+    ],
+  },
+  {
+    name: "Hoty Dogy Экобазар",
+    address: "ТЦ Экобазар",
+    format: "Food Court / Island • 80 м²",
+    metrics: {
+      orders: "135",
+      revenue: "7.4 млн сум",
+      revenueExact: "7 434 860 сум",
+      avgCheck: "54.9 тыс. сум",
+      avgCheckExact: "54 916 сум",
+    },
+    photos: [
+      {
+        url: "/branches/ecobazar-1.jpg",
+        alt: "Hoty Dogy Экобазар - Концепт островка и фасад",
+      },
+      {
+        url: "/branches/ecobazar-2.jpg",
+        alt: "Hoty Dogy Экобазар - Зона заказа и посадка",
+      },
+      {
+        url: "/branches/ecobazar-3.jpg",
+        alt: "Hoty Dogy Экобазар - Меню и блюда",
       },
     ],
   },
 ];
 
-function BranchCard({ branch, workingBadge }: { branch: BranchItem; workingBadge: string }) {
+const BranchCard = memo(function BranchCard({
+  branch,
+  workingBadge,
+  labels = defaultMetricsLabels,
+}: {
+  branch: BranchItem;
+  workingBadge: string;
+  labels?: MetricsLabels;
+}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   const minSwipeDistance = 40;
 
-  const nextSlide = (e?: React.MouseEvent) => {
+  const nextSlide = useCallback((e?: React.MouseEvent) => {
     e?.stopPropagation();
     setCurrentIndex((prev) => (prev + 1) % branch.photos.length);
-  };
+  }, [branch.photos.length]);
 
-  const prevSlide = (e?: React.MouseEvent) => {
+  const prevSlide = useCallback((e?: React.MouseEvent) => {
     e?.stopPropagation();
     setCurrentIndex((prev) => (prev - 1 + branch.photos.length) % branch.photos.length);
-  };
+  }, [branch.photos.length]);
 
-  const onTouchStart = (e: React.TouchEvent) => {
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
-  };
+  }, []);
 
-  const onTouchMove = (e: React.TouchEvent) => {
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX);
-  };
+  }, []);
 
-  const onTouchEnd = () => {
+  const onTouchEnd = useCallback(() => {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-    if (isLeftSwipe) {
+    if (distance > minSwipeDistance) {
       nextSlide();
-    } else if (isRightSwipe) {
+    } else if (distance < -minSwipeDistance) {
       prevSlide();
     }
-  };
+  }, [touchStart, touchEnd, nextSlide, prevSlide]);
 
   return (
-    <div className="bg-white rounded-3xl overflow-hidden border border-neutral-100 shadow-lg shadow-neutral-100/60 transition-all duration-300 hover:shadow-xl flex flex-col">
-      {/* Integrated Slider Component */}
-      <div
-        className="aspect-[4/3] w-full relative overflow-hidden rounded-t-3xl group select-none"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-      >
-        {/* Floating Badges */}
-        <span className="bg-black/60 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full absolute top-3 left-3 z-10 shadow-sm">
-          {branch.format}
-        </span>
-        <span className="bg-emerald-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1 absolute top-3 right-3 z-10 shadow-sm">
-          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-          {workingBadge.startsWith("●") ? workingBadge : `● ${workingBadge}`}
-        </span>
-
-        {/* Images slider track */}
+    <div className="bg-white rounded-3xl overflow-hidden border border-neutral-100 shadow-lg shadow-neutral-100/60 transition-all duration-300 hover:shadow-xl flex flex-col justify-between h-full">
+      <div>
+        {/* Integrated Slider Component */}
         <div
-          className="flex h-full w-full transition-transform duration-300 ease-out"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          className="aspect-[4/3] w-full relative overflow-hidden rounded-t-3xl group select-none bg-neutral-900"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
         >
-          {branch.photos.map((photo, i) => (
-            <img
-              key={i}
-              src={photo.url}
-              alt={photo.alt}
-              className="w-full h-full object-cover shrink-0"
-              loading="lazy"
-            />
-          ))}
+          {/* Floating Badges */}
+          <span className="bg-black/60 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full absolute top-3 left-3 z-10 shadow-sm">
+            {branch.format}
+          </span>
+          <span className="bg-emerald-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1 absolute top-3 right-3 z-10 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            {workingBadge.startsWith("●") ? workingBadge : `● ${workingBadge}`}
+          </span>
+
+          {/* Images slider track */}
+          <div
+            className="flex h-full w-full transition-transform duration-300 ease-out"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {branch.photos.map((photo, i) => (
+              <img
+                key={i}
+                src={photo.url}
+                alt={photo.alt}
+                width={600}
+                height={450}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover shrink-0"
+              />
+            ))}
+          </div>
+
+          {/* Slider Controls */}
+          {branch.photos.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={prevSlide}
+                aria-label="Previous photo"
+                className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md text-white flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-3 transition-opacity duration-200 opacity-0 group-hover:opacity-100 cursor-pointer z-10"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+
+              <button
+                type="button"
+                onClick={nextSlide}
+                aria-label="Next photo"
+                className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md text-white flex items-center justify-center absolute top-1/2 -translate-y-1/2 right-3 transition-opacity duration-200 opacity-0 group-hover:opacity-100 cursor-pointer z-10"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {/* Bottom Pagination Dots */}
+              <div className="flex gap-1.5 absolute bottom-3 left-1/2 -translate-x-1/2 z-10">
+                {branch.photos.map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentIndex(i);
+                    }}
+                    aria-label={`Go to slide ${i + 1}`}
+                    className={
+                      i === currentIndex
+                        ? "w-5 h-1.5 rounded-full bg-white transition-all duration-300 cursor-pointer"
+                        : "w-1.5 h-1.5 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-300 cursor-pointer"
+                    }
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
-        {/* Slider Controls */}
-        <button
-          type="button"
-          onClick={prevSlide}
-          aria-label="Previous photo"
-          className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md text-white flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-3 transition-opacity duration-200 opacity-0 group-hover:opacity-100 cursor-pointer z-10"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-
-        <button
-          type="button"
-          onClick={nextSlide}
-          aria-label="Next photo"
-          className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md text-white flex items-center justify-center absolute top-1/2 -translate-y-1/2 right-3 transition-opacity duration-200 opacity-0 group-hover:opacity-100 cursor-pointer z-10"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-
-        {/* Bottom Pagination Dots */}
-        <div className="flex gap-1.5 absolute bottom-3 left-1/2 -translate-x-1/2 z-10">
-          {branch.photos.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setCurrentIndex(i);
-              }}
-              aria-label={`Go to slide ${i + 1}`}
-              className={
-                i === currentIndex
-                  ? "w-5 h-1.5 rounded-full bg-white transition-all duration-300 cursor-pointer"
-                  : "w-1.5 h-1.5 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-300 cursor-pointer"
-              }
-            />
-          ))}
+        {/* Card Body Details */}
+        <h3 className="text-xl font-black text-neutral-900 mt-4 px-6 font-display tracking-tight">
+          {branch.name}
+        </h3>
+        <div className="text-neutral-500 text-sm flex items-center gap-1.5 px-6 mt-1 font-medium">
+          <MapPin className="w-4 h-4 text-[#FF6E00] shrink-0" />
+          <span>{branch.address}</span>
         </div>
       </div>
 
-      {/* Card Body Details */}
-      <h3 className="text-xl font-black text-neutral-900 mt-4 px-6 font-display">
-        {branch.name}
-      </h3>
-      <div className="text-neutral-500 text-sm flex items-center gap-1.5 px-6 pb-6 mt-1 font-medium">
-        <MapPin className="w-4 h-4 text-[#FF6E00] shrink-0" />
-        <span>{branch.address}</span>
-      </div>
+      {/* KPI Performance Metrics Grid */}
+      {branch.metrics && (
+        <div className="mx-6 mb-6 mt-4 grid grid-cols-3 gap-2 rounded-2xl bg-neutral-50 p-2.5 border border-neutral-100">
+          <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white shadow-xs border border-neutral-100 text-center">
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-neutral-400">
+              {labels.orders}
+            </span>
+            <span className="mt-0.5 font-display text-sm sm:text-base font-black text-neutral-900">
+              {branch.metrics.orders}
+            </span>
+          </div>
+
+          <div
+            className="flex flex-col items-center justify-center p-2 rounded-xl bg-white shadow-xs border border-neutral-100 text-center cursor-help"
+            title={branch.metrics.revenueExact}
+          >
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-neutral-400">
+              {labels.revenue}
+            </span>
+            <span className="mt-0.5 font-display text-xs sm:text-sm font-black text-[#FF6E00] whitespace-nowrap">
+              {branch.metrics.revenue}
+            </span>
+          </div>
+
+          <div
+            className="flex flex-col items-center justify-center p-2 rounded-xl bg-white shadow-xs border border-neutral-100 text-center cursor-help"
+            title={branch.metrics.avgCheckExact}
+          >
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-neutral-400">
+              {labels.avgCheck}
+            </span>
+            <span className="mt-0.5 font-display text-xs sm:text-sm font-black text-neutral-900 whitespace-nowrap">
+              {branch.metrics.avgCheck}
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+});
 
 export function LocationsGallery() {
   const { t } = useLanguage();
 
   const branches = (t.locations.branches as unknown as BranchItem[]) || defaultBranches;
+  const metricsLabels = (t.locations.metricsLabels as unknown as MetricsLabels) || defaultMetricsLabels;
 
   return (
-    <section id="locations" className="max-w-5xl mx-auto px-4 py-16 sm:py-20">
+    <section id="locations" className="max-w-7xl mx-auto px-4 py-16 sm:py-20">
       <div className="flex justify-center">
         <span className="bg-orange-100 text-orange-600 font-bold px-4 py-1 rounded-full text-xs uppercase">
           {t.locations.eyebrow || "НАШИ ТОЧКИ"}
@@ -888,12 +1019,13 @@ export function LocationsGallery() {
         {t.locations.subtitle || "Реальные точки сети"}
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-6">
         {branches.map((b) => (
           <BranchCard
             key={b.name}
             branch={b}
             workingBadge={t.locations.workingBadge || "Работает"}
+            labels={metricsLabels}
           />
         ))}
       </div>
@@ -1033,7 +1165,7 @@ export function Footer() {
           {/* Column 1: Brand & Bio */}
           <div className="lg:col-span-4 space-y-4">
             <a href="#top" className="flex items-center gap-2" onClick={(e) => { e.preventDefault(); scrollTo("top"); }}>
-              <img src={logo} alt="HOTY DOGY" className="h-10 w-auto object-contain transition-transform hover:scale-105" />
+              <img src={logo} alt="HOTY DOGY" width={140} height={40} loading="lazy" decoding="async" className="h-10 w-auto object-contain transition-transform hover:scale-105" />
             </a>
             <p className="text-sm text-neutral-400 leading-relaxed max-w-sm mt-4">
               {t.footer.bio}

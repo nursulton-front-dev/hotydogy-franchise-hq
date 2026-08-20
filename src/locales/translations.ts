@@ -427,23 +427,35 @@ export const translations = {
       titleStart: "Действующие филиалы ",
       subtitle: "Реальные точки сети",
       workingBadge: "Работает",
+      metricsLabels: {
+        orders: "Заказы",
+        revenue: "Выручка",
+        avgCheck: "Средний чек",
+      },
       branches: [
         {
           name: "Hoty Dogy IT Park",
           address: "ул. Тепамасжид, 4-й проезд",
           format: "Street Retail • 105 м²",
+          metrics: {
+            orders: "154",
+            revenue: "10.9 млн сум",
+            revenueExact: "10 966 301 сум",
+            avgCheck: "71.1 тыс. сум",
+            avgCheckExact: "71 076 сум",
+          },
           photos: [
             {
               url: "/branches/itpark-1.jpg",
-              alt: "Фасад и экстерьер",
+              alt: "Hoty Dogy IT Park - Фасад и экстерьер",
             },
             {
               url: "/branches/itpark-2.jpg",
-              alt: "Интерьер и зал",
+              alt: "Hoty Dogy IT Park - Интерьер и зал",
             },
             {
               url: "/branches/itpark-3.jpg",
-              alt: "Зона выдачи",
+              alt: "Hoty Dogy IT Park - Зона выдачи",
             },
           ],
         },
@@ -451,18 +463,51 @@ export const translations = {
           name: "Hoty Dogy Ц-1",
           address: "ул. Буюк Ипак Йули, 31",
           format: "Street Retail • 95 м²",
+          metrics: {
+            orders: "138",
+            revenue: "9.8 млн сум",
+            revenueExact: "9 783 457 сум",
+            avgCheck: "70.7 тыс. сум",
+            avgCheckExact: "70 663 сум",
+          },
           photos: [
             {
               url: "/branches/c1-1.jpg",
-              alt: "Фасад и вывеска",
+              alt: "Hoty Dogy Ц-1 - Фасад и вывеска",
             },
             {
               url: "/branches/c1-2.jpg",
-              alt: "Интерьер и посадка",
+              alt: "Hoty Dogy Ц-1 - Интерьер и посадка",
             },
             {
               url: "/branches/c1-3.jpg",
-              alt: "Атмосфера филиала",
+              alt: "Hoty Dogy Ц-1 - Атмосфера филиала",
+            },
+          ],
+        },
+        {
+          name: "Hoty Dogy Экобазар",
+          address: "ТЦ Экобазар",
+          format: "Food Court / Island • 80 м²",
+          metrics: {
+            orders: "135",
+            revenue: "7.4 млн сум",
+            revenueExact: "7 434 860 сум",
+            avgCheck: "54.9 тыс. сум",
+            avgCheckExact: "54 916 сум",
+          },
+          photos: [
+            {
+              url: "/branches/ecobazar-1.jpg",
+              alt: "Hoty Dogy Экобазар - Концепт островка и фасад",
+            },
+            {
+              url: "/branches/ecobazar-2.jpg",
+              alt: "Hoty Dogy Экобазар - Зона заказа и посадка",
+            },
+            {
+              url: "/branches/ecobazar-3.jpg",
+              alt: "Hoty Dogy Экобазар - Меню и блюда",
             },
           ],
         },
@@ -998,23 +1043,35 @@ export const translations = {
       titleStart: "HOTY DOGY tarmog'ining faol filiallari",
       subtitle: "Tarmoqning amaldagi filiallari",
       workingBadge: "Faoliyat yuritmoqda",
+      metricsLabels: {
+        orders: "Buyurtmalar",
+        revenue: "Tushum",
+        avgCheck: "O'rtacha chek",
+      },
       branches: [
         {
           name: "Hoty Dogy IT Park",
           address: "Tepamasjid ko'chasi, 4-o'tish joyi",
           format: "Street Retail • 105 m²",
+          metrics: {
+            orders: "154",
+            revenue: "10.9 mln so'm",
+            revenueExact: "10 966 301 so'm",
+            avgCheck: "71.1 ming so'm",
+            avgCheckExact: "71 076 so'm",
+          },
           photos: [
             {
               url: "/branches/itpark-1.jpg",
-              alt: "Fasad va eksteryer",
+              alt: "Hoty Dogy IT Park - Fasad va eksteryer",
             },
             {
               url: "/branches/itpark-2.jpg",
-              alt: "Interyer va zal",
+              alt: "Hoty Dogy IT Park - Interyer va zal",
             },
             {
               url: "/branches/itpark-3.jpg",
-              alt: "Topshirish zonasi",
+              alt: "Hoty Dogy IT Park - Topshirish zonasi",
             },
           ],
         },
@@ -1022,18 +1079,51 @@ export const translations = {
           name: "Hoty Dogy C-1",
           address: "Buyuk Ipak Yo'li ko'chasi, 31",
           format: "Street Retail • 95 m²",
+          metrics: {
+            orders: "138",
+            revenue: "9.8 mln so'm",
+            revenueExact: "9 783 457 so'm",
+            avgCheck: "70.7 ming so'm",
+            avgCheckExact: "70 663 so'm",
+          },
           photos: [
             {
               url: "/branches/c1-1.jpg",
-              alt: "Fasad va peshlavha",
+              alt: "Hoty Dogy C-1 - Fasad va peshlavha",
             },
             {
               url: "/branches/c1-2.jpg",
-              alt: "Interyer va o'rindiqlar",
+              alt: "Hoty Dogy C-1 - Interyer va o'rindiqlar",
             },
             {
               url: "/branches/c1-3.jpg",
-              alt: "Filial atmosferasi",
+              alt: "Hoty Dogy C-1 - Filial atmosferasi",
+            },
+          ],
+        },
+        {
+          name: "Hoty Dogy Ecobozor",
+          address: "Ecobozor SK",
+          format: "Food Court / Island • 80 m²",
+          metrics: {
+            orders: "135",
+            revenue: "7.4 mln so'm",
+            revenueExact: "7 434 860 so'm",
+            avgCheck: "54.9 ming so'm",
+            avgCheckExact: "54 916 so'm",
+          },
+          photos: [
+            {
+              url: "/branches/ecobazar-1.jpg",
+              alt: "Hoty Dogy Ecobozor - Ostrovok konseptsiyasi va fasad",
+            },
+            {
+              url: "/branches/ecobazar-2.jpg",
+              alt: "Hoty Dogy Ecobozor - Buyurtma berish va o'rindiqlar zonasi",
+            },
+            {
+              url: "/branches/ecobazar-3.jpg",
+              alt: "Hoty Dogy Ecobozor - Menyular va taomlar",
             },
           ],
         },

@@ -49,6 +49,10 @@ export function HeaderNavigation({
           <img
             src={logo}
             alt="HOTY DOGY"
+            width={140}
+            height={48}
+            decoding="async"
+            loading="eager"
             className="h-11 w-auto object-contain md:h-13 drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)] transition-transform hover:scale-105"
           />
         </a>
