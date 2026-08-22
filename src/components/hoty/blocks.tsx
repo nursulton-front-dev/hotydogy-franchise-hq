@@ -749,7 +749,7 @@ const defaultBranches: BranchItem[] = [
     address: "ул. Тепамасжид, 4-й проезд",
     format: "Street Retail • 105 м²",
     metrics: {
-      orders: "154",
+      orders: "182",
       revenueVal: "13 млн",
       revenueUnit: "сум",
       revenueExact: "13 000 000 сум",
@@ -777,7 +777,7 @@ const defaultBranches: BranchItem[] = [
     address: "ул. Буюк Ипак Йули, 31",
     format: "Street Retail • 95 м²",
     metrics: {
-      orders: "138",
+      orders: "206",
       revenueVal: "14.6 млн",
       revenueUnit: "сум",
       revenueExact: "14 600 000 сум",
@@ -805,7 +805,7 @@ const defaultBranches: BranchItem[] = [
     address: "ТЦ Экобазар",
     format: "Food Court • 80 м²",
     metrics: {
-      orders: "135",
+      orders: "163",
       revenueVal: "9 млн",
       revenueUnit: "сум",
       revenueExact: "9 000 000 сум",

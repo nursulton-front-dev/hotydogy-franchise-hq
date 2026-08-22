@@ -227,7 +227,7 @@ export function FormatsPricing({ onCta }: { onCta?: (format?: string) => void })
   const handleSelectFormat = (formatId: string) => {
     const budgetVal =
       formatId === "food-court"
-        ? "$30 000 – $40 000 (Food Court)"
+        ? "от $35 000 (Food Court)"
         : "$40 000 – $50 000 (Street Retail)";
     if (onCta) {
       onCta(budgetVal);

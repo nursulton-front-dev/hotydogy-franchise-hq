@@ -21,7 +21,7 @@ const CITY_OPTIONS = [
 ];
 
 const BUDGET_OPTIONS = [
-  "$30 000 – $40 000 (Food Court)",
+  "от $35 000 (Food Court)",
   "$40 000 – $50 000 (Street Retail)",
   "Свыше $50 000 (Multi-unit / Несколько точек)",
 ];
